@@ -2,16 +2,22 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
  * remain as the class that runs the JavaFX application.
  */
 public class App extends Application {
+  // initialise static field
+  static FXMLLoader fxmlLoader;
+
   public static void main(final String[] args) {
     launch();
   }
@@ -25,8 +31,12 @@ public class App extends Application {
    * @throws IOException If the file is not found.
    */
   private static Parent loadFxml(final String fxml) throws IOException {
-    return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
+    fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
+    return fxmlLoader.load();
   }
+
+  // initialise text to speech object
+  private TextToSpeech textToSpeech = new TextToSpeech();
 
   /**
    * This method is invoked when the application starts. It loads and shows the "Canvas" scene.
@@ -36,8 +46,24 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    final Scene scene = new Scene(loadFxml("canvas"), 840, 680);
+    // load and add main menu to appui
+    SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
 
+    // load the canvas fxml and adds to appui, also set the stage in
+    // CanvasController as the primary stage
+    Parent fxml = loadFxml("canvas");
+    SceneManager.addUi(AppUi.CANVAS, fxml);
+    ((CanvasController) fxmlLoader.getController()).setStage(stage);
+
+    // listen for window close and terminate text to speech on close
+    stage.setOnCloseRequest(
+        e -> {
+          Platform.exit();
+          textToSpeech.terminate();
+        });
+
+    // create a new scene and display to user
+    final Scene scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 640, 480);
     stage.setScene(scene);
     stage.show();
   }

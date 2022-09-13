@@ -19,15 +19,23 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0">
+      <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0" spacing="20.0">
          <children>
-            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#onStartNewGame" style="-fx-background-color: #404040;" text="New Game" textFill="WHITE">
+            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefWidth="103.2" style="-fx-background-color: #404040;" text="New Game" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
                <HBox.margin>
                   <Insets top="2.0" />
                </HBox.margin></Button>
+            <Button fx:id="createProfileButton" mnemonicParsing="false" onAction="#onCreateNewProfile" style="-fx-background-color: #404040;" text="Create Profile" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

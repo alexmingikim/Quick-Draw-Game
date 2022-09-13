@@ -29,18 +29,20 @@ public class ProfileCreationController {
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
 
-		// Appending new user profile to the database with all profiles
+		// Appending new user profile to the text file database with all profiles
+		FileWriter writer = null;
 		try {
-			FileWriter writer = new FileWriter("/resources/profiles.txt");
-			writer.append(username + "|" + password + "|" + 0 + "|" + 0 + "|" + "" + "|" + 0 + "|" + 0);
+			writer = new FileWriter("src/main/resources/profiles.txt", true);
+			writer.write(username + "|" + password + "|" + 0 + "|" + 0 + "|" + "" + "|" + 0 + "|" + 0 + "\n");
 			writer.close();
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
+		// Implement ability to go to previous scene
 	}
 
 	@FXML
 	private void onCancel() {
-
+		// Implement ability to go to previous scene
 	}
 }

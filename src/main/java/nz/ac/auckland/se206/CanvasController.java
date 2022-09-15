@@ -208,6 +208,7 @@ public class CanvasController {
     timeline.setCycleCount(60);
     timeline.play();
 
+    // enable user to draw
     onPen();
 
     canvas.setDisable(false);

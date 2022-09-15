@@ -10,6 +10,7 @@ import java.util.Random;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -24,6 +25,8 @@ public class MainMenuController {
 	private Button createProfileButton;
 
 	private TextToSpeech textToSpeech = new TextToSpeech();
+
+	static FXMLLoader fxmlLoader;
 
 	@FXML
 	private void onStartNewGame(ActionEvent event) throws IOException {
@@ -48,12 +51,16 @@ public class MainMenuController {
 	}
 
 	@FXML
-	private void onCreateNewProfile(ActionEvent event) {
+	private void onCreateNewProfile(ActionEvent event) throws IOException {
 		// set the root to the profile creation scene when create profile button is
 		// pressed
 		Button button = (Button) event.getSource();
 		Scene sceneButtonIsIn = button.getScene();
 		sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.PROFILE_CREATION));
+
+		// Store this scene into the next controller
+		((ProfileCreationController) SceneManager.getLoader(AppUi.PROFILE_CREATION).getController())
+				.setPreScene(AppUi.MAIN_MENU);
 	}
 
 	public String selectRandomCategory() throws IOException {

@@ -3,10 +3,13 @@ package nz.ac.auckland.se206;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileCreationController {
 
@@ -22,8 +25,14 @@ public class ProfileCreationController {
 	@FXML
 	private Button cancelButton;
 
+	private AppUi preScene;
+
+	public void setPreScene(AppUi preScene) {
+		this.preScene = preScene;
+	}
+
 	@FXML
-	private void onConfirm() {
+	private void onConfirm(ActionEvent event) throws IOException {
 		// User Profile Save Format (Case Sensitive)
 		// username|password|games_won|games_lost|words_in_previous_runs|avg_time|fastest_win
 		String username = usernameTextField.getText();
@@ -38,11 +47,18 @@ public class ProfileCreationController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// Implement ability to go to previous scene
+
+		// Returning to previous scene
+		Button button = (Button) event.getSource();
+		Scene sceneButtonIsIn = button.getScene();
+		sceneButtonIsIn.setRoot(SceneManager.getUiRoot(preScene));
 	}
 
 	@FXML
-	private void onCancel() {
-		// Implement ability to go to previous scene
+	private void onCancel(ActionEvent event) throws IOException {
+		// Returning to previous scene
+		Button button = (Button) event.getSource();
+		Scene sceneButtonIsIn = button.getScene();
+		sceneButtonIsIn.setRoot(SceneManager.getUiRoot(preScene));
 	}
 }

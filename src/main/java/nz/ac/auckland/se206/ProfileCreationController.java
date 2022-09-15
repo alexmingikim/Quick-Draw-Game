@@ -5,6 +5,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -32,6 +34,14 @@ public class ProfileCreationController {
     // username|password|games_won|games_lost|words_in_previous_runs|avg_time|fastest_win
     String username = usernameTextField.getText();
     String password = passwordTextField.getText();
+
+    // Generate error if username field or password field are blank
+    if (usernameTextField.getText().isBlank() || passwordTextField.getText().isBlank()) {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Empty username/password");
+      alert.setHeaderText("Please insert a valid username and password");
+      alert.showAndWait();
+    }
 
     // Appending new user profile to the text file database with all profiles
     FileWriter writer = null;

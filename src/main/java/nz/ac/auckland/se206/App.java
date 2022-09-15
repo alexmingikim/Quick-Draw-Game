@@ -48,11 +48,14 @@ public class App extends Application {
   public void start(final Stage stage) throws IOException {
     // load and add main menu to appui
     SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
+    SceneManager.addLoader(AppUi.MAIN_MENU, fxmlLoader);
+    SceneManager.addUi(AppUi.PROFILE_CREATION, loadFxml("profile_creation"));
+    SceneManager.addLoader(AppUi.PROFILE_CREATION, fxmlLoader);
 
     // load the canvas fxml and adds to appui, also set the stage in
     // CanvasController as the primary stage
-    Parent fxml = loadFxml("canvas");
-    SceneManager.addUi(AppUi.CANVAS, fxml);
+    SceneManager.addUi(AppUi.CANVAS, loadFxml("canvas"));
+    SceneManager.addLoader(AppUi.CANVAS, fxmlLoader);
     ((CanvasController) fxmlLoader.getController()).setStage(stage);
 
     // listen for window close and terminate text to speech on close

@@ -11,7 +11,7 @@ public class ProfileViewController {
 
   @FXML Button btnCreateNewProfile;
 
-  @FXML Button btnStartGame;
+  @FXML Button btnGoBack;
 
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
@@ -27,9 +27,9 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onStartGame(ActionEvent event) {
+  private void onGoBack(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
-    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.CANVAS));
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
   }
 }

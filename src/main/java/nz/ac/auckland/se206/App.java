@@ -49,6 +49,8 @@ public class App extends Application {
     // load and add main menu to appui
     SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
     SceneManager.addLoader(AppUi.MAIN_MENU, fxmlLoader);
+    SceneManager.addUi(AppUi.PROFILE_VIEW, loadFxml("profile_view"));
+    SceneManager.addLoader(AppUi.PROFILE_VIEW, fxmlLoader);
     SceneManager.addUi(AppUi.PROFILE_CREATION, loadFxml("profile_creation"));
     SceneManager.addLoader(AppUi.PROFILE_CREATION, fxmlLoader);
 
@@ -66,7 +68,7 @@ public class App extends Application {
         });
 
     // create a new scene and display to user
-    final Scene scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 640, 480);
+    final Scene scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 600, 450);
     stage.setScene(scene);
     stage.show();
   }

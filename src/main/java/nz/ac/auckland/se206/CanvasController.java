@@ -8,9 +8,14 @@ import ai.djl.translate.TranslateException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
@@ -64,6 +69,8 @@ public class CanvasController {
 
   @FXML private Button startNewGameButton;
 
+  @FXML private Button btnTTS;
+
   private int counter = 60;
 
   private String category;
@@ -91,9 +98,8 @@ public class CanvasController {
    */
   @FXML
   public void initialize() throws ModelException, IOException {
-    // create a new menu instance and set a random category
-    MainMenuController menu = new MainMenuController();
-    category = menu.selectRandomCategory();
+    // set a random category
+    category = selectRandomCategory();
     categoryLabel.setText("Category: " + category);
 
     // initialise graphics and the prediction model
@@ -103,6 +109,39 @@ public class CanvasController {
     // set buttons to not visible
     startNewGameButton.setVisible(false);
     saveDrawingButton.setVisible(false);
+  }
+
+  private String selectRandomCategory() throws IOException {
+    // get a list of all the categories
+    ArrayList<String> categoryList = new ArrayList<String>();
+
+    // create fields
+    String line;
+    String[] category;
+    String difficulty;
+    BufferedReader br;
+
+    try {
+      // read from the csv file
+      br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+
+      // get all categories that are rated E
+      while ((line = br.readLine()) != null) {
+        category = line.split(",");
+        difficulty = category[1];
+
+        if (difficulty.equals("E")) {
+          categoryList.add(category[0]);
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    // return random category from list
+    Random random = new Random();
+    int index = random.nextInt(categoryList.size());
+    return categoryList.get(index);
   }
 
   /** This method is called when the "Clear" button is pressed. */
@@ -301,6 +340,24 @@ public class CanvasController {
           // set the brush to clear markings on the canvas
           graphic.clearRect(x, y, 10, 10);
         });
+  }
+
+  @FXML
+  private void onTTS() {
+    // text to speech: speaks category
+    Task<Void> backgroundTask =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+            textToSpeech.speak(category);
+
+            return null;
+          }
+        };
+
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 
   // helper methods

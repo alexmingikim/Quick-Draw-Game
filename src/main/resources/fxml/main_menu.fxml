@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="375.0" prefWidth="440.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
+<VBox alignment="CENTER" prefHeight="450.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
    <children>
-      <Label alignment="CENTER" prefHeight="23.0" prefWidth="355.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
+      <Label alignment="CENTER" prefHeight="58.0" prefWidth="355.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
@@ -21,21 +21,13 @@
       </Label>
       <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0" spacing="20.0">
          <children>
-            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefWidth="103.2" style="-fx-background-color: #404040;" text="New Game" textFill="WHITE">
+            <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onStart" prefWidth="103.2" style="-fx-background-color: #404040;" text="Let's Start!" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
                <HBox.margin>
                   <Insets top="2.0" />
                </HBox.margin></Button>
-            <Button fx:id="createProfileButton" mnemonicParsing="false" onAction="#onCreateNewProfile" style="-fx-background-color: #404040;" text="Create Profile" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="2.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </children>

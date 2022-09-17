@@ -8,8 +8,9 @@ public class SceneManager {
 
   public enum AppUi {
     MAIN_MENU,
+    PROFILE_VIEW,
+    PROFILE_CREATION,
     CANVAS,
-    PROFILE_CREATION
   }
 
   private static HashMap<AppUi, Parent> sceneMap = new HashMap<AppUi, Parent>();

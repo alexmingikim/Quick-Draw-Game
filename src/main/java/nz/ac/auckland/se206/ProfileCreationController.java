@@ -1,7 +1,10 @@
 package nz.ac.auckland.se206;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -27,6 +30,15 @@ public class ProfileCreationController {
 
   @FXML
   private void onConfirm(ActionEvent event) throws IOException {
+    // save JSON files onto folder
+    // if folder does not exist, create one
+    try {
+      Path path = Paths.get("profiles");
+      Files.createDirectories(path);
+    } catch (FileAlreadyExistsException e) {
+
+    }
+
     // User Profile Save Format (Case Sensitive)
     // username|password|games_won|games_lost|words_in_previous_runs|avg_time|fastest_win
     String username = usernameTextField.getText();
@@ -34,19 +46,9 @@ public class ProfileCreationController {
     // Generate error if username field or password field are blank
     if (usernameTextField.getText().isBlank()) {
       Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Empty username/password");
-      alert.setHeaderText("Please insert a valid username and password");
+      alert.setTitle("Empty username");
+      alert.setHeaderText("Please insert a valid username");
       alert.showAndWait();
-    }
-
-    // Appending new user profile to the text file database with all profiles
-    FileWriter writer = null;
-    try {
-      writer = new FileWriter("src/main/resources/profiles.txt", true);
-      writer.write(username + "|" + "|" + 0 + "|" + 0 + "|" + "" + "|" + 0 + "|" + 0 + "\n");
-      writer.close();
-    } catch (IOException e) {
-      e.printStackTrace();
     }
 
     // Returning to previous scene

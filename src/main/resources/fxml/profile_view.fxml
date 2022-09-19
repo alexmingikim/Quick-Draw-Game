@@ -7,10 +7,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+
 <!--
 	The source of the portrait borders: Image by Freepik, https://www.freepik.com/free-photo/copy-space-canvas-golden-frame-paint_9977242.htm
 	The source of the portrait photos: Image by pikisuperstar on Freepik https://www.freepik.com/free-vector/hand-drawn-profile-icon-collection_18005859.htm#query=hand%20drawn%20profile%20icon%20collection&position=32&from_view=search#position=32&query=hand%20drawn%20profile%20icon%20collection
  -->
+
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfileViewController">
    <children>
       <Button disable="true" layoutX="75.0" layoutY="25.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="150.0" style="-fx-background-color: transparent;">
@@ -90,7 +92,7 @@
                   <Button disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" text="Delete Profile" />
                </children>
             </VBox>
-            <Button disable="true" mnemonicParsing="false" prefHeight="64.0" prefWidth="126.0" text="View Statistics" />
+            <Button fx:id="btnViewStatistics" mnemonicParsing="false" onAction="#onViewStatistics" prefHeight="64.0" prefWidth="126.0" text="View Statistics" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="80.0">
                <children>
                   <Button alignment="CENTER" disable="true" mnemonicParsing="false" style="-fx-background-color: transparent;">

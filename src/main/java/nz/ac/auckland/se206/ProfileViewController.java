@@ -13,6 +13,23 @@ public class ProfileViewController {
 
   @FXML Button btnGoBack;
 
+  @FXML Button btnUserOne;
+
+  @FXML Button btnUserTwo;
+
+  @FXML Button btnUserThree;
+
+  @FXML Button btnUserFour;
+
+  @FXML Button btnUserFive;
+
+  @FXML Button btnUserSix;
+
+  @FXML Button btnGuest;
+
+  String currentUserSelected;
+  String currentUserId;
+
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
     // set the root to the profile creation scene when "Create Profile button is
@@ -31,5 +48,83 @@ public class ProfileViewController {
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
+  }
+
+  @FXML
+  private void onUserOne(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "One";
+
+    // if no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onUserTwo(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "Two";
+
+    // no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onUserThree(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "Three";
+
+    // no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onUserFour(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "Four";
+
+    // no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onUserFive(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "Five";
+
+    // no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onUserSix(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    // keep track of user id
+    currentUserId = "Six";
+
+    // no user profile established
+    if (btnClicked.getOpacity() == 0.5) {
+      btnCreateNewProfile.setDisable(false);
+    }
+  }
+
+  @FXML
+  private void onGuest(ActionEvent event) {
+    // user id 0 for guest
+    currentUserId = "Zero";
   }
 }

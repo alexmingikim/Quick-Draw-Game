@@ -28,7 +28,7 @@ public class ProfileViewController {
   @FXML Button btnGuest;
 
   String currentUserSelected;
-  String currentUserId;
+  static String currentUserId;
 
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
@@ -41,6 +41,10 @@ public class ProfileViewController {
     // Store this scene into the next controller
     ((ProfileCreationController) SceneManager.getLoader(AppUi.PROFILE_CREATION).getController())
         .setPreScene(AppUi.PROFILE_VIEW);
+  }
+
+  public static String getCurrentUserId() {
+    return currentUserId;
   }
 
   @FXML

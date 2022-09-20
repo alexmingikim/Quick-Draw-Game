@@ -29,7 +29,7 @@ public class ProfileViewController {
 
   @FXML Button btnGuest;
 
-  Button lastUserButtonPressed;
+  static Button lastUserButtonPressed;
 
   String currentUserSelected;
   static String currentUserId;
@@ -53,6 +53,10 @@ public class ProfileViewController {
 
   public static String getCurrentUserId() {
     return currentUserId;
+  }
+
+  public static Button getLastUserButtonPressed() {
+    return lastUserButtonPressed;
   }
 
   @FXML

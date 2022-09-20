@@ -95,5 +95,8 @@ public class ProfileCreationController {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(preScene));
+
+    Button userProfileButton = ProfileViewController.getLastUserButtonPressed();
+    userProfileButton.setOpacity(0.5);
   }
 }

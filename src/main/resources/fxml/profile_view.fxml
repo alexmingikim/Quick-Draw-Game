@@ -89,7 +89,7 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
                   <Button fx:id="btnCreateNewProfile" disable="true" mnemonicParsing="false" onAction="#onCreateNewProfile" prefHeight="36.0" prefWidth="133.0" text="Create Profile" />
-                  <Button disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" text="Delete Profile" />
+                  <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" text="Delete Profile" />
                </children>
             </VBox>
             <Button disable="true" mnemonicParsing="false" prefHeight="64.0" prefWidth="126.0" text="View Statistics" />

@@ -11,6 +11,8 @@ public class ProfileViewController {
 
   @FXML Button btnCreateNewProfile;
 
+  @FXML Button btnDeleteProfile;
+
   @FXML Button btnGoBack;
 
   @FXML Button btnUserOne;
@@ -27,12 +29,14 @@ public class ProfileViewController {
 
   @FXML Button btnGuest;
 
+  Button lastUserButtonPressed;
+
   String currentUserSelected;
   static String currentUserId;
 
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
-    // set the root to the profile creation scene when "Create Profile button is
+    // set the root to the profile creation scene when "Create Profile" button is
     // pressed
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
@@ -41,6 +45,10 @@ public class ProfileViewController {
     // Store this scene into the next controller
     ((ProfileCreationController) SceneManager.getLoader(AppUi.PROFILE_CREATION).getController())
         .setPreScene(AppUi.PROFILE_VIEW);
+
+    lastUserButtonPressed.setOpacity(1);
+    btnCreateNewProfile.setDisable(true);
+    btnDeleteProfile.setDisable(false);
   }
 
   public static String getCurrentUserId() {
@@ -57,72 +65,98 @@ public class ProfileViewController {
   @FXML
   private void onUserOne(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserOne;
     // keep track of user id
     currentUserId = "One";
 
-    // if no user profile established
+    // no user profile established --> enable "create profile" button
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    // user profile is established --> disable "create profile" button
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 
   @FXML
   private void onUserTwo(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserTwo;
     // keep track of user id
     currentUserId = "Two";
 
-    // no user profile established
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 
   @FXML
   private void onUserThree(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserThree;
     // keep track of user id
     currentUserId = "Three";
 
-    // no user profile established
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 
   @FXML
   private void onUserFour(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserFour;
     // keep track of user id
     currentUserId = "Four";
 
-    // no user profile established
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 
   @FXML
   private void onUserFive(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserFive;
     // keep track of user id
     currentUserId = "Five";
 
-    // no user profile established
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 
   @FXML
   private void onUserSix(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
+    lastUserButtonPressed = btnUserSix;
     // keep track of user id
     currentUserId = "Six";
 
-    // no user profile established
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+    }
+    if (btnClicked.getOpacity() == 1) {
+      btnCreateNewProfile.setDisable(true);
     }
   }
 

@@ -77,7 +77,7 @@ public class ProfileCreationController {
     }
 
     // add new user profile to array list and store as JSON file
-    userProfiles.add(new User(userId, username, "0", "0", "0", "-", "0", "-", ""));
+    userProfiles.add(new User(userId, username, 1.0, "0", "0", "0", "-", "0", "-", ""));
     FileWriter writer = new FileWriter("profiles/profiles.json");
     gson.toJson(userProfiles, writer);
     writer.flush();

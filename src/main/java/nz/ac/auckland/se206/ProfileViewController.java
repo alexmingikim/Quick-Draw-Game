@@ -1,6 +1,13 @@
 package nz.ac.auckland.se206;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -15,24 +22,41 @@ public class ProfileViewController {
 
   @FXML Button btnGoBack;
 
-  @FXML Button btnUserOne;
+  @FXML private Button btnUserOne;
 
-  @FXML Button btnUserTwo;
+  @FXML private Button btnUserTwo;
 
-  @FXML Button btnUserThree;
+  @FXML private Button btnUserThree;
 
-  @FXML Button btnUserFour;
+  @FXML private Button btnUserFour;
 
-  @FXML Button btnUserFive;
+  @FXML private Button btnUserFive;
 
-  @FXML Button btnUserSix;
+  @FXML private Button btnUserSix;
 
-  @FXML Button btnGuest;
+  @FXML private Button btnGuest;
+
+  private static Button[] arrayButtons;
 
   static Button lastUserButtonPressed;
 
   String currentUserSelected;
   static String currentUserId;
+
+  @FXML
+  private void initialize() {
+    initializeButtonArray();
+  }
+
+  public void initializeButtonArray() {
+    arrayButtons = new Button[6];
+    arrayButtons[0] = btnUserOne;
+    arrayButtons[1] = btnUserTwo;
+    arrayButtons[2] = btnUserThree;
+    arrayButtons[3] = btnUserFour;
+    arrayButtons[4] = btnUserFive;
+    arrayButtons[5] = btnUserSix;
+  }
 
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
@@ -46,7 +70,7 @@ public class ProfileViewController {
     ((ProfileCreationController) SceneManager.getLoader(AppUi.PROFILE_CREATION).getController())
         .setPreScene(AppUi.PROFILE_VIEW);
 
-    lastUserButtonPressed.setOpacity(1);
+    lastUserButtonPressed.setOpacity(1.0);
     btnCreateNewProfile.setDisable(true);
     btnDeleteProfile.setDisable(false);
   }
@@ -70,7 +94,7 @@ public class ProfileViewController {
   private void onUserOne(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     // keep track of button pressed
-    lastUserButtonPressed = btnUserOne;
+    lastUserButtonPressed = btnClicked;
     // keep track of user id
     currentUserId = "One";
 
@@ -168,5 +192,31 @@ public class ProfileViewController {
   private void onGuest(ActionEvent event) {
     // user id 0 for guest
     currentUserId = "Zero";
+  }
+
+  // load opacity status
+  public static void loadOpacity() throws IOException {
+
+    // create new JSON file
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // store user information into array
+    List<User> userProfiles = new ArrayList<User>();
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (FileNotFoundException e) {
+      return;
+    }
+
+    for (Button button : arrayButtons) {
+      for (User user : userProfiles) {
+        if (button.getId().substring(7).equals(user.getId())) {
+          button.setOpacity(user.getOpacity());
+        }
+      }
+    }
   }
 }

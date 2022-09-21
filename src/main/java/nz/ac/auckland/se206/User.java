@@ -4,6 +4,7 @@ public class User {
 
   private String id;
   private String name;
+  private double opacity;
   private String noOfGamesPlayed;
   private String noOfGamesWon;
   private String noOfGamesLost;
@@ -15,6 +16,7 @@ public class User {
   public User(
       String id,
       String name,
+      double opacity,
       String noOfGamesPlayed,
       String noOfGamesWon,
       String noOfGamesLost,
@@ -25,6 +27,7 @@ public class User {
     super();
     this.id = id;
     this.name = name;
+    this.opacity = opacity;
     this.noOfGamesPlayed = noOfGamesPlayed;
     this.noOfGamesWon = noOfGamesWon;
     this.noOfGamesLost = noOfGamesLost;
@@ -32,5 +35,13 @@ public class User {
     this.totalGameTime = totalGameTime;
     this.fastestWonGameTime = fastestWonGameTime;
     this.wordsEncountered = wordsEncountered;
+  }
+
+  public double getOpacity() {
+    return opacity;
+  }
+
+  public String getId() {
+    return id;
   }
 }

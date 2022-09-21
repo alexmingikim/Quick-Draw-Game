@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -49,15 +50,29 @@
       <Label fx:id="statusLabel" text="----------- Press Start to Begin -----------" />
       <HBox prefHeight="240.0" prefWidth="536.0" style="-fx-background-color: #f9f9f9;">
          <children>
-            <Label fx:id="predictionsLabel" alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="160.0" style="-fx-background-color: #ededed;" text="====PREDICTIONS====">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding></Label>
-          <Canvas fx:id="canvas" height="243.0" layoutX="101.0" layoutY="65.0" width="400.0">
-            <cursor>
-              <Cursor fx:constant="HAND" />
-            </cursor>
-          </Canvas>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #ededed;" text="AI PREDICTIONS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="predictionsLabel" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.2" prefWidth="160.0" style="-fx-background-color: #ededed;">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </VBox>
+            <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">
+               <children>
+                <Canvas fx:id="canvas" height="243.0" width="400.0">
+                  <cursor>
+                    <Cursor fx:constant="HAND" />
+                  </cursor>
+                </Canvas>
+               </children>
+            </StackPane>
          </children>
       </HBox>
     <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0">

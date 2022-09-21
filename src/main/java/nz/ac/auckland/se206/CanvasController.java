@@ -1,7 +1,5 @@
 package nz.ac.auckland.se206;
 
-import static nz.ac.auckland.se206.ml.DoodlePrediction.printPredictions;
-
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.translate.TranslateException;
@@ -151,24 +149,6 @@ public class CanvasController {
   }
 
   /**
-   * This method executes when the user clicks the "Predict" button. It gets the current drawing,
-   * queries the DL model and prints on the console the top 5 predictions of the DL model and the
-   * elapsed time of the prediction in milliseconds.
-   *
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
-   */
-  private void onPredict() throws TranslateException {
-    System.out.println("==== PREDICTION  ====");
-    System.out.println("Top 5 predictions");
-
-    final long start = System.currentTimeMillis();
-
-    printPredictions(model.getPredictions(getCurrentSnapshot(), 5));
-
-    System.out.println("prediction performed in " + (System.currentTimeMillis() - start) + " ms");
-  }
-
-  /**
    * Get the current snapshot of the canvas.
    *
    * @return The BufferedImage corresponding to the current canvas content.
@@ -189,30 +169,6 @@ public class CanvasController {
     graphics.dispose();
 
     return imageBinary;
-  }
-
-  /**
-   * Save the current snapshot on a bitmap file.
-   *
-   * @return The file of the saved image.
-   * @throws IOException If the image cannot be saved.
-   */
-  private File saveCurrentSnapshotOnFile() throws IOException {
-    // You can change the location as you see fit.
-    final File tmpFolder = new File("tmp");
-
-    if (!tmpFolder.exists()) {
-      tmpFolder.mkdir();
-    }
-
-    // We save the image to a file in the tmp folder.
-    final File imageToClassify =
-        new File(tmpFolder.getName() + "/snapshot" + System.currentTimeMillis() + ".bmp");
-
-    // Save the image to a file.
-    ImageIO.write(getCurrentSnapshot(), "bmp", imageToClassify);
-
-    return imageToClassify;
   }
 
   @FXML
@@ -258,7 +214,6 @@ public class CanvasController {
   @FXML
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
-    predictionsLabel.setText("==== PREDICTIONS ====");
     statusLabel.setText("---------- Press Start to Begin----------");
 
     // reset the timer and clear the canvas
@@ -367,8 +322,7 @@ public class CanvasController {
         model.getPredictions(getCurrentSnapshot(), 10);
 
     // set the labels
-    predictionsLabel.setText("==== PREDICTIONS ====\n");
-    predictionsLabel.setText(predictionsLabel.getText() + "Top 10 Predictions\n");
+    predictionsLabel.setText("Top 10 Predictions\n");
 
     final StringBuilder sb = new StringBuilder();
     int i = 1;

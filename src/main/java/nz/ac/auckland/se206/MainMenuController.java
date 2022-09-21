@@ -22,9 +22,11 @@ public class MainMenuController {
   }
 
   @FXML
-  private void onSwitchProfile(ActionEvent event) {
+  private void onSwitchProfile(ActionEvent event) throws IOException {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.PROFILE_VIEW));
+
+    ProfileViewController.loadOpacity();
   }
 }

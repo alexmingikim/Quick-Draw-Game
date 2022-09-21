@@ -18,7 +18,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -64,6 +66,8 @@ public class CanvasController {
   @FXML private Button eraserButton;
 
   @FXML private Button startButton;
+
+  @FXML private Button backButton;
 
   @FXML private Button saveDrawingButton;
 
@@ -152,6 +156,18 @@ public class CanvasController {
   }
 
   /**
+   * This method is called when the "Back" button is pressed.
+   *
+   * @param event the clicking action from the user
+   */
+  @FXML
+  private void onBack(ActionEvent event) {
+    Button btnSceneIsIn = (Button) event.getSource();
+    Scene scene = btnSceneIsIn.getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
+  }
+
+  /**
    * Get the current snapshot of the canvas.
    *
    * @return The BufferedImage corresponding to the current canvas content.
@@ -210,8 +226,9 @@ public class CanvasController {
     onPen();
 
     canvas.setDisable(false);
-    // make the start button not visible
+    // make the start and back button not visible
     startButton.setVisible(false);
+    backButton.setVisible(false);
   }
 
   @FXML
@@ -375,6 +392,7 @@ public class CanvasController {
     // make buttons visible
     startNewGameButton.setVisible(true);
     saveDrawingButton.setVisible(true);
+    backButton.setVisible(true);
   }
 
   private void setLose() {

@@ -53,6 +53,8 @@ public class CanvasController {
 
   @FXML private Label predictionsLabel;
 
+  @FXML private Label predictionsTitleLabel;
+
   @FXML private Label statusLabel;
 
   @FXML private Label timer;
@@ -98,7 +100,8 @@ public class CanvasController {
   public void initialize() throws ModelException, IOException {
     // set a random category
     category = selectRandomCategory();
-    categoryLabel.setText("Category: " + category);
+    categoryLabel.setText(
+        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
 
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
@@ -322,6 +325,7 @@ public class CanvasController {
         model.getPredictions(getCurrentSnapshot(), 10);
 
     // set the labels
+    predictionsTitleLabel.setText("AI PREDICTIONS");
     predictionsLabel.setText("Top 10 Predictions\n");
 
     final StringBuilder sb = new StringBuilder();
@@ -335,11 +339,10 @@ public class CanvasController {
         setWin();
       }
 
+      String word = prediction.getClassName().replace("_", " ");
       sb.append(i)
           .append(" : ")
-          .append(prediction.getClassName())
-          .append(" : ")
-          .append(String.format("%.2f%%", 100 * prediction.getProbability()))
+          .append(word.substring(0, 1).toUpperCase() + word.substring(1))
           .append(System.lineSeparator());
       i++;
     }

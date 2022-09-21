@@ -52,7 +52,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #ededed;" text="AI PREDICTIONS">
+                  <Label fx:id="predictionsTitleLabel" alignment="CENTER" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #ededed;">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

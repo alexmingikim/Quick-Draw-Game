@@ -17,7 +17,7 @@
         <Font size="18.0" />
       </font>
     </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label fx:id="categoryLabel" prefHeight="20.0" prefWidth="252.0" text="Category:">
                <padding>
@@ -27,7 +27,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onTTS" prefHeight="26.0" prefWidth="85.0" text="TTS" />
+            <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onTTS" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #404040;" text="TTS" textFill="WHITE" />
             <Label prefHeight="18.0" prefWidth="178.0" text="   Time Remaining (s):">
                <font>
                   <Font size="14.0" />
@@ -79,25 +79,25 @@
       </HBox>
     <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0">
       <children>
-            <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE">
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" prefWidth="42.0" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Button>
-            <Button fx:id="penButton" mnemonicParsing="false" onAction="#onPen" style="-fx-background-color: #989898;" text="Pen" textFill="WHITE">
+            <Button fx:id="penButton" mnemonicParsing="false" onAction="#onPen" prefWidth="42.0" style="-fx-background-color: #989898;" text="Pen" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Button>
-            <Button fx:id="eraserButton" mnemonicParsing="false" onAction="#onErase" style="-fx-background-color: #989898;" text="Eraser" textFill="WHITE">
+            <Button fx:id="eraserButton" mnemonicParsing="false" onAction="#onErase" prefWidth="50.0" style="-fx-background-color: #989898;" text="Eraser" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Button>
-        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE">
+        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" prefWidth="45.0" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Button>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBack" style="-fx-background-color: #404040;" text="Back" textFill="WHITE">
                <HBox.margin>
-                  <Insets bottom="2.0" left="66.0" right="66.0" top="2.0" />
+                  <Insets bottom="2.0" left="58.0" right="58.0" top="2.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="saveDrawingButton" mnemonicParsing="false" onAction="#onSaveDrawing" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE">

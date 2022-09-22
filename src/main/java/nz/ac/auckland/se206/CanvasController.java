@@ -1,7 +1,5 @@
 package nz.ac.auckland.se206;
 
-import static nz.ac.auckland.se206.ml.DoodlePrediction.printPredictions;
-
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.translate.TranslateException;
@@ -20,7 +18,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -55,6 +55,8 @@ public class CanvasController {
 
   @FXML private Label predictionsLabel;
 
+  @FXML private Label predictionsTitleLabel;
+
   @FXML private Label statusLabel;
 
   @FXML private Label timer;
@@ -64,6 +66,8 @@ public class CanvasController {
   @FXML private Button eraserButton;
 
   @FXML private Button startButton;
+
+  @FXML private Button backButton;
 
   @FXML private Button saveDrawingButton;
 
@@ -100,7 +104,8 @@ public class CanvasController {
   public void initialize() throws ModelException, IOException {
     // set a random category
     category = selectRandomCategory();
-    categoryLabel.setText("Category: " + category);
+    categoryLabel.setText(
+        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
 
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
@@ -151,21 +156,15 @@ public class CanvasController {
   }
 
   /**
-   * This method executes when the user clicks the "Predict" button. It gets the current drawing,
-   * queries the DL model and prints on the console the top 5 predictions of the DL model and the
-   * elapsed time of the prediction in milliseconds.
+   * This method is called when the "Back" button is pressed.
    *
-   * @throws TranslateException If there is an error in reading the input/output of the DL model.
+   * @param event the clicking action from the user
    */
-  private void onPredict() throws TranslateException {
-    System.out.println("==== PREDICTION  ====");
-    System.out.println("Top 5 predictions");
-
-    final long start = System.currentTimeMillis();
-
-    printPredictions(model.getPredictions(getCurrentSnapshot(), 5));
-
-    System.out.println("prediction performed in " + (System.currentTimeMillis() - start) + " ms");
+  @FXML
+  private void onBack(ActionEvent event) {
+    Button btnSceneIsIn = (Button) event.getSource();
+    Scene scene = btnSceneIsIn.getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
   }
 
   /**
@@ -189,30 +188,6 @@ public class CanvasController {
     graphics.dispose();
 
     return imageBinary;
-  }
-
-  /**
-   * Save the current snapshot on a bitmap file.
-   *
-   * @return The file of the saved image.
-   * @throws IOException If the image cannot be saved.
-   */
-  private File saveCurrentSnapshotOnFile() throws IOException {
-    // You can change the location as you see fit.
-    final File tmpFolder = new File("tmp");
-
-    if (!tmpFolder.exists()) {
-      tmpFolder.mkdir();
-    }
-
-    // We save the image to a file in the tmp folder.
-    final File imageToClassify =
-        new File(tmpFolder.getName() + "/snapshot" + System.currentTimeMillis() + ".bmp");
-
-    // Save the image to a file.
-    ImageIO.write(getCurrentSnapshot(), "bmp", imageToClassify);
-
-    return imageToClassify;
   }
 
   @FXML
@@ -251,14 +226,14 @@ public class CanvasController {
     onPen();
 
     canvas.setDisable(false);
-    // make the start button not visible
+    // make the start and back button not visible
     startButton.setVisible(false);
+    backButton.setVisible(false);
   }
 
   @FXML
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
-    predictionsLabel.setText("==== PREDICTIONS ====");
     statusLabel.setText("---------- Press Start to Begin----------");
 
     // reset the timer and clear the canvas
@@ -367,8 +342,8 @@ public class CanvasController {
         model.getPredictions(getCurrentSnapshot(), 10);
 
     // set the labels
-    predictionsLabel.setText("==== PREDICTIONS ====\n");
-    predictionsLabel.setText(predictionsLabel.getText() + "Top 10 Predictions\n");
+    predictionsTitleLabel.setText("AI PREDICTIONS");
+    predictionsLabel.setText("Top 10 Predictions\n");
 
     final StringBuilder sb = new StringBuilder();
     int i = 1;
@@ -381,11 +356,10 @@ public class CanvasController {
         setWin();
       }
 
+      String word = prediction.getClassName().replace("_", " ");
       sb.append(i)
           .append(" : ")
-          .append(prediction.getClassName())
-          .append(" : ")
-          .append(String.format("%.2f%%", 100 * prediction.getProbability()))
+          .append(word.substring(0, 1).toUpperCase() + word.substring(1))
           .append(System.lineSeparator());
       i++;
     }
@@ -418,6 +392,7 @@ public class CanvasController {
     // make buttons visible
     startNewGameButton.setVisible(true);
     saveDrawingButton.setVisible(true);
+    backButton.setVisible(true);
   }
 
   private void setLose() {

@@ -97,6 +97,7 @@ public class ProfileViewController {
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.STATISTICS_VIEW));
+  }
 
   @FXML
   private void onUserOne(ActionEvent event) {

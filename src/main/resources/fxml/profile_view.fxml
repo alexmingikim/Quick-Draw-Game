@@ -92,7 +92,7 @@
                   <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" text="Delete Profile" />
                </children>
             </VBox>
-            <Button disable="true" mnemonicParsing="false" prefHeight="64.0" prefWidth="126.0" text="View Statistics" />
+            <Button fx:id="btnViewStatistics" mnemonicParsing="false" onAction="#onViewStatistics" prefHeight="64.0" prefWidth="126.0" text="View Statistics" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="80.0">
                <children>
                   <Button fx:id="btnGuest" alignment="CENTER" mnemonicParsing="false" onAction="#onGuest" style="-fx-background-color: transparent;">

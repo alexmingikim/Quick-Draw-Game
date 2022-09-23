@@ -53,6 +53,8 @@ public class App extends Application {
     SceneManager.addLoader(AppUi.PROFILE_VIEW, fxmlLoader);
     SceneManager.addUi(AppUi.PROFILE_CREATION, loadFxml("profile_creation"));
     SceneManager.addLoader(AppUi.PROFILE_CREATION, fxmlLoader);
+    SceneManager.addUi(AppUi.STATISTICS_VIEW, loadFxml("statistics_view"));
+    SceneManager.addLoader(AppUi.STATISTICS_VIEW, fxmlLoader);
 
     // load the canvas fxml and adds to appui, also set the stage in
     // CanvasController as the primary stage

@@ -10,6 +10,7 @@ public class SceneManager {
     MAIN_MENU,
     PROFILE_VIEW,
     PROFILE_CREATION,
+    STATISTICS_VIEW,
     CANVAS,
   }
 

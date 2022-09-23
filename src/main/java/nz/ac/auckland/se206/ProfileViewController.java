@@ -18,6 +18,8 @@ public class ProfileViewController {
 
   @FXML Button btnCreateNewProfile;
 
+  @FXML Button btnViewStatistics;
+
   @FXML Button btnDeleteProfile;
 
   @FXML Button btnGoBack;
@@ -88,6 +90,13 @@ public class ProfileViewController {
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
+  }
+
+  @FXML
+  private void onViewStatistics(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    Scene scene = btnClicked.getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.STATISTICS_VIEW));
   }
 
   @FXML

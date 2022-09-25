@@ -37,6 +37,38 @@ public class User {
     this.wordsEncountered = wordsEncountered;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public String getNoOfGamesPlayed() {
+    return noOfGamesPlayed;
+  }
+
+  public String getNoOfGamesWon() {
+    return noOfGamesWon;
+  }
+
+  public String getNoOfGamesLost() {
+    return noOfGamesLost;
+  }
+
+  public String getAverageDrawingTime() {
+    return averageDrawingTime;
+  }
+
+  public String getTotalGameTime() {
+    return totalGameTime;
+  }
+
+  public String getFastestWonGameTime() {
+    return fastestWonGameTime;
+  }
+
+  public String getWordsEncountered() {
+    return wordsEncountered;
+  }
+
   public double getOpacity() {
     return opacity;
   }

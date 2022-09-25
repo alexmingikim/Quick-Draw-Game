@@ -6,39 +6,62 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
+<!--
+	The source of the blank_canvas.png: Image by brgfx on Freepik, https://www.freepik.com/free-vector/paint-palette_1296707.htm#query=blank%20canvas%20cartoon&position=0&from_view=search#position=0&query=blank%20canvas%20cartoon
+	The source of the robot.png: Image by pch.vector on Freepik https://www.freepik.com/free-vector/futuristic-robot-constructor-flat-icon-set_8609178.htm#query=robot&position=0&from_view=search#position=0&query=robot
+ -->
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: 000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
    <children>
-      <Button fx:id="Play" alignment="CENTER" layoutX="221.0" layoutY="355.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="57.0" prefWidth="159.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
+      <ImageView fitHeight="296.0" fitWidth="727.0" layoutX="41.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/blank_canvas.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="Play" alignment="CENTER" layoutX="442.0" layoutY="495.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="80.0" prefWidth="320.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
          <font>
-            <Font name="Courier New Bold" size="18.0" />
+            <Font name="Courier New Bold" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="77.0" layoutY="103.0" text="Quick, Draw!">
+      <Label alignment="CENTER" layoutX="105.0" prefHeight="162.0" prefWidth="609.0" text="Quick, Draw!">
          <font>
-            <Font name="Brush Script MT Italic" size="100.0" />
+            <Font name="Brush Script MT Italic" size="120.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="214.0" prefHeight="94.0" prefWidth="559.0" text="SOFTENG 206 EDITION&#10;&#10;INSTRUCTIONS:&#10;You will be given a randomly selected word to draw for 1 minute.&#10;If I can correctly guess the word you are drawing, you win!" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="96.0" layoutY="181.0" prefHeight="262.0" prefWidth="311.0" text="INSTRUCTIONS:&#10;You have 1 minute to draw &#10;a word. If I can correctly &#10;guess the word you are &#10;drawing, you win!" textAlignment="CENTER">
          <font>
-            <Font name="Comic Sans MS Bold" size="12.0" />
+            <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnSwitchProfile" layoutX="29.0" layoutY="64.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="35.0" prefWidth="139.0" style="-fx-background-color: #404040;" text="Switch Profile" textFill="WHITE">
+      <Button fx:id="btnSwitchProfile" layoutX="46.0" layoutY="495.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="80.0" prefWidth="320.0" style="-fx-background-color: #404040;" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Button>
-      <Label fx:id="profileLabel" alignment="CENTER" layoutX="63.0" layoutY="17.0" text="Guest">
-         <font>
-            <Font name="Comic Sans MS" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/guest.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Label>
+            <Label fx:id="profileLabel" alignment="CENTER" text="Welcome, Guest!" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold Italic" size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/guest.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </graphic></Button>
+      <ImageView fitHeight="308.0" fitWidth="227.0" layoutX="504.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/robot.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="301.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SOFTENG206 EDITION" wrappingWidth="314.9480895996094">
+         <font>
+            <Font name="Comic Sans MS Bold" size="16.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

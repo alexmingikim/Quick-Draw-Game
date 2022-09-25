@@ -70,7 +70,7 @@ public class App extends Application {
         });
 
     // create a new scene and display to user
-    final Scene scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 600, 450);
+    final Scene scene = new Scene(SceneManager.getUiRoot(AppUi.MAIN_MENU), 800, 600);
     stage.setScene(scene);
     stage.show();
   }

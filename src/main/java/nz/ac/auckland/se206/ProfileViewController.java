@@ -46,7 +46,7 @@ public class ProfileViewController {
   static Label labelAssociatedToLastUserButtonPressed;
 
   String currentUserSelected;
-  static String currentUserId;
+  static String currentUserId = "Zero";
 
   @FXML
   private void initialize() {
@@ -97,9 +97,12 @@ public class ProfileViewController {
 
   @FXML
   private void onViewStatistics(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
-    Scene scene = btnClicked.getScene();
-    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.STATISTICS_VIEW));
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.STATISTICS_VIEW));
+
+    ((StatisticsViewController) SceneManager.getLoader(AppUi.STATISTICS_VIEW).getController())
+        .load();
   }
 
   @FXML
@@ -229,8 +232,14 @@ public class ProfileViewController {
 
   @FXML
   private void onGuest(ActionEvent event) {
+    // keep track of button pressed
+    lastUserButtonPressed = btnGuest;
     // user id 0 for guest
     currentUserId = "Zero";
+
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
   }
 
   // load opacity status

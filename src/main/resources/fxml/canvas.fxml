@@ -14,11 +14,30 @@
 
 <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
   <children>
-    <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="56.0" prefWidth="452.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="profileUsername" prefHeight="28.0" prefWidth="150.0" text="Guest">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="27.2" fitWidth="27.2">
+                     <image>
+                        <Image url="@../images/guest.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+            </Label>
+          <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="56.0" prefWidth="452.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
       <font>
         <Font name="Brush Script MT Italic" size="41.0" />
       </font>
     </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label fx:id="categoryLabel" prefHeight="72.0" prefWidth="325.0" text="Category:">

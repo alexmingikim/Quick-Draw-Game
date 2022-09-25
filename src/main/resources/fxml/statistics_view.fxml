@@ -12,12 +12,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.StatisticsViewController">
    <children>
-      <Label layoutX="37.0" layoutY="28.0" text="Username">
+      <Label fx:id="usernameLabel" layoutX="37.0" layoutY="28.0" text="Username">
          <font>
             <Font name="Courier New Bold Italic" size="44.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_RIGHT" layoutX="21.0" layoutY="172.0" prefHeight="207.0" prefWidth="241.0">
+       <VBox alignment="TOP_RIGHT" layoutX="21.0" layoutY="172.0" prefHeight="207.0" prefWidth="241.0">
          <children>
             <Label text="Games Played">
                <font>
@@ -59,19 +59,21 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="Fastest Game Won">
+            <Label prefWidth="124.0" text="Fastest Game Won">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
+            </Label>
+            <Label fx:id="fastestGameWonLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="18.0" prefWidth="140.0" text="------">
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="246.0" layoutY="172.0" prefHeight="228.0" prefWidth="164.0">
          <children>
-            <Label text="###">
+            <Label fx:id="gamesPlayedLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
@@ -79,7 +81,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="###">
+            <Label fx:id="gamesWonLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
@@ -87,7 +89,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="###">
+            <Label fx:id="gamesLostLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
@@ -95,7 +97,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="###">
+            <Label fx:id="averageDrawingTimeLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
@@ -103,15 +105,15 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="###">
+            <Label fx:id="totalGameTimeLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
                <padding>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="20.0" />
                </padding>
             </Label>
-            <Label text="###">
+            <Label fx:id="fastestGameWonTimeLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
@@ -131,7 +133,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="325.0" prefWidth="283.0" />
+            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" prefHeight="325.0" prefWidth="283.0" />
          </children>
       </VBox>
       <Button fx:id="btnGoBack" layoutX="34.0" layoutY="468.0" mnemonicParsing="false" onAction="#onGoBack" prefHeight="104.0" prefWidth="104.0" style="-fx-background-color: transparent;">

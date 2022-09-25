@@ -11,6 +11,7 @@ public class User {
   private String averageDrawingTime;
   private String totalGameTime;
   private String fastestWonGameTime;
+  private String fastestWonGame;
   private String wordsEncountered;
 
   public User(
@@ -23,6 +24,7 @@ public class User {
       String averageDrawingTime,
       String totalGameTime,
       String fastestWonGameTime,
+      String fastestWonGame,
       String wordsEncountered) {
     super();
     this.id = id;
@@ -34,7 +36,44 @@ public class User {
     this.averageDrawingTime = averageDrawingTime;
     this.totalGameTime = totalGameTime;
     this.fastestWonGameTime = fastestWonGameTime;
+    this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getNoOfGamesPlayed() {
+    return noOfGamesPlayed;
+  }
+
+  public String getNoOfGamesWon() {
+    return noOfGamesWon;
+  }
+
+  public String getNoOfGamesLost() {
+    return noOfGamesLost;
+  }
+
+  public String getAverageDrawingTime() {
+    return averageDrawingTime;
+  }
+
+  public String getTotalGameTime() {
+    return totalGameTime;
+  }
+
+  public String getFastestWonGameTime() {
+    return fastestWonGameTime;
+  }
+
+  public String getFastestWonGame() {
+    return fastestWonGame;
+  }
+
+  public String getWordsEncountered() {
+    return wordsEncountered;
   }
 
   public double getOpacity() {
@@ -49,8 +88,37 @@ public class User {
     return wordsEncountered;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public void updateWords(String word) {
-    this.wordsEncountered = this.wordsEncountered + "," + word;
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.wordsEncountered).append(word).append(",");
+    this.wordsEncountered = sb.toString();
+  }
+
+  public void updateTotalTime(int time) {
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
+    this.averageDrawingTime =
+        Integer.toString(
+            Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
+
+    if (this.fastestWonGameTime.equals("-") || time < Integer.parseInt(this.fastestWonGameTime)) {
+      this.fastestWonGameTime = Integer.toString(time);
+    }
+  }
+
+  public void incrementNoOfGamesPlayed() {
+    this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
+  }
+
+  public void gameWonOrLost(boolean status) {
+    if (status) {
+      this.noOfGamesWon = Integer.toString((Integer.parseInt(this.noOfGamesWon) + 1));
+    } else {
+      this.noOfGamesLost = Integer.toString((Integer.parseInt(this.noOfGamesLost) + 1));
+    }
   }
 
   public void resetWords() {

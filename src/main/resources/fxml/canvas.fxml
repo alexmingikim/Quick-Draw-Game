@@ -55,9 +55,9 @@
             </Label>
          </children>
       </HBox>
-      <Label fx:id="statusLabel" text="----------- Press Start to Begin -----------">
+      <Label fx:id="statusLabel" alignment="CENTER" prefHeight="24.0" prefWidth="767.0" text="----------- Press Start to Begin -----------" textAlignment="CENTER">
          <font>
-            <Font name="Courier New Bold" size="22.0" />
+            <Font name="Courier New Bold" size="16.0" />
          </font></Label>
       <HBox prefHeight="300.0" prefWidth="465.0" style="-fx-background-color: #f9f9f9;">
          <children>

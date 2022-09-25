@@ -13,7 +13,7 @@
 	The source of the robot.png: Image by pch.vector on Freepik https://www.freepik.com/free-vector/futuristic-robot-constructor-flat-icon-set_8609178.htm#query=robot&position=0&from_view=search#position=0&query=robot
  -->
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: 000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
    <children>
       <ImageView fitHeight="296.0" fitWidth="727.0" layoutX="41.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
          <image>

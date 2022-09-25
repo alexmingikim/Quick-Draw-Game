@@ -360,7 +360,7 @@ public class CanvasController {
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 5.0;
+          final double size = 10.0;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
@@ -425,7 +425,7 @@ public class CanvasController {
     // stop game and print message
     canvas.setDisable(true);
     timeline.stop();
-    statusLabel.setText("Congratulations! You Won! The AI guessed your drawing in time!");
+    statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
     // make buttons visible
     startNewGameButton.setVisible(true);
@@ -436,8 +436,7 @@ public class CanvasController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-    statusLabel.setText(
-        "You Lost. Unfortunately the AI was not able to guess your drawing in time.");
+    statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     // make buttons visible
     startNewGameButton.setVisible(true);

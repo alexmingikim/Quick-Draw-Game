@@ -196,15 +196,9 @@ public class CanvasController {
 
       // return random category from list
       int index = random.nextInt(categoryList.size());
-
-      // update word list in current profile
-      currentProfile.updateWords(categoryList.get(index));
-      updateProfile();
-
       if (categoryList.size() == wordsList.size()) {
         currentProfile.resetWords();
       }
-
       return categoryList.get(index);
     }
   }
@@ -469,6 +463,7 @@ public class CanvasController {
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
+      currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(true);
       currentProfile.updateTotalTime(60 - counter);
@@ -511,6 +506,7 @@ public class CanvasController {
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
+      currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(false);
       currentProfile.updateTotalTime(60);

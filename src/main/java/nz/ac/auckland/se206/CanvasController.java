@@ -287,7 +287,7 @@ public class CanvasController {
   @FXML
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
-    statusLabel.setText("---------- Press Start to Begin----------");
+    statusLabel.setText("---------- Press Start to Begin ----------");
 
     // reset the timer and clear the canvas
     counter = 60;

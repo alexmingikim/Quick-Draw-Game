@@ -109,19 +109,19 @@
       </Button>
       <VBox alignment="CENTER" layoutX="118.0" layoutY="432.0" prefHeight="156.0" prefWidth="284.0" spacing="10.0">
          <children>
-            <Button fx:id="btnCreateNewProfile" disable="true" mnemonicParsing="false" onAction="#onCreateNewProfile" prefHeight="80.0" prefWidth="150.0" text="CREATE">
+            <Button fx:id="btnCreateNewProfile" disable="true" mnemonicParsing="false" onAction="#onCreateNewProfile" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #404040#404040;" text="CREATE" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" text="DELETE">
+            <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #404040#404040;" text="DELETE" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="16.0" />
                </font>
             </Button>
          </children>
       </VBox>
-      <Button fx:id="btnViewStatistics" disable="true" layoutX="378.0" layoutY="470.0" mnemonicParsing="false" onAction="#onViewStatistics" prefHeight="80.0" prefWidth="228.0" text="VIEW STATISTICS">
+      <Button fx:id="btnViewStatistics" disable="true" layoutX="378.0" layoutY="470.0" mnemonicParsing="false" onAction="#onViewStatistics" prefHeight="80.0" prefWidth="228.0" style="-fx-background-color: #404040#404040;" text="VIEW STATISTICS" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="16.0" />
          </font>

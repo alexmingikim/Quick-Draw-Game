@@ -15,7 +15,7 @@
          <children>
             <Label text="Create Profile">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Courier New Bold" size="30.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="27.2" />
@@ -25,7 +25,7 @@
                <children>
                   <Label text="Username:">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Courier New Bold Italic" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -47,12 +47,12 @@
                   <Insets top="27.2" />
                </VBox.margin>
                <font>
-                  <Font size="14.0" />
+                  <Font name="Courier New Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onCancel" prefWidth="68.8" style="-fx-background-color: #404040;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="cancelButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onCancel" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #404040;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Courier New Bold Italic" size="14.0" />
                </font>
                <VBox.margin>
                   <Insets top="27.2" />

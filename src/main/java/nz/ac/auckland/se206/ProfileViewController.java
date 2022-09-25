@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileViewController {
@@ -25,22 +26,24 @@ public class ProfileViewController {
   @FXML Button btnGoBack;
 
   @FXML private Button btnUserOne;
-
   @FXML private Button btnUserTwo;
-
   @FXML private Button btnUserThree;
-
   @FXML private Button btnUserFour;
-
   @FXML private Button btnUserFive;
-
   @FXML private Button btnUserSix;
-
   @FXML private Button btnGuest;
+
+  @FXML private Label lblUserOne;
+  @FXML private Label lblUserTwo;
+  @FXML private Label lblUserThree;
+  @FXML private Label lblUserFour;
+  @FXML private Label lblUserFive;
+  @FXML private Label lblUserSix;
 
   private static Button[] arrayButtons;
 
   static Button lastUserButtonPressed;
+  static Label labelAssociatedToLastUserButtonPressed;
 
   String currentUserSelected;
   static String currentUserId = "Zero";
@@ -105,98 +108,125 @@ public class ProfileViewController {
   @FXML
   private void onUserOne(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
+    // keep track of button pressed and associated label
     lastUserButtonPressed = btnClicked;
+    labelAssociatedToLastUserButtonPressed = lblUserOne;
     // keep track of user id
     currentUserId = "One";
 
-    // no user profile established --> enable "create profile" button
+    // no user profile established --> enable "create profile" button, disable "delete profile"
+    // button, disable "view statistics" button
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
-    // user profile is established --> disable "create profile" button
+    // user profile is established --> disable "create profile" button, enable "delete profile"
+    // button, enable "view statistics" button
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
   @FXML
   private void onUserTwo(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
     lastUserButtonPressed = btnUserTwo;
+    labelAssociatedToLastUserButtonPressed = lblUserTwo;
     // keep track of user id
     currentUserId = "Two";
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
   @FXML
   private void onUserThree(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
     lastUserButtonPressed = btnUserThree;
+    labelAssociatedToLastUserButtonPressed = lblUserThree;
     // keep track of user id
     currentUserId = "Three";
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
   @FXML
   private void onUserFour(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
     lastUserButtonPressed = btnUserFour;
+    labelAssociatedToLastUserButtonPressed = lblUserFour;
     // keep track of user id
     currentUserId = "Four";
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
   @FXML
   private void onUserFive(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
     lastUserButtonPressed = btnUserFive;
+    labelAssociatedToLastUserButtonPressed = lblUserFive;
     // keep track of user id
     currentUserId = "Five";
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
   @FXML
   private void onUserSix(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
-    // keep track of button pressed
     lastUserButtonPressed = btnUserSix;
+    labelAssociatedToLastUserButtonPressed = lblUserSix;
     // keep track of user id
     currentUserId = "Six";
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -236,5 +266,9 @@ public class ProfileViewController {
         }
       }
     }
+  }
+
+  public static Label getLabelAssociatedToLastUserButtonPressed() {
+    return labelAssociatedToLastUserButtonPressed;
   }
 }

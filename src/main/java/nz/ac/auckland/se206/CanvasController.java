@@ -321,7 +321,7 @@ public class CanvasController {
   @FXML
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
-    statusLabel.setText("---------- Press Start to Begin----------");
+    statusLabel.setText("---------- Press Start to Begin ----------");
 
     // reset the timer and clear the canvas
     counter = 60;
@@ -394,7 +394,7 @@ public class CanvasController {
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 5.0;
+          final double size = 10.0;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
@@ -459,7 +459,7 @@ public class CanvasController {
     // stop game and print message
     canvas.setDisable(true);
     timeline.stop();
-    statusLabel.setText("Congratulations! You Won! The AI guessed your drawing in time!");
+    statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
@@ -474,21 +474,6 @@ public class CanvasController {
       }
     }
 
-    // text to speech for win message
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-            textToSpeech.speak("Congratulations! You Won! The AI guessed your drawing in time!");
-
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
-
     // make buttons visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
@@ -501,8 +486,7 @@ public class CanvasController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-    statusLabel.setText(
-        "You Lost. Unfortunately the AI was not able to guess your drawing in time");
+   statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
@@ -516,22 +500,6 @@ public class CanvasController {
         e.printStackTrace();
       }
     }
-
-    // text to speech for lose message
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-            textToSpeech.speak(
-                "You Lost. Unfortunately the AI was not able to guess your drawing in time");
-
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
 
     // make buttons visible or enabled
     clearButton.setDisable(true);

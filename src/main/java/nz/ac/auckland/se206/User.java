@@ -57,6 +57,17 @@ public class User {
     this.wordsEncountered = this.wordsEncountered + "," + word;
   }
 
+  public void updateTotalTime(int time) {
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
+    this.averageDrawingTime =
+        Integer.toString(
+            Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
+
+    if (this.fastestWonGameTime.equals("-") || time < Integer.parseInt(this.fastestWonGameTime)) {
+      this.fastestWonGameTime = Integer.toString(time);
+    }
+  }
+
   public void incrementNoOfGamesPlayed() {
     this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
   }

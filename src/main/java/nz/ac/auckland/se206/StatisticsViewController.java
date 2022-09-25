@@ -31,6 +31,8 @@ public class StatisticsViewController {
 
   @FXML private Label totalGameTimeLabel;
 
+  @FXML private Label fastestGameWonTimeLabel;
+
   @FXML private Label fastestGameWonLabel;
 
   @FXML private ScrollPane wordsEncounteredField;
@@ -46,7 +48,7 @@ public class StatisticsViewController {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      //			fr.close();
+      // fr.close();
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -62,7 +64,8 @@ public class StatisticsViewController {
         gamesLostLabel.setText(user.getNoOfGamesLost());
         averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
         totalGameTimeLabel.setText(user.getTotalGameTime());
-        fastestGameWonLabel.setText(user.getFastestWonGameTime());
+        fastestGameWonTimeLabel.setText(user.getFastestWonGameTime());
+        fastestGameWonLabel.setText(user.getFastestWonGame());
 
         String wordsEncountered = user.getWordsEncountered();
 

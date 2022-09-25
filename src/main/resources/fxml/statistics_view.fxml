@@ -59,13 +59,15 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label text="Fastest Game Won">
+            <Label prefWidth="124.0" text="Fastest Game Won">
                <font>
                   <Font size="15.0" />
                </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
+            </Label>
+            <Label fx:id="fastestGameWonLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="18.0" prefWidth="140.0" text="------">
+               <font>
+                  <Font size="13.0" />
+               </font>
             </Label>
          </children>
       </VBox>
@@ -111,7 +113,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label fx:id="fastestGameWonLabel" text="###">
+            <Label fx:id="fastestGameWonTimeLabel" text="###">
                <font>
                   <Font size="15.0" />
                </font>

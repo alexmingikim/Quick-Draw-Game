@@ -3,6 +3,9 @@ package nz.ac.auckland.se206;
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.translate.TranslateException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -12,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -89,6 +93,8 @@ public class CanvasController {
 
   private TextToSpeech textToSpeech = new TextToSpeech();
 
+  private User currentProfile;
+
   // mouse coordinates
   private double currentX;
   private double currentY;
@@ -119,34 +125,81 @@ public class CanvasController {
   private String selectRandomCategory() throws IOException {
     // get a list of all the categories
     ArrayList<String> categoryList = new ArrayList<String>();
-
-    // create fields
     String line;
     String[] category;
     String difficulty;
     BufferedReader br;
 
-    try {
-      // read from the csv file
-      br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+    if (currentProfile == null) {
+      try {
+        // read from the csv file
+        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
 
-      // get all categories that are rated E
-      while ((line = br.readLine()) != null) {
-        category = line.split(",");
-        difficulty = category[1];
+        // get all categories that are rated E
+        while ((line = br.readLine()) != null) {
+          category = line.split(",");
+          difficulty = category[1];
 
-        if (difficulty.equals("E")) {
-          categoryList.add(category[0]);
+          if (difficulty.equals("E")) {
+            categoryList.add(category[0]);
+          }
         }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
       }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
 
-    // return random category from list
-    Random random = new Random();
-    int index = random.nextInt(categoryList.size());
-    return categoryList.get(index);
+      // return random category from list
+      Random random = new Random();
+      int index = random.nextInt(categoryList.size());
+      return categoryList.get(index);
+    } else {
+      ArrayList<String> wordsList =
+          new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
+
+      try {
+        // read from the csv file
+        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+
+        // get all categories that are rated E
+        while ((line = br.readLine()) != null) {
+          category = line.split(",");
+          difficulty = category[1];
+
+          if (difficulty.equals("E") && !wordsList.contains(category[0])) {
+            categoryList.add(category[0]);
+          }
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+      List<User> userProfiles = new ArrayList<User>();
+      try {
+        // read existing user profiles from JSON file and store into array list
+        FileReader fr = new FileReader("profiles/profiles.json");
+        userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+        fr.close();
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+
+      // return random category from list
+      Random random = new Random();
+      int index = random.nextInt(categoryList.size());
+
+      // update word list in current profile
+      currentProfile.updateWords(categoryList.get(index));
+      int userIndex = userProfiles.indexOf(currentProfile);
+      userProfiles.set(userIndex, currentProfile);
+
+      if (categoryList.size() == wordsList.size()) {
+        currentProfile.resetWords();
+      }
+
+      return categoryList.get(index);
+    }
   }
 
   /** This method is called when the "Clear" button is pressed. */

@@ -469,9 +469,9 @@ public class CanvasController {
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
-      currentProfile.updateTotalTime(60 - counter);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(true);
+      currentProfile.updateTotalTime(60 - counter);
       try {
         updateProfile();
       } catch (IOException e) {
@@ -511,9 +511,9 @@ public class CanvasController {
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
-      currentProfile.updateTotalTime(60);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(false);
+      currentProfile.updateTotalTime(60);
       try {
         updateProfile();
       } catch (IOException e) {

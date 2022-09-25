@@ -20,7 +20,7 @@
             <Image url="@../images/blank_canvas.png" />
          </image>
       </ImageView>
-      <Button fx:id="Play" alignment="CENTER" layoutX="442.0" layoutY="495.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="80.0" prefWidth="320.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
+      <Button fx:id="Play" alignment="CENTER" layoutX="442.0" layoutY="498.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>
@@ -35,7 +35,7 @@
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnSwitchProfile" layoutX="46.0" layoutY="495.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="80.0" prefWidth="320.0" style="-fx-background-color: #404040;" textFill="WHITE">
+      <Button fx:id="btnSwitchProfile" layoutX="46.0" layoutY="499.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font>

@@ -61,6 +61,9 @@ public class ProfileCreationController {
     String username = usernameTextField.getText();
     String userId = ProfileViewController.getCurrentUserId();
 
+    // update user label to display username
+    ProfileViewController.getLabelAssociatedToLastUserButtonPressed().setText(username);
+
     usernameTextField.clear();
 
     // create new JSON file

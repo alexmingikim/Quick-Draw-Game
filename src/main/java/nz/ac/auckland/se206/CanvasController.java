@@ -474,21 +474,6 @@ public class CanvasController {
       }
     }
 
-    // text to speech for win message
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-            textToSpeech.speak("Congratulations! You Won! The AI guessed your drawing in time!");
-
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
-
     // make buttons visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
@@ -515,22 +500,6 @@ public class CanvasController {
         e.printStackTrace();
       }
     }
-
-    // text to speech for lose message
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-            textToSpeech.speak(
-                "You Lost. Unfortunately the AI was not able to guess your drawing in time");
-
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
 
     // make buttons visible or enabled
     clearButton.setDisable(true);

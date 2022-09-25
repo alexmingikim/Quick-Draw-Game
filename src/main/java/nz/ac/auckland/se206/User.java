@@ -44,4 +44,16 @@ public class User {
   public String getId() {
     return id;
   }
+
+  public String getWords() {
+    return wordsEncountered;
+  }
+
+  public void updateWords(String word) {
+    this.wordsEncountered = this.wordsEncountered + "," + word;
+  }
+
+  public void resetWords() {
+    this.wordsEncountered = "";
+  }
 }

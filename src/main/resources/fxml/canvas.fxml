@@ -26,7 +26,7 @@
                   <Insets left="10.0" />
                </padding>
                <font>
-                  <Font size="26.0" />
+                  <Font name="Courier New" size="22.0" />
                </font>
             </Label>
             <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onTTS" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
@@ -37,27 +37,27 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Label prefHeight="31.0" prefWidth="256.0" text="   Time Remaining (s):">
+            <Label prefHeight="31.0" prefWidth="289.0" text="   Time Remaining (s):">
                <font>
-                  <Font size="26.0" />
+                  <Font name="Courier New" size="20.0" />
                </font>
                <HBox.margin>
                   <Insets right="2.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="timer" prefHeight="31.0" prefWidth="51.0" text="60">
+            <Label fx:id="timer" prefHeight="32.0" prefWidth="88.0" text="60" textAlignment="RIGHT">
                <padding>
                   <Insets right="10.0" />
                </padding>
                <font>
-                  <Font size="26.0" />
+                  <Font name="Courier New Bold" size="26.0" />
                </font>
             </Label>
          </children>
       </HBox>
       <Label fx:id="statusLabel" text="----------- Press Start to Begin -----------">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="Courier New Bold" size="22.0" />
          </font></Label>
       <HBox prefHeight="300.0" prefWidth="465.0" style="-fx-background-color: #f9f9f9;">
          <children>

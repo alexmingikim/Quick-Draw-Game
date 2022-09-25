@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Text;
 
 public class StatisticsViewController {
 
@@ -31,7 +33,10 @@ public class StatisticsViewController {
 
   @FXML private Label fastestGameWonLabel;
 
+  @FXML private ScrollPane wordsEncounteredField;
+
   public void load() {
+
     String currentUserId = ProfileViewController.currentUserId;
 
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -41,9 +46,10 @@ public class StatisticsViewController {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      //			fr.close();
 
     } catch (FileNotFoundException e) {
-
+      e.printStackTrace();
     }
 
     for (User user : userProfiles) {
@@ -57,10 +63,24 @@ public class StatisticsViewController {
         averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
         totalGameTimeLabel.setText(user.getTotalGameTime());
         fastestGameWonLabel.setText(user.getFastestWonGameTime());
+
+        String wordsEncountered = user.getWordsEncountered();
+
+        String[] words = wordsEncountered.split(",");
+
+        StringBuilder sb = new StringBuilder();
+
+        for (String word : words) {
+          sb.append(word + "\n");
+        }
+
+        String displayWords = sb.toString();
+
+        Text text = new Text(displayWords);
+
+        wordsEncounteredField.setContent(text);
       }
     }
-
-    //		fr.close();
   }
 
   @FXML

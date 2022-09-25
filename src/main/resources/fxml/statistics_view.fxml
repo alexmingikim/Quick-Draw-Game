@@ -131,7 +131,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="272.0" prefWidth="210.0" />
+            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" prefHeight="272.0" prefWidth="210.0" />
          </children>
       </VBox>
       <Button fx:id="btnGoBack" layoutX="43.0" layoutY="373.0" mnemonicParsing="false" onAction="#onGoBack" prefHeight="0.0" prefWidth="10.0" style="-fx-background-color: transparent;">

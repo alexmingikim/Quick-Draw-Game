@@ -88,8 +88,37 @@ public class User {
     return wordsEncountered;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public void updateWords(String word) {
-    this.wordsEncountered = this.wordsEncountered + "," + word;
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.wordsEncountered).append(word).append(",");
+    this.wordsEncountered = sb.toString();
+  }
+
+  public void updateTotalTime(int time) {
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
+    this.averageDrawingTime =
+        Integer.toString(
+            Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
+
+    if (this.fastestWonGameTime.equals("-") || time < Integer.parseInt(this.fastestWonGameTime)) {
+      this.fastestWonGameTime = Integer.toString(time);
+    }
+  }
+
+  public void incrementNoOfGamesPlayed() {
+    this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
+  }
+
+  public void gameWonOrLost(boolean status) {
+    if (status) {
+      this.noOfGamesWon = Integer.toString((Integer.parseInt(this.noOfGamesWon) + 1));
+    } else {
+      this.noOfGamesLost = Integer.toString((Integer.parseInt(this.noOfGamesLost) + 1));
+    }
   }
 
   public void resetWords() {

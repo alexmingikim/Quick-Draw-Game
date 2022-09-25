@@ -466,7 +466,7 @@ public class CanvasController {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(true);
-      currentProfile.updateTotalTime(60 - counter);
+      currentProfile.updateTime(60 - counter, category);
       try {
         updateProfile();
       } catch (IOException e) {
@@ -509,7 +509,7 @@ public class CanvasController {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.gameWonOrLost(false);
-      currentProfile.updateTotalTime(60);
+      currentProfile.updateTime(60, category);
       try {
         updateProfile();
       } catch (IOException e) {

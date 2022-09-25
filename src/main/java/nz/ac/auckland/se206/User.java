@@ -88,17 +88,13 @@ public class User {
     return wordsEncountered;
   }
 
-  public String getName() {
-    return name;
-  }
-
   public void updateWords(String word) {
     StringBuilder sb = new StringBuilder();
     sb.append(this.wordsEncountered).append(word).append(",");
     this.wordsEncountered = sb.toString();
   }
 
-  public void updateTotalTime(int time) {
+  public void updateTime(int time, String word) {
     this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
     this.averageDrawingTime =
         Integer.toString(
@@ -106,6 +102,7 @@ public class User {
 
     if (this.fastestWonGameTime.equals("-") || time < Integer.parseInt(this.fastestWonGameTime)) {
       this.fastestWonGameTime = Integer.toString(time);
+      this.fastestWonGame = word;
     }
   }
 

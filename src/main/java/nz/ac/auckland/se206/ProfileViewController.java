@@ -107,13 +107,19 @@ public class ProfileViewController {
     // keep track of user id
     currentUserId = "One";
 
-    // no user profile established --> enable "create profile" button
+    // no user profile established --> enable "create profile" button, disable "delete profile"
+    // button, disable "view statistics" button
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
-    // user profile is established --> disable "create profile" button
+    // user profile is established --> disable "create profile" button, enable "delete profile"
+    // button, enable "view statistics" button
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -127,9 +133,13 @@ public class ProfileViewController {
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -143,9 +153,13 @@ public class ProfileViewController {
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -159,9 +173,13 @@ public class ProfileViewController {
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -175,9 +193,13 @@ public class ProfileViewController {
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 
@@ -191,9 +213,13 @@ public class ProfileViewController {
 
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
+      btnDeleteProfile.setDisable(true);
+      btnViewStatistics.setDisable(true);
     }
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
+      btnDeleteProfile.setDisable(false);
+      btnViewStatistics.setDisable(false);
     }
   }
 

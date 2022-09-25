@@ -17,7 +17,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_RIGHT" layoutX="43.0" layoutY="139.0" prefHeight="192.0" prefWidth="140.0">
+      <VBox alignment="TOP_RIGHT" layoutX="43.0" layoutY="139.0" prefHeight="202.0" prefWidth="155.0">
          <children>
             <Label text="Games Played">
                <font>
@@ -66,7 +66,7 @@
             </Label>
             <Label fx:id="fastestGameWonLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="18.0" prefWidth="140.0" text="------">
                <font>
-                  <Font size="13.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
          </children>
@@ -110,7 +110,7 @@
                   <Font size="15.0" />
                </font>
                <padding>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="20.0" />
                </padding>
             </Label>
             <Label fx:id="fastestGameWonTimeLabel" text="###">

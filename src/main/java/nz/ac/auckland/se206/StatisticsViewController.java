@@ -62,10 +62,22 @@ public class StatisticsViewController {
         gamesPlayedLabel.setText(user.getNoOfGamesPlayed());
         gamesWonLabel.setText(user.getNoOfGamesWon());
         gamesLostLabel.setText(user.getNoOfGamesLost());
-        averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
-        totalGameTimeLabel.setText(user.getTotalGameTime());
-        fastestGameWonTimeLabel.setText(user.getFastestWonGameTime());
-        fastestGameWonLabel.setText(user.getFastestWonGame());
+
+        int totalTime = Integer.parseInt(user.getTotalGameTime());
+        int totalMins = totalTime / 60;
+        int totalSecs = totalTime % 60;
+
+        if (user.getTotalGameTime().equals("0")) {
+          averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
+          totalGameTimeLabel.setText("0s");
+          fastestGameWonTimeLabel.setText(user.getFastestWonGameTime());
+        } else {
+          averageDrawingTimeLabel.setText(user.getAverageDrawingTime() + "s");
+          totalGameTimeLabel.setText(totalMins + "m " + totalSecs + "s");
+          fastestGameWonTimeLabel.setText(user.getFastestWonGameTime() + "s");
+        }
+
+        fastestGameWonLabel.setText("(" + user.getFastestWonGame() + ")");
 
         String wordsEncountered = user.getWordsEncountered();
 

@@ -5,6 +5,8 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -12,11 +14,33 @@
 
 <VBox alignment="CENTER" prefHeight="450.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
   <children>
-    <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="23.0" prefWidth="355.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="profileUsername" prefHeight="28.0" prefWidth="150.0" text="Guest">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="27.2" fitWidth="27.2">
+                     <image>
+                        <Image url="@../images/guest.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+            </Label>
+          <Label alignment="CENTER" prefHeight="27.0" prefWidth="250.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
+            <font>
+              <Font size="18.0" />
+            </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+          </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label fx:id="categoryLabel" prefHeight="20.0" prefWidth="252.0" text="Category:">

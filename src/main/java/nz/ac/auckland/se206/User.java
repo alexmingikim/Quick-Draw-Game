@@ -49,6 +49,10 @@ public class User {
     return wordsEncountered;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public void updateWords(String word) {
     this.wordsEncountered = this.wordsEncountered + "," + word;
   }

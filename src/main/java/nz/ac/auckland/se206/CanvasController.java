@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +66,8 @@ public class CanvasController {
 
   @FXML private Label timer;
 
+  @FXML private Label profileUsername;
+
   @FXML private Button penButton;
 
   @FXML private Button eraserButton;
@@ -72,6 +75,8 @@ public class CanvasController {
   @FXML private Button startButton;
 
   @FXML private Button backButton;
+
+  @FXML private Button clearButton;
 
   @FXML private Button saveDrawingButton;
 
@@ -93,6 +98,10 @@ public class CanvasController {
 
   private TextToSpeech textToSpeech = new TextToSpeech();
 
+  private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+  private List<User> userProfiles = new ArrayList<User>();
+
   private User currentProfile;
 
   // mouse coordinates
@@ -109,6 +118,7 @@ public class CanvasController {
   @FXML
   public void initialize() throws ModelException, IOException {
     // set a random category
+    sub_initialize();
     category = selectRandomCategory();
     categoryLabel.setText(
         "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -122,9 +132,19 @@ public class CanvasController {
     saveDrawingButton.setVisible(false);
   }
 
+  public void sub_initialize() throws IOException {
+    getCurrentProfile();
+    if (currentProfile == null) {
+      profileUsername.setText("Guest");
+    } else {
+      profileUsername.setText(currentProfile.getName());
+    }
+  }
+
   private String selectRandomCategory() throws IOException {
     // get a list of all the categories
     ArrayList<String> categoryList = new ArrayList<String>();
+    Random random = new Random();
     String line;
     String[] category;
     String difficulty;
@@ -149,13 +169,11 @@ public class CanvasController {
       }
 
       // return random category from list
-      Random random = new Random();
       int index = random.nextInt(categoryList.size());
       return categoryList.get(index);
     } else {
       ArrayList<String> wordsList =
           new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
-
       try {
         // read from the csv file
         br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
@@ -173,9 +191,25 @@ public class CanvasController {
         e.printStackTrace();
       }
 
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      // return random category from list
+      int index = random.nextInt(categoryList.size());
 
-      List<User> userProfiles = new ArrayList<User>();
+      // update word list in current profile
+      currentProfile.updateWords(categoryList.get(index));
+      updateProfile();
+
+      if (categoryList.size() == wordsList.size()) {
+        currentProfile.resetWords();
+      }
+
+      return categoryList.get(index);
+    }
+  }
+
+  private void getCurrentProfile() throws IOException {
+    if (ProfileViewController.getCurrentUserId().equals("Zero")) {
+      currentProfile = null;
+    } else {
       try {
         // read existing user profiles from JSON file and store into array list
         FileReader fr = new FileReader("profiles/profiles.json");
@@ -185,21 +219,22 @@ public class CanvasController {
         e.printStackTrace();
       }
 
-      // return random category from list
-      Random random = new Random();
-      int index = random.nextInt(categoryList.size());
-
-      // update word list in current profile
-      currentProfile.updateWords(categoryList.get(index));
-      int userIndex = userProfiles.indexOf(currentProfile);
-      userProfiles.set(userIndex, currentProfile);
-
-      if (categoryList.size() == wordsList.size()) {
-        currentProfile.resetWords();
+      for (User userProfile : userProfiles) {
+        if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
+          currentProfile = userProfile;
+        }
       }
-
-      return categoryList.get(index);
     }
+  }
+
+  private void updateProfile() throws IOException {
+    int userIndex = userProfiles.indexOf(currentProfile);
+    userProfiles.set(userIndex, currentProfile);
+
+    FileWriter fw = new FileWriter("profiles/profiles.json");
+    gson.toJson(userProfiles, fw);
+    fw.flush();
+    fw.close();
   }
 
   /** This method is called when the "Clear" button is pressed. */
@@ -277,8 +312,10 @@ public class CanvasController {
 
     // enable user to draw
     onPen();
-
+    clearButton.setDisable(false);
     canvas.setDisable(false);
+    penButton.setDisable(false);
+    eraserButton.setDisable(false);
     // make the start and back button not visible
     startButton.setVisible(false);
     backButton.setVisible(false);
@@ -442,10 +479,13 @@ public class CanvasController {
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
 
-    // make buttons visible
+    // make buttons visible or disabled
+    clearButton.setDisable(true);
+    penButton.setDisable(true);
+    eraserButton.setDisable(true);
+    backButton.setVisible(true);
     startNewGameButton.setVisible(true);
     saveDrawingButton.setVisible(true);
-    backButton.setVisible(true);
   }
 
   private void setLose() {
@@ -470,7 +510,11 @@ public class CanvasController {
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
 
-    // make buttons visible
+    // make buttons visible or enabled
+    clearButton.setDisable(true);
+    penButton.setDisable(true);
+    eraserButton.setDisable(true);
+    backButton.setVisible(true);
     startNewGameButton.setVisible(true);
     saveDrawingButton.setVisible(true);
   }

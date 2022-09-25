@@ -463,6 +463,13 @@ public class CanvasController {
     canvas.setDisable(true);
     timeline.stop();
     statusLabel.setText("Congratulations! You Won! The AI guessed your drawing in time!");
+    currentProfile.incrementNoOfGamesPlayed();
+    currentProfile.gameWonOrLost(true);
+    try {
+      updateProfile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // text to speech for win message
     Task<Void> backgroundTask =
@@ -493,6 +500,13 @@ public class CanvasController {
     canvas.setDisable(true);
     statusLabel.setText(
         "You Lost. Unfortunately the AI was not able to guess your drawing in time");
+    currentProfile.incrementNoOfGamesPlayed();
+    currentProfile.gameWonOrLost(false);
+    try {
+      updateProfile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // text to speech for lose message
     Task<Void> backgroundTask =

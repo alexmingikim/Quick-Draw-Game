@@ -57,6 +57,18 @@ public class User {
     this.wordsEncountered = this.wordsEncountered + "," + word;
   }
 
+  public void incrementNoOfGamesPlayed() {
+    this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
+  }
+
+  public void gameWonOrLost(boolean status) {
+    if (status) {
+      this.noOfGamesWon = Integer.toString((Integer.parseInt(this.noOfGamesWon) + 1));
+    } else {
+      this.noOfGamesLost = Integer.toString((Integer.parseInt(this.noOfGamesLost) + 1));
+    }
+  }
+
   public void resetWords() {
     this.wordsEncountered = "";
   }

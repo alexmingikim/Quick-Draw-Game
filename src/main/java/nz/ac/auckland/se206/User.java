@@ -11,6 +11,7 @@ public class User {
   private String averageDrawingTime;
   private String totalGameTime;
   private String fastestWonGameTime;
+  private String fastestWonGame;
   private String wordsEncountered;
 
   public User(
@@ -23,6 +24,7 @@ public class User {
       String averageDrawingTime,
       String totalGameTime,
       String fastestWonGameTime,
+      String fastestWonGame,
       String wordsEncountered) {
     super();
     this.id = id;
@@ -34,7 +36,44 @@ public class User {
     this.averageDrawingTime = averageDrawingTime;
     this.totalGameTime = totalGameTime;
     this.fastestWonGameTime = fastestWonGameTime;
+    this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getNoOfGamesPlayed() {
+    return noOfGamesPlayed;
+  }
+
+  public String getNoOfGamesWon() {
+    return noOfGamesWon;
+  }
+
+  public String getNoOfGamesLost() {
+    return noOfGamesLost;
+  }
+
+  public String getAverageDrawingTime() {
+    return averageDrawingTime;
+  }
+
+  public String getTotalGameTime() {
+    return totalGameTime;
+  }
+
+  public String getFastestWonGameTime() {
+    return fastestWonGameTime;
+  }
+
+  public String getFastestWonGame() {
+    return fastestWonGame;
+  }
+
+  public String getWordsEncountered() {
+    return wordsEncountered;
   }
 
   public double getOpacity() {

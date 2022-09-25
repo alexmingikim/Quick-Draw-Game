@@ -94,9 +94,12 @@ public class ProfileViewController {
 
   @FXML
   private void onViewStatistics(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
-    Scene scene = btnClicked.getScene();
-    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.STATISTICS_VIEW));
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.STATISTICS_VIEW));
+
+    ((StatisticsViewController) SceneManager.getLoader(AppUi.STATISTICS_VIEW).getController())
+        .load();
   }
 
   @FXML

@@ -54,7 +54,9 @@ public class User {
   }
 
   public void updateWords(String word) {
-    this.wordsEncountered = this.wordsEncountered + "," + word;
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.wordsEncountered).append(word).append(",");
+    this.wordsEncountered = sb.toString();
   }
 
   public void updateTotalTime(int time) {

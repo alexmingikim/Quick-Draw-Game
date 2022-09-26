@@ -59,14 +59,14 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <Label prefWidth="124.0" text="Fastest Game Won">
+            <Label prefHeight="27.0" prefWidth="223.0" text="Fastest Game Won">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>
             </Label>
             <Label fx:id="fastestGameWonLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="18.0" prefWidth="140.0" text="------">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Courier New Bold" size="14.0" />
                </font>
             </Label>
          </children>

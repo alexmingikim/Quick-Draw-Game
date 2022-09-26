@@ -13,13 +13,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileViewController {
 
-  private static Button[] arrayButtons;
+  private static ToggleButton[] arrayButtons;
 
-  static Button lastUserButtonPressed;
+  static ToggleButton lastUserButtonPressed;
   static Label labelAssociatedToLastUserButtonPressed;
 
   static String currentUserId = "Zero";
@@ -32,13 +33,13 @@ public class ProfileViewController {
 
   @FXML private Button btnGoBack;
 
-  @FXML private Button btnUserOne;
-  @FXML private Button btnUserTwo;
-  @FXML private Button btnUserThree;
-  @FXML private Button btnUserFour;
-  @FXML private Button btnUserFive;
-  @FXML private Button btnUserSix;
-  @FXML private Button btnGuest;
+  @FXML private ToggleButton btnUserOne;
+  @FXML private ToggleButton btnUserTwo;
+  @FXML private ToggleButton btnUserThree;
+  @FXML private ToggleButton btnUserFour;
+  @FXML private ToggleButton btnUserFive;
+  @FXML private ToggleButton btnUserSix;
+  @FXML private ToggleButton btnGuest;
 
   @FXML private Label lblUserOne;
   @FXML private Label lblUserTwo;
@@ -51,7 +52,7 @@ public class ProfileViewController {
     return currentUserId;
   }
 
-  public static Button getLastUserButtonPressed() {
+  public static ToggleButton getLastUserButtonPressed() {
     return lastUserButtonPressed;
   }
 
@@ -76,7 +77,7 @@ public class ProfileViewController {
       return;
     }
 
-    for (Button button : arrayButtons) {
+    for (ToggleButton button : arrayButtons) {
       for (User user : userProfiles) {
         if (button.getId().substring(7).equals(user.getId())) {
           button.setOpacity(user.getOpacity());
@@ -91,7 +92,7 @@ public class ProfileViewController {
 
   public void initializeButtonArray() {
     // store all 6 buttons into an array
-    arrayButtons = new Button[6];
+    arrayButtons = new ToggleButton[6];
     arrayButtons[0] = btnUserOne;
     arrayButtons[1] = btnUserTwo;
     arrayButtons[2] = btnUserThree;
@@ -137,7 +138,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserOne(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed and associated label
     lastUserButtonPressed = btnClicked;
     labelAssociatedToLastUserButtonPressed = lblUserOne;
@@ -164,7 +165,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserTwo(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed
     lastUserButtonPressed = btnUserTwo;
     labelAssociatedToLastUserButtonPressed = lblUserTwo;
@@ -185,7 +186,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserThree(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed
     lastUserButtonPressed = btnUserThree;
     labelAssociatedToLastUserButtonPressed = lblUserThree;
@@ -206,7 +207,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserFour(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed
     lastUserButtonPressed = btnUserFour;
     labelAssociatedToLastUserButtonPressed = lblUserFour;
@@ -227,7 +228,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserFive(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed
     lastUserButtonPressed = btnUserFive;
     labelAssociatedToLastUserButtonPressed = lblUserFive;
@@ -248,7 +249,7 @@ public class ProfileViewController {
 
   @FXML
   private void onSelectUserSix(ActionEvent event) {
-    Button btnClicked = (Button) event.getSource();
+    ToggleButton btnClicked = (ToggleButton) event.getSource();
     // keep track of button pressed
     lastUserButtonPressed = btnUserSix;
     labelAssociatedToLastUserButtonPressed = lblUserSix;

@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileCreationController {
@@ -99,7 +100,7 @@ public class ProfileCreationController {
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(preScene));
 
-    Button userProfileButton = ProfileViewController.getLastUserButtonPressed();
+    ToggleButton userProfileButton = ProfileViewController.getLastUserButtonPressed();
     userProfileButton.setOpacity(0.5);
   }
 }

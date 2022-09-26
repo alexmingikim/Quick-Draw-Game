@@ -104,6 +104,8 @@ public class CanvasController {
 
   private User currentProfile;
 
+  private boolean blankStatus = true;
+
   // mouse coordinates
   private double currentX;
   private double currentY;
@@ -335,6 +337,7 @@ public class CanvasController {
     // initialise to get new category and make the start button visible
     initialize();
     startButton.setVisible(true);
+    blankStatus = true;
   }
 
   @FXML
@@ -370,6 +373,7 @@ public class CanvasController {
         e -> {
           currentX = e.getX();
           currentY = e.getY();
+          blankStatus = false;
         });
 
     canvas.setOnMouseDragged(
@@ -428,42 +432,48 @@ public class CanvasController {
 
   // helper methods
   private void updatePrediction() throws TranslateException {
-    // get all predictions
-    List<Classifications.Classification> predictions =
-        model.getPredictions(getCurrentSnapshot(), 10);
+    if (blankStatus == false) {
+      // get all predictions
+      List<Classifications.Classification> predictions =
+          model.getPredictions(getCurrentSnapshot(), 10);
 
-    // set the labels
-    predictionsTitleLabel.setText("AI PREDICTIONS");
-    predictionsLabel.setText("Top 10 Predictions\n");
+      // set the labels
+      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsLabel.setText("Top 10 Predictions\n");
 
-    final StringBuilder sb = new StringBuilder();
-    int i = 1;
+      final StringBuilder sb = new StringBuilder();
+      int i = 1;
 
-    // for all predictions, print its ranking and if a prediction is in top 3 and
-    // matches with the category, call the player win method
-    for (final Classifications.Classification prediction : predictions) {
-      if (prediction.getClassName().equals(category.replace(" ", "_"))
-          && (i == 1 || i == 2 || i == 3)) {
-        setWin();
+      // for all predictions, print its ranking and if a prediction is in top 3 and
+      // matches with the category, call the player win method
+      for (final Classifications.Classification prediction : predictions) {
+        if (prediction.getClassName().equals(category.replace(" ", "_"))
+            && (i == 1 || i == 2 || i == 3)) {
+          setWin();
+        }
+
+        String word = prediction.getClassName().replace("_", " ");
+        if (i != 10) {
+          sb.append(i)
+              .append("  :  ")
+              .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+              .append(System.lineSeparator());
+        } else {
+          sb.append(i)
+              .append(" :  ")
+              .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+              .append(System.lineSeparator());
+        }
+        i++;
       }
 
-      String word = prediction.getClassName().replace("_", " ");
-      if (i != 10) {
-        sb.append(i)
-            .append("  :  ")
-            .append(word.substring(0, 1).toUpperCase() + word.substring(1))
-            .append(System.lineSeparator());
-      } else {
-        sb.append(i)
-            .append(" :  ")
-            .append(word.substring(0, 1).toUpperCase() + word.substring(1))
-            .append(System.lineSeparator());
-      }
-      i++;
+      // using string builder, add all the predictions
+      predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
+    } else {
+      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsLabel.setText("Top 10 Predictions\n");
+      //			return;
     }
-
-    // using string builder, add all the predictions
-    predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
   }
 
   private void setWin() {

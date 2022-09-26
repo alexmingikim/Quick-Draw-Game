@@ -40,7 +40,7 @@
             <Font name="Courier New Bold" size="14.0" />
          </font>
          <graphic>
-            <Label fx:id="profileLabel" alignment="CENTER" text="Welcome, Guest!" textFill="WHITE">
+            <Label fx:id="profileLabel" alignment="CENTER" prefHeight="35.0" prefWidth="334.0" text="Welcome, Guest!" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold Italic" size="20.0" />
                </font>

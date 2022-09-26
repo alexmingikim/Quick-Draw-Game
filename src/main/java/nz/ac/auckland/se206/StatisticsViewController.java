@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 
 public class StatisticsViewController {
@@ -98,6 +100,7 @@ public class StatisticsViewController {
         String displayWords = sb.toString();
 
         Text text = new Text(displayWords);
+        text.setFont(Font.font("Courier New", FontPosture.REGULAR, 16));
 
         wordsEncounteredField.setContent(text);
       }

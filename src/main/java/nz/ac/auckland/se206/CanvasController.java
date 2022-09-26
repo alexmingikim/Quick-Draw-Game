@@ -126,411 +126,439 @@ public class CanvasController {
 
 	private User currentProfile;
 
-	// mouse coordinates
-	private double currentX;
-	private double currentY;
+  private boolean blankStatus = true;
 
-	/**
-	 * JavaFX calls this method once the GUI elements are loaded. In our case we
-	 * create a listener for the drawing, and we load the ML model.
-	 *
-	 * @throws ModelException If there is an error in reading the input/output of
-	 *                        the DL model.
-	 * @throws IOException    If the model cannot be found on the file system.
-	 */
-	public void initialize() throws ModelException, IOException {
-		// set a random category
-		subInitialize();
-		category = selectRandomCategory();
-		categoryLabel.setText("Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
+  // mouse coordinates
+  private double currentX;
+  private double currentY;
 
-		// initialise graphics and the prediction model
-		graphic = canvas.getGraphicsContext2D();
-		model = new DoodlePrediction();
+  /**
+   * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
+   * the drawing, and we load the ML model.
+   *
+   * @throws ModelException If there is an error in reading the input/output of the DL model.
+   * @throws IOException If the model cannot be found on the file system.
+   */
+  public void initialize() throws ModelException, IOException {
+    // set a random category
+    subInitialize();
+    category = selectRandomCategory();
+    categoryLabel.setText(
+        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
 
-		// set buttons to not visible or disabled
-		clearButton.setDisable(true);
-		penButton.setDisable(true);
-		eraserButton.setDisable(true);
-		startNewGameButton.setVisible(false);
-		saveDrawingButton.setVisible(false);
-	}
+    // initialise graphics and the prediction model
+    graphic = canvas.getGraphicsContext2D();
+    model = new DoodlePrediction();
 
-	public void subInitialize() throws IOException {
-		// Changes the profile display name
-		getCurrentProfile();
-		if (currentProfile == null) {
-			profileUsernameLabel.setText("Guest");
-		} else {
-			profileUsernameLabel.setText(currentProfile.getName());
-		}
-	}
+    // set buttons to not visible or disabled
+    clearButton.setDisable(true);
+    penButton.setDisable(true);
+    eraserButton.setDisable(true);
+    startNewGameButton.setVisible(false);
+    saveDrawingButton.setVisible(false);
+  }
 
-	private String selectRandomCategory() throws IOException {
-		// get a list of all the categories
-		ArrayList<String> categoryList = new ArrayList<String>();
-		// Declaring and initializing fields
-		Random random = new Random();
-		String line;
-		String[] category;
-		String difficulty;
-		BufferedReader br;
+  public void subInitialize() throws IOException {
+    // Changes the profile display name
+    getCurrentProfile();
+    if (currentProfile == null) {
+      profileUsernameLabel.setText("Guest");
+    } else {
+      profileUsernameLabel.setText(currentProfile.getName());
+    }
+  }
 
-		if (currentProfile == null) {
-			try {
-				// read from the csv file
-				br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+  private String selectRandomCategory() throws IOException {
+    // get a list of all the categories
+    ArrayList<String> categoryList = new ArrayList<String>();
+    // Declaring and initializing fields
+    Random random = new Random();
+    String line;
+    String[] category;
+    String difficulty;
+    BufferedReader br;
 
-				// get all categories that are rated E
-				while ((line = br.readLine()) != null) {
-					category = line.split(",");
-					difficulty = category[1];
+    if (currentProfile == null) {
+      try {
+        // read from the csv file
+        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
 
-					if (difficulty.equals("E")) {
-						categoryList.add(category[0]);
-					}
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+        // get all categories that are rated E
+        while ((line = br.readLine()) != null) {
+          category = line.split(",");
+          difficulty = category[1];
 
-			// return random category from list
-			int index = random.nextInt(categoryList.size());
-			return categoryList.get(index);
-		} else {
-			ArrayList<String> wordsList = new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
-			try {
-				// read from the csv file
-				br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+          if (difficulty.equals("E")) {
+            categoryList.add(category[0]);
+          }
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
 
-				// get all categories that are rated E
-				while ((line = br.readLine()) != null) {
-					category = line.split(",");
-					difficulty = category[1];
+      // return random category from list
+      int index = random.nextInt(categoryList.size());
+      return categoryList.get(index);
+    } else {
+      ArrayList<String> wordsList =
+          new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
+      try {
+        // read from the csv file
+        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
 
-					if (difficulty.equals("E") && !wordsList.contains(category[0])) {
-						categoryList.add(category[0]);
-					}
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+        // get all categories that are rated E
+        while ((line = br.readLine()) != null) {
+          category = line.split(",");
+          difficulty = category[1];
 
-			// return random category from list
-			int index = random.nextInt(categoryList.size());
-			if (categoryList.size() == wordsList.size()) {
-				currentProfile.resetWords();
-			}
-			return categoryList.get(index);
-		}
-	}
+          if (difficulty.equals("E") && !wordsList.contains(category[0])) {
+            categoryList.add(category[0]);
+          }
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
 
-	private void getCurrentProfile() throws IOException {
-		if (ProfileViewController.getCurrentUserId().equals("Zero")) {
-			currentProfile = null;
-		} else {
-			try {
-				// read existing user profiles from JSON file and store into array list
-				FileReader fr = new FileReader("profiles/profiles.json");
-				userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {
-				}.getType());
-				fr.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+      // return random category from list
+      int index = random.nextInt(categoryList.size());
+      if (categoryList.size() == wordsList.size()) {
+        currentProfile.resetWords();
+      }
+      return categoryList.get(index);
+    }
+  }
 
-			// select the current profile that was chosen by the user
-			for (User userProfile : userProfiles) {
-				if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
-					currentProfile = userProfile;
-				}
-			}
-		}
-	}
+  private void getCurrentProfile() throws IOException {
+    if (ProfileViewController.getCurrentUserId().equals("Zero")) {
+      currentProfile = null;
+    } else {
+      try {
+        // read existing user profiles from JSON file and store into array list
+        FileReader fr = new FileReader("profiles/profiles.json");
+        userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+        fr.close();
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
 
-	private void updateProfile() throws IOException {
-		int userIndex = userProfiles.indexOf(currentProfile);
-		userProfiles.set(userIndex, currentProfile);
+      // select the current profile that was chosen by the user
+      for (User userProfile : userProfiles) {
+        if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
+          currentProfile = userProfile;
+        }
+      }
+    }
+  }
 
-		// Write any updates from the current game to the json file
-		FileWriter fw = new FileWriter("profiles/profiles.json");
-		gson.toJson(userProfiles, fw);
-		fw.flush();
-		fw.close();
-	}
+  private void updateProfile() throws IOException {
+    int userIndex = userProfiles.indexOf(currentProfile);
+    userProfiles.set(userIndex, currentProfile);
 
-	/** This method is called when the "Clear" button is pressed. */
-	@FXML
-	private void onClear() {
-		graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-	}
+    // Write any updates from the current game to the json file
+    FileWriter fw = new FileWriter("profiles/profiles.json");
+    gson.toJson(userProfiles, fw);
+    fw.flush();
+    fw.close();
+  }
 
-	/**
-	 * This method is called when the "Back" button is pressed.
-	 *
-	 * @param event the clicking action from the user
-	 */
-	@FXML
-	private void onBack(ActionEvent event) {
-		Button btnSceneIsIn = (Button) event.getSource();
-		Scene scene = btnSceneIsIn.getScene();
-		scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
-	}
+  /** This method is called when the "Clear" button is pressed. */
+  @FXML
+  private void onClear() {
+    graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+  }
 
-	/**
-	 * Get the current snapshot of the canvas.
-	 *
-	 * @return The BufferedImage corresponding to the current canvas content.
-	 */
-	private BufferedImage getCurrentSnapshot() {
-		final Image snapshot = canvas.snapshot(null, null);
-		final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+  /**
+   * This method is called when the "Back" button is pressed.
+   *
+   * @param event the clicking action from the user
+   */
+  @FXML
+  private void onBack(ActionEvent event) {
+    Button btnSceneIsIn = (Button) event.getSource();
+    Scene scene = btnSceneIsIn.getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
+  }
 
-		// Convert into a binary image.
-		final BufferedImage imageBinary = new BufferedImage(image.getWidth(), image.getHeight(),
-				BufferedImage.TYPE_BYTE_BINARY);
+  /**
+   * Get the current snapshot of the canvas.
+   *
+   * @return The BufferedImage corresponding to the current canvas content.
+   */
+  private BufferedImage getCurrentSnapshot() {
+    final Image snapshot = canvas.snapshot(null, null);
+    final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
 
-		final Graphics2D graphics = imageBinary.createGraphics();
+    // Convert into a binary image.
+    final BufferedImage imageBinary =
+        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
 
-		graphics.drawImage(image, 0, 0, null);
+    final Graphics2D graphics = imageBinary.createGraphics();
 
-		// To release memory we dispose.
-		graphics.dispose();
+    graphics.drawImage(image, 0, 0, null);
 
-		return imageBinary;
-	}
+    // To release memory we dispose.
+    graphics.dispose();
 
-	@FXML
-	private void onStart() {
-		// change message
-		statusLabel.setText("---------- Game in Progress ----------");
+    return imageBinary;
+  }
 
-		// create a timeline instance for timer countdown and to update predictions
-		// every second
-		timeline = new Timeline((new KeyFrame(Duration.seconds(1), e -> decreaseTime())),
-				(new KeyFrame(Duration.seconds(1), e -> {
-					try {
-						updatePrediction();
-					} catch (TranslateException e1) {
-						e1.printStackTrace();
-					}
-				})));
-		KeyFrame kf = new KeyFrame(Duration.seconds(1), event -> {
-			if (counter <= 0) {
-				timeline.stop();
-				setLose();
-			}
-		});
-		timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
-		timeline.setCycleCount(60);
-		timeline.play();
+  @FXML
+  private void onStart() {
+    // change message
+    statusLabel.setText("---------- Game in Progress ----------");
 
-		// enable user to draw
-		onPen();
+    // create a timeline instance for timer countdown and to update predictions
+    // every second
+    timeline =
+        new Timeline(
+            (new KeyFrame(Duration.seconds(1), e -> decreaseTime())),
+            (new KeyFrame(
+                Duration.seconds(1),
+                e -> {
+                  try {
+                    updatePrediction();
+                  } catch (TranslateException e1) {
+                    e1.printStackTrace();
+                  }
+                })));
+    KeyFrame kf =
+        new KeyFrame(
+            Duration.seconds(1),
+            event -> {
+              if (counter <= 0) {
+                timeline.stop();
+                setLose();
+              }
+            });
+    timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
+    timeline.setCycleCount(60);
+    timeline.play();
 
-		// Set start and back buttons to invisible and other buttons enabled
-		clearButton.setDisable(false);
-		canvas.setDisable(false);
-		penButton.setDisable(false);
-		eraserButton.setDisable(false);
-		startButton.setVisible(false);
-		backButton.setVisible(false);
-	}
+    // enable user to draw
+    onPen();
 
-	@FXML
-	private void onStartNewGame() throws ModelException, IOException {
-		// clear the predictions board and change message when new game is started
-		statusLabel.setText("---------- Press Start to Begin ----------");
+    // Set start and back buttons to invisible and other buttons enabled
+    clearButton.setDisable(false);
+    canvas.setDisable(false);
+    penButton.setDisable(false);
+    eraserButton.setDisable(false);
+    startButton.setVisible(false);
+    backButton.setVisible(false);
+  }
 
-		// reset the timer and clear the canvas
-		counter = 60;
-		timerLabel.setText("60");
-		onClear();
+  @FXML
+  private void onStartNewGame() throws ModelException, IOException {
+    // clear the predictions board and change message when new game is started
+    statusLabel.setText("---------- Press Start to Begin ----------");
 
-		// initialise to get new category and make the start button visible
-		initialize();
-		startButton.setVisible(true);
-	}
+    // reset the timer and clear the canvas
+    counter = 60;
+    timerLabel.setText("60");
+    onClear();
 
-	@FXML
-	private void onSaveDrawing() {
-		// create a new file choose instance and prompt the user to select a location
-		// and name with a suggested default name
-		FileChooser saveFile = new FileChooser();
-		saveFile.setTitle("Save File");
-		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-		saveFile.getExtensionFilters().add(extensionFilter);
-		saveFile.setInitialFileName(category);
-		File file = saveFile.showSaveDialog(stage);
+    // initialise to get new category and make the start button visible
+    initialize();
+    startButton.setVisible(true);
+    blankStatus = true;
+  }
 
-		// if the file is not null, render and save the image
-		if (file != null) {
-			try {
-				WritableImage writableImage = new WritableImage(390, 250);
-				canvas.snapshot(null, writableImage);
-				RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-				ImageIO.write(renderedImage, "png", file);
-			} catch (IOException e) {
-				// otherwise print exception message
-				e.printStackTrace();
-			}
-		}
-	}
+  @FXML
+  private void onSaveDrawing() {
+    // create a new file choose instance and prompt the user to select a location
+    // and name with a suggested default name
+    FileChooser saveFile = new FileChooser();
+    saveFile.setTitle("Save File");
+    FileChooser.ExtensionFilter extensionFilter =
+        new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    saveFile.getExtensionFilters().add(extensionFilter);
+    saveFile.setInitialFileName(category);
+    File file = saveFile.showSaveDialog(stage);
 
-	@FXML
-	private void onPen() {
-		// save coordinates when mouse is pressed on the canvas
-		canvas.setOnMousePressed(e -> {
-			currentX = e.getX();
-			currentY = e.getY();
-		});
+    // if the file is not null, render and save the image
+    if (file != null) {
+      try {
+        WritableImage writableImage = new WritableImage(390, 250);
+        canvas.snapshot(null, writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ImageIO.write(renderedImage, "png", file);
+      } catch (IOException e) {
+        // otherwise print exception message
+        e.printStackTrace();
+      }
+    }
+  }
 
-		canvas.setOnMouseDragged(e -> {
-			// Brush size (you can change this, it should not be too small or too large).
-			final double size = 6;
+  @FXML
+  private void onPen() {
+    // save coordinates when mouse is pressed on the canvas
+    canvas.setOnMousePressed(
+        e -> {
+          currentX = e.getX();
+          currentY = e.getY();
+          blankStatus = false;
+        });
 
-			final double x = e.getX() - size / 2;
-			final double y = e.getY() - size / 2;
+    canvas.setOnMouseDragged(
+        e -> {
+          // Brush size (you can change this, it should not be too small or too large).
+          final double size = 6;
 
-			// This is the colour of the brush.
-			graphic.setFill(Color.BLACK);
-			graphic.setLineWidth(size);
+          final double x = e.getX() - size / 2;
+          final double y = e.getY() - size / 2;
 
-			// Create a line that goes from the point (currentX, currentY) and (x,y)
-			graphic.strokeLine(currentX, currentY, x, y);
+          // This is the colour of the brush.
+          graphic.setFill(Color.BLACK);
+          graphic.setLineWidth(size);
 
-			// update the coordinates
-			currentX = x;
-			currentY = y;
-		});
-	}
+          // Create a line that goes from the point (currentX, currentY) and (x,y)
+          graphic.strokeLine(currentX, currentY, x, y);
 
-	@FXML
-	private void onErase() {
-		canvas.setOnMouseDragged(e -> {
-			// Brush size (you can change this, it should not be too small or too large).
-			final double size = 10.0;
+          // update the coordinates
+          currentX = x;
+          currentY = y;
+        });
+  }
 
-			final double x = e.getX() - size / 2;
-			final double y = e.getY() - size / 2;
+  @FXML
+  private void onErase() {
+    canvas.setOnMouseDragged(
+        e -> {
+          // Brush size (you can change this, it should not be too small or too large).
+          final double size = 10.0;
 
-			// set the brush to clear markings on the canvas
-			graphic.clearRect(x, y, 10, 10);
-		});
-	}
+          final double x = e.getX() - size / 2;
+          final double y = e.getY() - size / 2;
 
-	@FXML
-	private void onPlayTextToSpeech() {
-		// text to speech: says the current category being played
-		Task<Void> backgroundTask = new Task<Void>() {
+          // set the brush to clear markings on the canvas
+          graphic.clearRect(x, y, 10, 10);
+        });
+  }
 
-			@Override
-			protected Void call() throws Exception {
-				// global variable textToSpeech initialized at the beginning
-				textToSpeech.speak(category);
-				return null;
-			}
-		};
+  @FXML
+  private void onPlayTextToSpeech() {
+    // text to speech: says the current category being played
+    Task<Void> backgroundTask =
+        new Task<Void>() {
 
-		Thread backgroundThread = new Thread(backgroundTask);
-		backgroundThread.start();
-	}
+          @Override
+          protected Void call() throws Exception {
+            // global variable textToSpeech initialized at the beginning
+            textToSpeech.speak(category);
+            return null;
+          }
+        };
 
-	// helper methods
-	private void updatePrediction() throws TranslateException {
-		// get all predictions
-		List<Classifications.Classification> predictions = model.getPredictions(getCurrentSnapshot(), 10);
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+  }
 
-		// set the labels
-		predictionsTitleLabel.setText("AI PREDICTIONS");
-		predictionsLabel.setText("Top 10 Predictions\n");
+  // helper methods
+  private void updatePrediction() throws TranslateException {
+    if (blankStatus == false) {
+      // get all predictions
+      List<Classifications.Classification> predictions =
+          model.getPredictions(getCurrentSnapshot(), 10);
 
-		final StringBuilder sb = new StringBuilder();
-		int i = 1;
+      // set the labels
+      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsLabel.setText("Top 10 Predictions\n");
 
-		// for all predictions, print its ranking and if a prediction is in top 3 and
-		// matches with the category, call the player win method
-		for (final Classifications.Classification prediction : predictions) {
-			if (prediction.getClassName().equals(category.replace(" ", "_")) && (i == 1 || i == 2 || i == 3)) {
-				setWin();
-			}
+      final StringBuilder sb = new StringBuilder();
+      int i = 1;
 
-			String word = prediction.getClassName().replace("_", " ");
-			if (i != 10) {
-				sb.append(i).append("  :  ").append(word.substring(0, 1).toUpperCase() + word.substring(1))
-						.append(System.lineSeparator());
-			} else {
-				sb.append(i).append(" :  ").append(word.substring(0, 1).toUpperCase() + word.substring(1))
-						.append(System.lineSeparator());
-			}
-			i++;
-		}
+      // for all predictions, print its ranking and if a prediction is in top 3 and
+      // matches with the category, call the player win method
+      for (final Classifications.Classification prediction : predictions) {
+        if (prediction.getClassName().equals(category.replace(" ", "_"))
+            && (i == 1 || i == 2 || i == 3)) {
+          setWin();
+        }
 
-		// using string builder, add all the predictions
-		predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
-	}
+        String word = prediction.getClassName().replace("_", " ");
+        if (i != 10) {
+          sb.append(i)
+              .append("  :  ")
+              .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+              .append(System.lineSeparator());
+        } else {
+          sb.append(i)
+              .append(" :  ")
+              .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+              .append(System.lineSeparator());
+        }
+        i++;
+      }
 
-	private void setWin() {
-		// stop game and print message
-		canvas.setDisable(true);
-		timeline.stop();
-		statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
+      // using string builder, add all the predictions
+      predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
+    } else {
+      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsLabel.setText("Top 10 Predictions\n");
+      //			return;
+    }
+  }
 
-		// Update profile if it is not a guest profile
-		if (currentProfile != null) {
-			currentProfile.updateWords(category);
-			currentProfile.incrementNoOfGamesPlayed();
-			currentProfile.chooseWonOrLost(true);
-			currentProfile.updateTime(60 - counter, category);
-			try {
-				updateProfile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+  private void setWin() {
+    // stop game and print message
+    canvas.setDisable(true);
+    timeline.stop();
+    statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
-		// make buttons visible or disabled
-		clearButton.setDisable(true);
-		penButton.setDisable(true);
-		eraserButton.setDisable(true);
-		backButton.setVisible(true);
-		startNewGameButton.setVisible(true);
-		saveDrawingButton.setVisible(true);
-	}
+    // Update profile if it is not a guest profile
+    if (currentProfile != null) {
+      currentProfile.updateWords(category);
+      currentProfile.incrementNoOfGamesPlayed();
+      currentProfile.chooseWonOrLost(true);
+      currentProfile.updateTime(60 - counter, category);
+      try {
+        updateProfile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-	private void setLose() {
-		// stop game and print message
-		canvas.setDisable(true);
-		statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
+    // make buttons visible or disabled
+    clearButton.setDisable(true);
+    penButton.setDisable(true);
+    eraserButton.setDisable(true);
+    backButton.setVisible(true);
+    startNewGameButton.setVisible(true);
+    saveDrawingButton.setVisible(true);
+  }
 
-		// Update profile if it is not a guest profile
-		if (currentProfile != null) {
-			currentProfile.updateWords(category);
-			currentProfile.incrementNoOfGamesPlayed();
-			currentProfile.chooseWonOrLost(false);
-			currentProfile.updateTime(60, category);
-			try {
-				updateProfile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+  private void setLose() {
+    // stop game and print message
+    canvas.setDisable(true);
+    statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
-		// make buttons visible or disabled
-		clearButton.setDisable(true);
-		penButton.setDisable(true);
-		eraserButton.setDisable(true);
-		backButton.setVisible(true);
-		startNewGameButton.setVisible(true);
-		saveDrawingButton.setVisible(true);
-	}
+    // Update profile if it is not a guest profile
+    if (currentProfile != null) {
+      currentProfile.updateWords(category);
+      currentProfile.incrementNoOfGamesPlayed();
+      currentProfile.chooseWonOrLost(false);
+      currentProfile.updateTime(60, category);
+      try {
+        updateProfile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-	private void decreaseTime() {
-		counter--;
-		timerLabel.setText(String.valueOf(counter));
-	}
+    // make buttons visible or disabled
+    clearButton.setDisable(true);
+    penButton.setDisable(true);
+    eraserButton.setDisable(true);
+    backButton.setVisible(true);
+    startNewGameButton.setVisible(true);
+    saveDrawingButton.setVisible(true);
+  }
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
+  private void decreaseTime() {
+    counter--;
+    timerLabel.setText(String.valueOf(counter));
+  }
+
+  public void setStage(Stage stage) {
+    this.stage = stage;
+  }
 }

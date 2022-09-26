@@ -95,6 +95,8 @@ public class User {
   }
 
   public void updateTime(int time, String word) {
+    // first update total time then use that stat to calculate the rest of the time
+    // related statistics
     this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
     this.averageDrawingTime =
         Integer.toString(
@@ -111,6 +113,7 @@ public class User {
   }
 
   public void chooseWonOrLost(boolean status) {
+    // Increment games won or games lost depending on boolean parameter
     if (status) {
       this.noOfGamesWon = Integer.toString((Integer.parseInt(this.noOfGamesWon) + 1));
     } else {

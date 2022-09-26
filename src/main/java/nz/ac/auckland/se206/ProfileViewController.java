@@ -135,6 +135,7 @@ public class ProfileViewController {
   @FXML
   private void onSelectUserTwo(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
     lastUserButtonPressed = btnUserTwo;
     labelAssociatedToLastUserButtonPressed = lblUserTwo;
     // keep track of user id
@@ -155,6 +156,7 @@ public class ProfileViewController {
   @FXML
   private void onSelectUserThree(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
     lastUserButtonPressed = btnUserThree;
     labelAssociatedToLastUserButtonPressed = lblUserThree;
     // keep track of user id
@@ -175,6 +177,7 @@ public class ProfileViewController {
   @FXML
   private void onSelectUserFour(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
     lastUserButtonPressed = btnUserFour;
     labelAssociatedToLastUserButtonPressed = lblUserFour;
     // keep track of user id
@@ -195,6 +198,7 @@ public class ProfileViewController {
   @FXML
   private void onSelectUserFive(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
     lastUserButtonPressed = btnUserFive;
     labelAssociatedToLastUserButtonPressed = lblUserFive;
     // keep track of user id
@@ -215,6 +219,7 @@ public class ProfileViewController {
   @FXML
   private void onSelectUserSix(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
+    // keep track of button pressed
     lastUserButtonPressed = btnUserSix;
     labelAssociatedToLastUserButtonPressed = lblUserSix;
     // keep track of user id

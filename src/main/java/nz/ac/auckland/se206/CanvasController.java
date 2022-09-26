@@ -127,7 +127,7 @@ public class CanvasController {
     graphic = canvas.getGraphicsContext2D();
     model = new DoodlePrediction();
 
-    // set buttons to not visible
+    // set buttons to not visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
     eraserButton.setDisable(true);
@@ -136,6 +136,7 @@ public class CanvasController {
   }
 
   public void sub_initialize() throws IOException {
+    // Changes the profile display name
     getCurrentProfile();
     if (currentProfile == null) {
       profileUsernameLabel.setText("Guest");
@@ -147,6 +148,7 @@ public class CanvasController {
   private String selectRandomCategory() throws IOException {
     // get a list of all the categories
     ArrayList<String> categoryList = new ArrayList<String>();
+    // Declaring and initializing fields
     Random random = new Random();
     String line;
     String[] category;
@@ -216,6 +218,7 @@ public class CanvasController {
         e.printStackTrace();
       }
 
+      // select the current profile that was chosen by the user
       for (User userProfile : userProfiles) {
         if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
           currentProfile = userProfile;
@@ -228,6 +231,7 @@ public class CanvasController {
     int userIndex = userProfiles.indexOf(currentProfile);
     userProfiles.set(userIndex, currentProfile);
 
+    // Write any updates from the current game to the json file
     FileWriter fw = new FileWriter("profiles/profiles.json");
     gson.toJson(userProfiles, fw);
     fw.flush();
@@ -309,11 +313,12 @@ public class CanvasController {
 
     // enable user to draw
     onPen();
+
+    // Set start and back buttons to invisible and other buttons enabled
     clearButton.setDisable(false);
     canvas.setDisable(false);
     penButton.setDisable(false);
     eraserButton.setDisable(false);
-    // make the start and back button not visible
     startButton.setVisible(false);
     backButton.setVisible(false);
   }
@@ -406,14 +411,14 @@ public class CanvasController {
 
   @FXML
   private void onPlayTextToSpeech() {
-    // text to speech: speaks category
+    // text to speech: says the current category being played
     Task<Void> backgroundTask =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
+            // global variable textToSpeech initialized at the beginning
             textToSpeech.speak(category);
-
             return null;
           }
         };
@@ -501,7 +506,7 @@ public class CanvasController {
       }
     }
 
-    // make buttons visible or enabled
+    // make buttons visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
     eraserButton.setDisable(true);

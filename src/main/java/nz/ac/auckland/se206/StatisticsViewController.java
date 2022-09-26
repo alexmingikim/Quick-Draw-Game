@@ -58,15 +58,18 @@ public class StatisticsViewController {
       String userId = user.getId();
 
       if (userId.equals(currentUserId)) {
+        // display non-time related statistics of the current profile
         usernameLabel.setText(user.getName());
         gamesPlayedLabel.setText(user.getNoOfGamesPlayed());
         gamesWonLabel.setText(user.getNoOfGamesWon());
         gamesLostLabel.setText(user.getNoOfGamesLost());
 
+        // initialize fields for time related statistics
         int totalTime = Integer.parseInt(user.getTotalGameTime());
         int totalMins = totalTime / 60;
         int totalSecs = totalTime % 60;
 
+        // add a seconds (and minutes for total time) notation for the time statistics
         if (user.getTotalGameTime().equals("0")) {
           averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
           totalGameTimeLabel.setText("0s");
@@ -79,6 +82,7 @@ public class StatisticsViewController {
 
         fastestGameWonLabel.setText("(" + user.getFastestWonGame() + ")");
 
+        // displaying all the words encountered by the current profile
         String wordsEncountered = user.getWordsEncountered();
 
         String[] words = wordsEncountered.split(",");

@@ -36,7 +36,7 @@
             <Font name="Courier New Bold Italic" size="14.0" />
          </font>
       </Button>
-      <ImageView fitHeight="270.0" fitWidth="360.0" layoutX="555.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="270.0" fitWidth="360.0" layoutX="541.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/robot.png" />
          </image>
@@ -46,9 +46,9 @@
             <Font name="Courier New" size="20.0" />
          </font>
       </TextField>
-      <Label layoutX="536.0" layoutY="194.0" prefHeight="105.0" prefWidth="225.0" text="My name is Robo! &#10;What's your name?">
+      <Label layoutX="503.0" layoutY="187.0" prefHeight="105.0" prefWidth="262.0" text="&#10;What's your name?">
          <font>
-            <Font name="Courier New Bold Italic" size="19.0" />
+            <Font name="Courier New Bold Italic" size="24.0" />
          </font>
       </Label>
    </children>

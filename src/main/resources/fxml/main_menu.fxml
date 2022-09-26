@@ -58,7 +58,7 @@
                </graphic>
             </Label>
          </graphic></Button>
-      <ImageView fitHeight="308.0" fitWidth="227.0" layoutX="504.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="262.0" fitWidth="156.0" layoutX="546.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/robot.png" />
          </image>
@@ -68,5 +68,10 @@
             <Font name="Comic Sans MS Bold" size="16.0" />
          </font>
       </Text>
+      <Label layoutX="508.0" layoutY="181.0" text="Hi! My name's Robo!">
+         <font>
+            <Font name="Courier New Bold Italic" size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

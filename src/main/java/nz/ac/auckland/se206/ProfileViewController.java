@@ -17,6 +17,13 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileViewController {
 
+  private static Button[] arrayButtons;
+
+  static Button lastUserButtonPressed;
+  static Label labelAssociatedToLastUserButtonPressed;
+
+  static String currentUserId = "Zero";
+
   @FXML private Button btnCreateNewProfile;
 
   @FXML private Button btnViewStatistics;
@@ -40,15 +47,45 @@ public class ProfileViewController {
   @FXML private Label lblUserFive;
   @FXML private Label lblUserSix;
 
-  private static Button[] arrayButtons;
+  public static String getCurrentUserId() {
+    return currentUserId;
+  }
 
-  static Button lastUserButtonPressed;
-  static Label labelAssociatedToLastUserButtonPressed;
+  public static Button getLastUserButtonPressed() {
+    return lastUserButtonPressed;
+  }
 
-  static String currentUserId = "Zero";
+  public static Label getLabelAssociatedToLastUserButtonPressed() {
+    return labelAssociatedToLastUserButtonPressed;
+  }
 
-  @FXML
-  private void initialize() {
+  // load opacity status
+  public static void loadOpacity() throws IOException {
+
+    // create new JSON file
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // store user information into array
+    List<User> userProfiles = new ArrayList<User>();
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (FileNotFoundException e) {
+      return;
+    }
+
+    for (Button button : arrayButtons) {
+      for (User user : userProfiles) {
+        if (button.getId().substring(7).equals(user.getId())) {
+          button.setOpacity(user.getOpacity());
+        }
+      }
+    }
+  }
+
+  public void initialize() {
     initializeButtonArray();
   }
 
@@ -78,14 +115,6 @@ public class ProfileViewController {
     lastUserButtonPressed.setOpacity(1.0);
     btnCreateNewProfile.setDisable(true);
     btnDeleteProfile.setDisable(false);
-  }
-
-  public static String getCurrentUserId() {
-    return currentUserId;
-  }
-
-  public static Button getLastUserButtonPressed() {
-    return lastUserButtonPressed;
   }
 
   @FXML
@@ -248,35 +277,5 @@ public class ProfileViewController {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
-  }
-
-  // load opacity status
-  public static void loadOpacity() throws IOException {
-
-    // create new JSON file
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    // store user information into array
-    List<User> userProfiles = new ArrayList<User>();
-    try {
-      // read existing user profiles from JSON file and store into array list
-      FileReader fr = new FileReader("profiles/profiles.json");
-      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      fr.close();
-    } catch (FileNotFoundException e) {
-      return;
-    }
-
-    for (Button button : arrayButtons) {
-      for (User user : userProfiles) {
-        if (button.getId().substring(7).equals(user.getId())) {
-          button.setOpacity(user.getOpacity());
-        }
-      }
-    }
-  }
-
-  public static Label getLabelAssociatedToLastUserButtonPressed() {
-    return labelAssociatedToLastUserButtonPressed;
   }
 }

@@ -115,7 +115,6 @@ public class CanvasController {
    * @throws ModelException If there is an error in reading the input/output of the DL model.
    * @throws IOException If the model cannot be found on the file system.
    */
-  @FXML
   public void initialize() throws ModelException, IOException {
     // set a random category
     sub_initialize();

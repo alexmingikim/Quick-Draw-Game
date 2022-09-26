@@ -54,6 +54,7 @@ public class ProfileViewController {
   }
 
   public void initializeButtonArray() {
+    // store all 6 buttons into an array
     arrayButtons = new Button[6];
     arrayButtons[0] = btnUserOne;
     arrayButtons[1] = btnUserTwo;
@@ -97,6 +98,7 @@ public class ProfileViewController {
 
   @FXML
   private void onViewStatistics(ActionEvent event) {
+    // change scene to statistics view scene on click of this button
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.STATISTICS_VIEW));

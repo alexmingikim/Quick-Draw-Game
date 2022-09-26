@@ -73,8 +73,15 @@
             <Font name="Courier New Bold" size="16.0" />
          </font>
       </Button>
-      <ToggleButton fx:id="btnGuest" layoutX="641.0" layoutY="467.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="86.0" prefWidth="114.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="629.0" layoutY="527.5" prefHeight="25.0" prefWidth="139.0" text="Play as Guest">
+      <ToggleButton fx:id="btnGuest" layoutX="653.0" layoutY="471.0" maxHeight="100.0" maxWidth="135.0" minHeight="79.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="79.0" prefWidth="120.0">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/guest.png" />
+               </image>
+            </ImageView>
+         </graphic></ToggleButton>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="645.0" layoutY="527.5" prefHeight="25.0" prefWidth="139.0" text="Play as Guest">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -133,10 +140,5 @@
             </ImageView>
          </graphic>
       </ToggleButton>
-      <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="675.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/guest.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

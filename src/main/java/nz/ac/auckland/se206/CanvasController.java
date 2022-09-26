@@ -284,7 +284,7 @@ public class CanvasController {
   @FXML
   private void onStart() {
     // change message
-    statusLabel.setText("---------- Game in Progress ----------");
+    statusLabel.setText("Hmmmmmmmm............");
 
     // create a timeline instance for timer countdown and to update predictions
     // every second
@@ -445,7 +445,7 @@ public class CanvasController {
           model.getPredictions(getCurrentSnapshot(), 10);
 
       // set the labels
-      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
 
       final StringBuilder sb = new StringBuilder();
@@ -478,7 +478,7 @@ public class CanvasController {
       // using string builder, add all the predictions
       predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
     } else {
-      predictionsTitleLabel.setText("AI PREDICTIONS");
+      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
       // return;
     }

@@ -14,7 +14,7 @@
 
 <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
   <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="0.0" prefWidth="760.0">
          <children>
             <Label fx:id="profileUsernameLabel" prefHeight="77.0" prefWidth="150.0" text="Guest">
                <font>
@@ -31,21 +31,21 @@
                   <Insets left="8.0" />
                </HBox.margin>
             </Label>
-          <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="56.0" prefWidth="452.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
+          <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="174.0" prefWidth="452.0" text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
       <font>
         <Font name="Brush Script MT Italic" size="41.0" />
       </font>
     </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="760.0">
          <children>
             <Label fx:id="categoryLabel" prefHeight="65.0" prefWidth="360.0" text="Category:">
                <padding>
                   <Insets left="10.0" />
                </padding>
                <font>
-                  <Font name="Courier New" size="20.0" />
+                  <Font name="Courier New Bold" size="20.0" />
                </font>
             </Label>
             <Button fx:id="btnTextToSpeech" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
@@ -74,41 +74,50 @@
             </Label>
          </children>
       </HBox>
-      <Label fx:id="statusLabel" alignment="CENTER" prefHeight="24.0" prefWidth="767.0" style="-fx-background-color: #D3D3D3#D3D3D3;" text="----------- Press Start to Begin -----------" textAlignment="CENTER">
+      <Label fx:id="statusLabel" alignment="CENTER" prefHeight="55.0" prefWidth="760.0" style="-fx-background-color: #D3D3D3#D3D3D3;" text="----------- Press Start to Begin -----------" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold" size="16.0" />
          </font></Label>
-      <HBox prefHeight="300.0" prefWidth="465.0" style="-fx-background-color: white;">
+      <HBox maxHeight="324.0" minHeight="243.0" prefHeight="324.0" prefWidth="760.0" style="-fx-background-color: white;">
          <children>
-            <VBox prefHeight="300.0" prefWidth="266.0">
+            <VBox maxWidth="232.0" minWidth="232.0" prefHeight="244.0" prefWidth="232.0">
                <children>
-                  <Label fx:id="predictionsTitleLabel" alignment="CENTER" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #ededed;">
+                  <Label fx:id="predictionsTitleLabel" alignment="CENTER" minHeight="37.0" prefHeight="37.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
                      <font>
-                        <Font name="Courier New Bold" size="20.0" />
+                        <Font name="Courier New Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="predictionsLabel" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="250.0" style="-fx-background-color: #ededed;">
+                  <Label fx:id="predictionsLabel" alignment="TOP_LEFT" lineSpacing="0.5" maxHeight="280.0" maxWidth="232.0" minHeight="-Infinity" minWidth="232.0" prefHeight="262.0" prefWidth="232.0" style="-fx-background-color: #ededed;" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <font>
-                        <Font name="Courier New" size="18.0" />
+                        <Font name="Courier New" size="16.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">
+            <StackPane maxHeight="316.0" maxWidth="414.0" minHeight="243.0" minWidth="400.0" prefHeight="316.0" prefWidth="414.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">
                <children>
-                <Canvas fx:id="canvas" height="300.0" width="494.0">
+                <Canvas fx:id="canvas" height="294.0" width="395.0">
                   <cursor>
                     <Cursor fx:constant="HAND" />
                   </cursor>
                 </Canvas>
                </children>
             </StackPane>
+            <StackPane>
+               <children>
+                  <ImageView fitHeight="354.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/robot.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
          </children>
       </HBox>
-    <HBox alignment="TOP_CENTER" prefHeight="54.0" prefWidth="760.0">
+    <HBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="760.0">
       <children>
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE">
                <HBox.margin>

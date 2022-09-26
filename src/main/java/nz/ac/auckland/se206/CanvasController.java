@@ -64,9 +64,9 @@ public class CanvasController {
 
   @FXML private Label statusLabel;
 
-  @FXML private Label timer;
+  @FXML private Label timerLabel;
 
-  @FXML private Label profileUsername;
+  @FXML private Label profileUsernameLabel;
 
   @FXML private Button penButton;
 
@@ -82,7 +82,7 @@ public class CanvasController {
 
   @FXML private Button startNewGameButton;
 
-  @FXML private Button btnTTS;
+  @FXML private Button btnTextToSpeech;
 
   private int counter = 60;
 
@@ -138,9 +138,9 @@ public class CanvasController {
   public void sub_initialize() throws IOException {
     getCurrentProfile();
     if (currentProfile == null) {
-      profileUsername.setText("Guest");
+      profileUsernameLabel.setText("Guest");
     } else {
-      profileUsername.setText(currentProfile.getName());
+      profileUsernameLabel.setText(currentProfile.getName());
     }
   }
 
@@ -325,7 +325,7 @@ public class CanvasController {
 
     // reset the timer and clear the canvas
     counter = 60;
-    timer.setText("60");
+    timerLabel.setText("60");
     onClear();
 
     // initialise to get new category and make the start button visible
@@ -512,7 +512,7 @@ public class CanvasController {
 
   private void decreaseTime() {
     counter--;
-    timer.setText(String.valueOf(counter));
+    timerLabel.setText(String.valueOf(counter));
   }
 
   public void setStage(Stage stage) {

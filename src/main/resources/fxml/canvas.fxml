@@ -16,7 +16,7 @@
   <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="profileUsername" prefHeight="28.0" prefWidth="150.0" text="Guest">
+            <Label fx:id="profileUsernameLabel" prefHeight="28.0" prefWidth="150.0" text="Guest">
                <font>
                   <Font size="14.0" />
                </font>
@@ -48,7 +48,7 @@
                   <Font name="Courier New" size="22.0" />
                </font>
             </Label>
-            <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="btnTextToSpeech" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -64,7 +64,7 @@
                   <Insets right="2.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="timer" prefHeight="32.0" prefWidth="88.0" text="60" textAlignment="RIGHT">
+            <Label fx:id="timerLabel" prefHeight="32.0" prefWidth="88.0" text="60" textAlignment="RIGHT">
                <padding>
                   <Insets right="10.0" />
                </padding>

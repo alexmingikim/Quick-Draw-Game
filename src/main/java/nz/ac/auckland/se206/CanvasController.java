@@ -33,6 +33,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -58,7 +61,9 @@ public class CanvasController {
 
   @FXML private Label categoryLabel;
 
-  @FXML private Label predictionsLabel;
+  @FXML private Label predictionsLabelTopThree;
+
+  @FXML private Label predictionsLabelOther;
 
   @FXML private Label predictionsTitleLabel;
 
@@ -284,7 +289,7 @@ public class CanvasController {
   @FXML
   private void onStart() {
     // change message
-    statusLabel.setText("---------- Game in Progress ----------");
+    statusLabel.setText("Hmmmmmmm..........");
 
     // create a timeline instance for timer countdown and to update predictions
     // every second
@@ -445,10 +450,10 @@ public class CanvasController {
           model.getPredictions(getCurrentSnapshot(), 10);
 
       // set the labels
-      predictionsTitleLabel.setText("AI PREDICTIONS");
-      predictionsLabel.setText("Top 10 Predictions\n");
+      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
 
-      final StringBuilder sb = new StringBuilder();
+      final StringBuilder sbTopThree = new StringBuilder();
+      final StringBuilder sbOther = new StringBuilder();
       int i = 1;
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
@@ -461,13 +466,21 @@ public class CanvasController {
 
         // change the display format of the prediction word depending on length
         String word = prediction.getClassName().replace("_", " ");
-        if (i != 10) {
-          sb.append(i)
+        if (i < 4) {
+          sbTopThree
+              .append(i)
+              .append("  :  ")
+              .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+              .append(System.lineSeparator());
+        } else if ((i != 10) && (i > 3)) {
+          sbOther
+              .append(i)
               .append("  :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
         } else {
-          sb.append(i)
+          sbOther
+              .append(i)
               .append(" :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
@@ -476,11 +489,13 @@ public class CanvasController {
       }
 
       // using string builder, add all the predictions
-      predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
+      Text text = new Text(sbTopThree.toString());
+      text.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+      predictionsLabelTopThree.setGraphic(text);
+
+      predictionsLabelOther.setText(sbOther.toString());
     } else {
-      predictionsTitleLabel.setText("AI PREDICTIONS");
-      predictionsLabel.setText("Top 10 Predictions\n");
-      // return;
+      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
     }
   }
 

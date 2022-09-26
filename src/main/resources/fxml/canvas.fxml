@@ -48,7 +48,7 @@
                   <Font name="Courier New" size="22.0" />
                </font>
             </Label>
-            <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onTTS" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
+            <Button fx:id="btnTTS" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>

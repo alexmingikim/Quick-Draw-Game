@@ -110,7 +110,7 @@ public class User {
     this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
   }
 
-  public void gameWonOrLost(boolean status) {
+  public void chooseWonOrLost(boolean status) {
     if (status) {
       this.noOfGamesWon = Integer.toString((Integer.parseInt(this.noOfGamesWon) + 1));
     } else {

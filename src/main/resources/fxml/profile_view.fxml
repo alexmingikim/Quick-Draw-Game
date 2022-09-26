@@ -10,7 +10,7 @@
 
 <!--
 	The source of the portrait borders: Image by Freepik, https://www.freepik.com/free-photo/copy-space-canvas-golden-frame-paint_9977242.htm
-	The source of the portrait photos: Image by pikisuperstar on Freepik https://www.freepik.com/free-vector/hand-drawn-profile-icon-collection_18005859.htm#query=hand%20drawn%20profile%20icon%20collection&position=32&from_view=search#position=32&query=hand%20drawn%20profile%20icon%20collection
+	The source of the portrait photos: Image by pikisuperstar on Freepik, https://www.freepik.com/free-vector/hand-drawn-profile-icon-collection_18005859.htm#query=hand%20drawn%20profile%20icon%20collection&position=32&from_view=search#position=32&query=hand%20drawn%20profile%20icon%20collection
  -->
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfileViewController">
@@ -20,7 +20,7 @@
             <Image url="@../images/background_profile_view.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="btnUserOne" layoutX="90.0" layoutY="25.0" mnemonicParsing="false" onAction="#onUserOne" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserOne" layoutX="90.0" layoutY="25.0" mnemonicParsing="false" onAction="#onSelectUserOne" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +33,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnUserTwo" layoutX="337.0" layoutY="25.0" mnemonicParsing="false" onAction="#onUserTwo" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserTwo" layoutX="337.0" layoutY="25.0" mnemonicParsing="false" onAction="#onSelectUserTwo" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,7 +46,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnUserThree" layoutX="576.0" layoutY="26.0" mnemonicParsing="false" onAction="#onUserThree" opacity="0.5" prefHeight="126.0" prefWidth="86.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserThree" layoutX="576.0" layoutY="26.0" mnemonicParsing="false" onAction="#onSelectUserThree" opacity="0.5" prefHeight="126.0" prefWidth="86.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -59,7 +59,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnUserFour" layoutX="89.0" layoutY="221.0" mnemonicParsing="false" onAction="#onUserFour" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserFour" layoutX="89.0" layoutY="221.0" mnemonicParsing="false" onAction="#onSelectUserFour" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -72,7 +72,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnUserFive" layoutX="336.0" layoutY="221.0" mnemonicParsing="false" onAction="#onUserFive" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserFive" layoutX="336.0" layoutY="221.0" mnemonicParsing="false" onAction="#onSelectUserFive" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,7 +85,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnUserSix" layoutX="575.0" layoutY="220.0" mnemonicParsing="false" onAction="#onUserSix" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUserSix" layoutX="575.0" layoutY="220.0" mnemonicParsing="false" onAction="#onSelectUserSix" opacity="0.5" prefHeight="150.0" prefWidth="110.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -128,7 +128,7 @@
       </Button>
       <VBox alignment="CENTER" layoutX="609.0" layoutY="432.0" prefHeight="156.0" prefWidth="189.0">
          <children>
-            <Button fx:id="btnGuest" alignment="CENTER" mnemonicParsing="false" onAction="#onGuest" prefHeight="85.0" prefWidth="117.0" style="-fx-background-color: transparent;">
+            <Button fx:id="btnGuest" alignment="CENTER" mnemonicParsing="false" onAction="#onSelectGuest" prefHeight="85.0" prefWidth="117.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>

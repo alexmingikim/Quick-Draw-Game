@@ -405,7 +405,7 @@ public class CanvasController {
   }
 
   @FXML
-  private void onTTS() {
+  private void onPlayTextToSpeech() {
     // text to speech: speaks category
     Task<Void> backgroundTask =
         new Task<Void>() {
@@ -465,7 +465,7 @@ public class CanvasController {
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
-      currentProfile.gameWonOrLost(true);
+      currentProfile.chooseWonOrLost(true);
       currentProfile.updateTime(60 - counter, category);
       try {
         updateProfile();
@@ -486,13 +486,13 @@ public class CanvasController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-   statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
+    statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
-      currentProfile.gameWonOrLost(false);
+      currentProfile.chooseWonOrLost(false);
       currentProfile.updateTime(60, category);
       try {
         updateProfile();

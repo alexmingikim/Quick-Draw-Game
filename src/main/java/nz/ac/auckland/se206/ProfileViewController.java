@@ -106,7 +106,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserOne(ActionEvent event) {
+  private void onSelectUserOne(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     // keep track of button pressed and associated label
     lastUserButtonPressed = btnClicked;
@@ -114,14 +114,16 @@ public class ProfileViewController {
     // keep track of user id
     currentUserId = "One";
 
-    // no user profile established --> enable "create profile" button, disable "delete profile"
+    // no user profile established --> enable "create profile" button, disable
+    // "delete profile"
     // button, disable "view statistics" button
     if (btnClicked.getOpacity() == 0.5) {
       btnCreateNewProfile.setDisable(false);
       btnDeleteProfile.setDisable(true);
       btnViewStatistics.setDisable(true);
     }
-    // user profile is established --> disable "create profile" button, enable "delete profile"
+    // user profile is established --> disable "create profile" button, enable
+    // "delete profile"
     // button, enable "view statistics" button
     if (btnClicked.getOpacity() == 1) {
       btnCreateNewProfile.setDisable(true);
@@ -131,7 +133,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserTwo(ActionEvent event) {
+  private void onSelectUserTwo(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     lastUserButtonPressed = btnUserTwo;
     labelAssociatedToLastUserButtonPressed = lblUserTwo;
@@ -151,7 +153,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserThree(ActionEvent event) {
+  private void onSelectUserThree(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     lastUserButtonPressed = btnUserThree;
     labelAssociatedToLastUserButtonPressed = lblUserThree;
@@ -171,7 +173,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserFour(ActionEvent event) {
+  private void onSelectUserFour(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     lastUserButtonPressed = btnUserFour;
     labelAssociatedToLastUserButtonPressed = lblUserFour;
@@ -191,7 +193,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserFive(ActionEvent event) {
+  private void onSelectUserFive(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     lastUserButtonPressed = btnUserFive;
     labelAssociatedToLastUserButtonPressed = lblUserFive;
@@ -211,7 +213,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onUserSix(ActionEvent event) {
+  private void onSelectUserSix(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
     lastUserButtonPressed = btnUserSix;
     labelAssociatedToLastUserButtonPressed = lblUserSix;
@@ -231,7 +233,7 @@ public class ProfileViewController {
   }
 
   @FXML
-  private void onGuest(ActionEvent event) {
+  private void onSelectGuest(ActionEvent event) {
     // keep track of button pressed
     lastUserButtonPressed = btnGuest;
     // user id 0 for guest

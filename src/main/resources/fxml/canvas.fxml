@@ -78,7 +78,7 @@
          <font>
             <Font name="Courier New Bold" size="16.0" />
          </font></Label>
-      <HBox prefHeight="300.0" prefWidth="465.0" style="-fx-background-color: #f9f9f9;">
+      <HBox prefHeight="300.0" prefWidth="465.0" style="-fx-background-color: white;">
          <children>
             <VBox prefHeight="300.0" prefWidth="266.0">
                <children>

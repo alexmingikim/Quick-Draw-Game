@@ -243,6 +243,7 @@ public class CanvasController {
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    blankStatus = true;
   }
 
   /**
@@ -339,6 +340,11 @@ public class CanvasController {
     initialize();
     startButton.setVisible(true);
     blankStatus = true;
+    try {
+      updatePrediction();
+    } catch (TranslateException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML

@@ -11,6 +11,11 @@
 
 <Pane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfileCreationController">
    <children>
+      <ImageView fitHeight="623.0" fitWidth="902.0" layoutX="-17.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/background_profile_view.jpg" />
+         </image>
+      </ImageView>
       <Label layoutX="123.0" layoutY="114.0" prefHeight="74.0" prefWidth="328.0" text="Create Profile">
          <font>
             <Font name="Courier New Bold" size="38.0" />
@@ -41,7 +46,7 @@
             <Font name="Courier New" size="20.0" />
          </font>
       </TextField>
-      <Label layoutX="533.0" layoutY="185.0" prefHeight="105.0" prefWidth="225.0" text="My name is Robo! &#10;What's your name?">
+      <Label layoutX="536.0" layoutY="194.0" prefHeight="105.0" prefWidth="225.0" text="My name is Robo! &#10;What's your name?">
          <font>
             <Font name="Courier New Bold Italic" size="19.0" />
          </font>

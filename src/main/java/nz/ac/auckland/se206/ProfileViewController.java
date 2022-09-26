@@ -275,7 +275,7 @@ public class ProfileViewController {
     // user id 0 for guest
     currentUserId = "Zero";
 
-    Button button = (Button) event.getSource();
+    ToggleButton button = (ToggleButton) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
   }

@@ -13,36 +13,34 @@
    <children>
       <VBox alignment="CENTER" prefHeight="375.0" prefWidth="440.0" style="-fx-background-color: white;">
          <children>
-            <Label text="Create Profile">
+            <Label prefHeight="74.0" prefWidth="328.0" text="Create Profile">
                <font>
-                  <Font name="Courier New Bold" size="30.0" />
+                  <Font name="Courier New Bold" size="38.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="27.2" />
                </VBox.margin>
             </Label>
-            <HBox alignment="CENTER" prefHeight="27.2" prefWidth="200.0" style="-fx-background-color: white;">
+            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="440.0" style="-fx-background-color: white;">
                <children>
-                  <Label text="Username:">
+                  <Label prefHeight="72.0" prefWidth="161.0" text="Username:">
                      <font>
-                        <Font name="Courier New Bold Italic" size="18.0" />
+                        <Font name="Courier New Bold Italic" size="26.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="usernameTextField" />
+                  <TextField fx:id="usernameTextField" prefHeight="43.0" prefWidth="172.0">
+                     <font>
+                        <Font name="Courier New" size="20.0" />
+                     </font></TextField>
                </children>
                <VBox.margin>
                   <Insets top="27.2" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="27.2" prefWidth="200.0" style="-fx-background-color: white;">
-               <VBox.margin>
-                  <Insets top="27.2" />
-               </VBox.margin>
-            </HBox>
-            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirm" style="-fx-background-color: #404040;" text="Confirm" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirm" prefHeight="37.0" prefWidth="90.0" style="-fx-background-color: #404040;" text="Confirm" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets top="27.2" />
                </VBox.margin>
@@ -50,7 +48,7 @@
                   <Font name="Courier New Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onCancel" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #404040;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="cancelButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onCancel" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: #404040;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold Italic" size="14.0" />
                </font>

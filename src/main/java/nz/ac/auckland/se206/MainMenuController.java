@@ -30,5 +30,6 @@ public class MainMenuController {
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.PROFILE_VIEW));
 
     ProfileViewController.loadOpacity();
+    ProfileViewController.loadUserLabels();
   }
 }

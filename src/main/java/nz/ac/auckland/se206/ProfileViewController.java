@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +18,7 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 public class ProfileViewController {
 
   private static ToggleButton[] arrayButtons;
+  private static Label[] userLabels;
 
   static ToggleButton lastUserButtonPressed;
   static Label labelAssociatedToLastUserButtonPressed;
@@ -67,7 +67,7 @@ public class ProfileViewController {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // store user information into array
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
     try {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
@@ -86,8 +86,35 @@ public class ProfileViewController {
     }
   }
 
+  // load opacity status
+  public static void loadUserLabels() throws IOException {
+
+    // create new JSON file
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // store user information into array
+    List<User> userProfiles;
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (FileNotFoundException e) {
+      return;
+    }
+
+    for (Label label : userLabels) {
+      for (User user : userProfiles) {
+        if (label.getId().substring(7).equals(user.getId())) {
+          label.setText(user.getName());
+        }
+      }
+    }
+  }
+
   public void initialize() {
     initializeButtonArray();
+    initializeUserLabelArray();
   }
 
   public void initializeButtonArray() {
@@ -99,6 +126,17 @@ public class ProfileViewController {
     arrayButtons[3] = btnUserFour;
     arrayButtons[4] = btnUserFive;
     arrayButtons[5] = btnUserSix;
+  }
+
+  public void initializeUserLabelArray() {
+    // store all 6 user labels into an array
+    userLabels = new Label[6];
+    userLabels[0] = lblUserOne;
+    userLabels[1] = lblUserTwo;
+    userLabels[2] = lblUserThree;
+    userLabels[3] = lblUserFour;
+    userLabels[4] = lblUserFive;
+    userLabels[5] = lblUserSix;
   }
 
   @FXML

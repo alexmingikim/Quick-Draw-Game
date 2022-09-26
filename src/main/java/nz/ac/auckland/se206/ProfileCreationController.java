@@ -77,7 +77,9 @@ public class ProfileCreationController {
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
       fr.close();
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      FileWriter writer = new FileWriter("profiles/profiles.json");
+      writer.flush();
+      writer.close();
     }
 
     // add new user profile to array list and store as JSON file

@@ -448,10 +448,17 @@ public class CanvasController {
       }
 
       String word = prediction.getClassName().replace("_", " ");
-      sb.append(i)
-          .append(" : ")
-          .append(word.substring(0, 1).toUpperCase() + word.substring(1))
-          .append(System.lineSeparator());
+      if (i != 10) {
+        sb.append(i)
+            .append("  :  ")
+            .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+            .append(System.lineSeparator());
+      } else {
+        sb.append(i)
+            .append(" :  ")
+            .append(word.substring(0, 1).toUpperCase() + word.substring(1))
+            .append(System.lineSeparator());
+      }
       i++;
     }
 

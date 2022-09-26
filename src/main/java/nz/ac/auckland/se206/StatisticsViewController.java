@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 
 public class StatisticsViewController {
 
-  @FXML Button goBackButton;
+  @FXML private Button goBackButton;
 
   @FXML private Label usernameLabel;
 

@@ -17,13 +17,13 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ProfileViewController {
 
-  @FXML Button btnCreateNewProfile;
+  @FXML private Button btnCreateNewProfile;
 
-  @FXML Button btnViewStatistics;
+  @FXML private Button btnViewStatistics;
 
-  @FXML Button btnDeleteProfile;
+  @FXML private Button btnDeleteProfile;
 
-  @FXML Button btnGoBack;
+  @FXML private Button btnGoBack;
 
   @FXML private Button btnUserOne;
   @FXML private Button btnUserTwo;
@@ -45,7 +45,6 @@ public class ProfileViewController {
   static Button lastUserButtonPressed;
   static Label labelAssociatedToLastUserButtonPressed;
 
-  String currentUserSelected;
   static String currentUserId = "Zero";
 
   @FXML

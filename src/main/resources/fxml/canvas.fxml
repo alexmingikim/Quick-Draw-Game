@@ -40,12 +40,12 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="categoryLabel" prefHeight="72.0" prefWidth="325.0" text="Category:">
+            <Label fx:id="categoryLabel" prefHeight="65.0" prefWidth="360.0" text="Category:">
                <padding>
                   <Insets left="10.0" />
                </padding>
                <font>
-                  <Font name="Courier New" size="22.0" />
+                  <Font name="Courier New" size="20.0" />
                </font>
             </Label>
             <Button fx:id="btnTextToSpeech" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="60.0" prefWidth="51.0" style="-fx-background-color: transparent;" textFill="WHITE">

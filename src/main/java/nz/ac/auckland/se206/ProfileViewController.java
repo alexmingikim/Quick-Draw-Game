@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +67,7 @@ public class ProfileViewController {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // store user information into array
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
     try {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
@@ -94,7 +93,7 @@ public class ProfileViewController {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // store user information into array
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
     try {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");

@@ -21,7 +21,7 @@
             <Image url="@../images/background_profile_view.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="lblUserOne" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="193.0" prefHeight="27.0" prefWidth="207.0" text="User1">
+      <Label fx:id="lblUserOne" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="195.0" prefHeight="27.0" prefWidth="207.0" text="User1">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
@@ -33,7 +33,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Label fx:id="lblUserFour" alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" layoutY="390.0" prefHeight="27.0" prefWidth="195.0" text="User4">
+      <Label fx:id="lblUserFour" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="390.0" prefHeight="27.0" prefWidth="195.0" text="User4">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
@@ -73,18 +73,10 @@
             <Font name="Courier New Bold" size="16.0" />
          </font>
       </Button>
-      <ToggleButton fx:id="btnGuest" layoutX="665.0" layoutY="459.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="68.0" prefWidth="67.0">
-         <graphic>
-            <ImageView fitHeight="82.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/guest.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </ToggleButton>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="634.0" layoutY="533.5" prefHeight="25.0" prefWidth="139.0" text="Play as Guest">
+      <ToggleButton fx:id="btnGuest" layoutX="641.0" layoutY="467.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="86.0" prefWidth="114.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="629.0" layoutY="527.5" prefHeight="25.0" prefWidth="139.0" text="Play as Guest">
          <font>
-            <Font name="Courier New Bold" size="16.0" />
+            <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
       <ToggleButton fx:id="btnUserTwo" layoutX="339.0" layoutY="35.0" maxHeight="154.0" maxWidth="200.0" minHeight="150.0" minWidth="135.0" mnemonicParsing="false" onAction="#onSelectUserTwo" opacity="0.5" prefHeight="154.0" prefWidth="135.0">
@@ -105,7 +97,7 @@
             </ImageView>
          </graphic>
       </ToggleButton>
-      <ToggleButton fx:id="btnUserFour" layoutX="84.0" layoutY="230.0" maxHeight="157.0" maxWidth="200.0" minHeight="150.0" minWidth="135.0" mnemonicParsing="false" onAction="#onSelectUserFour" opacity="0.5" prefHeight="154.0" prefWidth="135.0">
+      <ToggleButton fx:id="btnUserFour" layoutX="93.0" layoutY="233.0" maxHeight="157.0" maxWidth="200.0" minHeight="150.0" minWidth="135.0" mnemonicParsing="false" onAction="#onSelectUserFour" opacity="0.5" prefHeight="154.0" prefWidth="135.0">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -132,7 +124,7 @@
             </ImageView>
          </graphic>
       </ToggleButton>
-      <ToggleButton fx:id="btnUserOne" graphicTextGap="0.0" layoutX="82.0" layoutY="35.0" maxHeight="156.0" maxWidth="200.0" minHeight="141.0" minWidth="130.0" mnemonicParsing="false" onAction="#onSelectUserOne" opacity="0.5" prefHeight="154.0" prefWidth="135.0">
+      <ToggleButton fx:id="btnUserOne" graphicTextGap="0.0" layoutX="92.0" layoutY="37.0" maxHeight="156.0" maxWidth="200.0" minHeight="141.0" minWidth="130.0" mnemonicParsing="false" onAction="#onSelectUserOne" opacity="0.5" prefHeight="154.0" prefWidth="135.0">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -141,5 +133,10 @@
             </ImageView>
          </graphic>
       </ToggleButton>
+      <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="675.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/guest.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

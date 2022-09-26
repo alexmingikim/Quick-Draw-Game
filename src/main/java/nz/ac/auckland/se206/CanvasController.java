@@ -453,6 +453,7 @@ public class CanvasController {
           setWin();
         }
 
+        // change the display format of the prediction word depending on length
         String word = prediction.getClassName().replace("_", " ");
         if (i != 10) {
           sb.append(i)

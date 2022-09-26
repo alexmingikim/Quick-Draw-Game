@@ -76,6 +76,7 @@ public class MainMenuController {
 
   @FXML
   private void onSwitchProfile(ActionEvent event) throws IOException {
+    // retrieve the scene of a mock button to set the next scene
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.PROFILE_VIEW));

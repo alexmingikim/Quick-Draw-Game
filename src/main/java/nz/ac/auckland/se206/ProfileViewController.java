@@ -158,6 +158,7 @@ public class ProfileViewController {
 
   @FXML
   private void onGoBack(ActionEvent event) throws IOException {
+    // go to the main menu scene
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));

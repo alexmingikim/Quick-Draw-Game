@@ -1,11 +1,5 @@
 package nz.ac.auckland.se206;
 
-import ai.djl.ModelException;
-import ai.djl.modality.Classifications;
-import ai.djl.translate.TranslateException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -19,6 +13,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import ai.djl.ModelException;
+import ai.djl.modality.Classifications;
+import ai.djl.translate.TranslateException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
@@ -36,73 +40,91 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
- * This is the controller of the canvas. You are free to modify this class and the corresponding
- * FXML file as you see fit. For example, you might no longer need the "Predict" button because the
- * DL model should be automatically queried in the background every second.
+ * This is the controller of the canvas. You are free to modify this class and
+ * the corresponding FXML file as you see fit. For example, you might no longer
+ * need the "Predict" button because the DL model should be automatically
+ * queried in the background every second.
  *
- * <p>!! IMPORTANT !!
+ * <p>
+ * !! IMPORTANT !!
  *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of the
- * drawable canvas and the brush size. If you make the brush too big or too small with respect to
- * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
- * the canvas and brush sizes, make sure that the prediction works fine.
+ * <p>
+ * Although we added the scale of the image, you need to be careful when
+ * changing the size of the drawable canvas and the brush size. If you make the
+ * brush too big or too small with respect to the canvas size, the ML model will
+ * not work correctly. So be careful. If you make some changes in the canvas and
+ * brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController {
 
-  @FXML private Canvas canvas;
+	@FXML
+	private Canvas canvas;
 
-  @FXML private Label categoryLabel;
+	@FXML
+	private Label categoryLabel;
 
-  @FXML private Label predictionsLabel;
+	@FXML
+	private Label predictionsLabel;
 
-  @FXML private Label predictionsTitleLabel;
+	@FXML
+	private Label predictionsTitleLabel;
 
-  @FXML private Label statusLabel;
+	@FXML
+	private Label statusLabel;
 
-  @FXML private Label timerLabel;
+	@FXML
+	private Label timerLabel;
 
-  @FXML private Label profileUsernameLabel;
+	@FXML
+	private Label profileUsernameLabel;
 
-  @FXML private Button penButton;
+	@FXML
+	private Button penButton;
 
-  @FXML private Button eraserButton;
+	@FXML
+	private Button eraserButton;
 
-  @FXML private Button startButton;
+	@FXML
+	private Button startButton;
 
-  @FXML private Button backButton;
+	@FXML
+	private Button backButton;
 
-  @FXML private Button clearButton;
+	@FXML
+	private Button clearButton;
 
-  @FXML private Button saveDrawingButton;
+	@FXML
+	private Button saveDrawingButton;
 
-  @FXML private Button startNewGameButton;
+	@FXML
+	private Button startNewGameButton;
 
-  @FXML private Button btnTextToSpeech;
+	@FXML
+	private Button btnTextToSpeech;
 
-  private int counter = 60;
+	private int counter = 60;
 
-  private String category;
+	private String category;
 
-  private GraphicsContext graphic;
+	private GraphicsContext graphic;
 
-  private DoodlePrediction model;
+	private DoodlePrediction model;
 
-  private Timeline timeline;
+	private Timeline timeline;
 
-  private Stage stage;
+	private Stage stage;
 
-  private TextToSpeech textToSpeech = new TextToSpeech();
+	private TextToSpeech textToSpeech = new TextToSpeech();
 
-  private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-  private List<User> userProfiles = new ArrayList<User>();
+	private List<User> userProfiles = new ArrayList<User>();
 
-  private User currentProfile;
+	private User currentProfile;
 
   private boolean blankStatus = true;
 
@@ -119,7 +141,7 @@ public class CanvasController {
    */
   public void initialize() throws ModelException, IOException {
     // set a random category
-    sub_initialize();
+    subInitialize();
     category = selectRandomCategory();
     categoryLabel.setText(
         "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -136,7 +158,7 @@ public class CanvasController {
     saveDrawingButton.setVisible(false);
   }
 
-  public void sub_initialize() throws IOException {
+  public void subInitialize() throws IOException {
     // Changes the profile display name
     getCurrentProfile();
     if (currentProfile == null) {

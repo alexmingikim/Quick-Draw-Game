@@ -64,9 +64,9 @@ public class CanvasController {
 
   @FXML private Label statusLabel;
 
-  @FXML private Label timer;
+  @FXML private Label timerLabel;
 
-  @FXML private Label profileUsername;
+  @FXML private Label profileUsernameLabel;
 
   @FXML private Button penButton;
 
@@ -82,7 +82,7 @@ public class CanvasController {
 
   @FXML private Button startNewGameButton;
 
-  @FXML private Button btnTTS;
+  @FXML private Button btnTextToSpeech;
 
   private int counter = 60;
 
@@ -115,7 +115,6 @@ public class CanvasController {
    * @throws ModelException If there is an error in reading the input/output of the DL model.
    * @throws IOException If the model cannot be found on the file system.
    */
-  @FXML
   public void initialize() throws ModelException, IOException {
     // set a random category
     sub_initialize();
@@ -127,7 +126,7 @@ public class CanvasController {
     graphic = canvas.getGraphicsContext2D();
     model = new DoodlePrediction();
 
-    // set buttons to not visible
+    // set buttons to not visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
     eraserButton.setDisable(true);
@@ -136,17 +135,19 @@ public class CanvasController {
   }
 
   public void sub_initialize() throws IOException {
+    // Changes the profile display name
     getCurrentProfile();
     if (currentProfile == null) {
-      profileUsername.setText("Guest");
+      profileUsernameLabel.setText("Guest");
     } else {
-      profileUsername.setText(currentProfile.getName());
+      profileUsernameLabel.setText(currentProfile.getName());
     }
   }
 
   private String selectRandomCategory() throws IOException {
     // get a list of all the categories
     ArrayList<String> categoryList = new ArrayList<String>();
+    // Declaring and initializing fields
     Random random = new Random();
     String line;
     String[] category;
@@ -216,6 +217,7 @@ public class CanvasController {
         e.printStackTrace();
       }
 
+      // select the current profile that was chosen by the user
       for (User userProfile : userProfiles) {
         if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
           currentProfile = userProfile;
@@ -228,6 +230,7 @@ public class CanvasController {
     int userIndex = userProfiles.indexOf(currentProfile);
     userProfiles.set(userIndex, currentProfile);
 
+    // Write any updates from the current game to the json file
     FileWriter fw = new FileWriter("profiles/profiles.json");
     gson.toJson(userProfiles, fw);
     fw.flush();
@@ -309,11 +312,12 @@ public class CanvasController {
 
     // enable user to draw
     onPen();
+
+    // Set start and back buttons to invisible and other buttons enabled
     clearButton.setDisable(false);
     canvas.setDisable(false);
     penButton.setDisable(false);
     eraserButton.setDisable(false);
-    // make the start and back button not visible
     startButton.setVisible(false);
     backButton.setVisible(false);
   }
@@ -325,7 +329,7 @@ public class CanvasController {
 
     // reset the timer and clear the canvas
     counter = 60;
-    timer.setText("60");
+    timerLabel.setText("60");
     onClear();
 
     // initialise to get new category and make the start button visible
@@ -405,15 +409,15 @@ public class CanvasController {
   }
 
   @FXML
-  private void onTTS() {
-    // text to speech: speaks category
+  private void onPlayTextToSpeech() {
+    // text to speech: says the current category being played
     Task<Void> backgroundTask =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
+            // global variable textToSpeech initialized at the beginning
             textToSpeech.speak(category);
-
             return null;
           }
         };
@@ -465,7 +469,7 @@ public class CanvasController {
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
-      currentProfile.gameWonOrLost(true);
+      currentProfile.chooseWonOrLost(true);
       currentProfile.updateTime(60 - counter, category);
       try {
         updateProfile();
@@ -486,13 +490,13 @@ public class CanvasController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-   statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
+    statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
-      currentProfile.gameWonOrLost(false);
+      currentProfile.chooseWonOrLost(false);
       currentProfile.updateTime(60, category);
       try {
         updateProfile();
@@ -501,7 +505,7 @@ public class CanvasController {
       }
     }
 
-    // make buttons visible or enabled
+    // make buttons visible or disabled
     clearButton.setDisable(true);
     penButton.setDisable(true);
     eraserButton.setDisable(true);
@@ -512,7 +516,7 @@ public class CanvasController {
 
   private void decreaseTime() {
     counter--;
-    timer.setText(String.valueOf(counter));
+    timerLabel.setText(String.valueOf(counter));
   }
 
   public void setStage(Stage stage) {

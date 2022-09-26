@@ -46,7 +46,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    // load and add main menu to appui
+    // load and add all scenes to SceneManager
     SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
     SceneManager.addLoader(AppUi.MAIN_MENU, fxmlLoader);
     SceneManager.addUi(AppUi.PROFILE_VIEW, loadFxml("profile_view"));

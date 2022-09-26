@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -17,7 +18,7 @@ import javafx.scene.text.Text;
 
 public class StatisticsViewController {
 
-  @FXML Button goBackButton;
+  @FXML private Button goBackButton;
 
   @FXML private Label usernameLabel;
 
@@ -48,9 +49,10 @@ public class StatisticsViewController {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      // fr.close();
-
+      fr.close();
     } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
@@ -58,15 +60,18 @@ public class StatisticsViewController {
       String userId = user.getId();
 
       if (userId.equals(currentUserId)) {
+        // display non-time related statistics of the current profile
         usernameLabel.setText(user.getName());
         gamesPlayedLabel.setText(user.getNoOfGamesPlayed());
         gamesWonLabel.setText(user.getNoOfGamesWon());
         gamesLostLabel.setText(user.getNoOfGamesLost());
 
+        // initialize fields for time related statistics
         int totalTime = Integer.parseInt(user.getTotalGameTime());
         int totalMins = totalTime / 60;
         int totalSecs = totalTime % 60;
 
+        // add a seconds (and minutes for total time) notation for the time statistics
         if (user.getTotalGameTime().equals("0")) {
           averageDrawingTimeLabel.setText(user.getAverageDrawingTime());
           totalGameTimeLabel.setText("0s");
@@ -79,6 +84,7 @@ public class StatisticsViewController {
 
         fastestGameWonLabel.setText("(" + user.getFastestWonGame() + ")");
 
+        // displaying all the words encountered by the current profile
         String wordsEncountered = user.getWordsEncountered();
 
         String[] words = wordsEncountered.split(",");

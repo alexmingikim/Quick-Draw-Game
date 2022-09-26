@@ -12,6 +12,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.StatisticsViewController">
    <children>
+      <ImageView fitHeight="604.0" fitWidth="842.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/background_profile_view.jpg" />
+         </image>
+      </ImageView>
       <Label fx:id="usernameLabel" layoutX="37.0" layoutY="28.0" text="Username">
          <font>
             <Font name="Courier New Bold Italic" size="44.0" />

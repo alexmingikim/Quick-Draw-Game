@@ -94,7 +94,7 @@ public class User {
     this.wordsEncountered = sb.toString();
   }
 
-  public void updateTime(int time, String word) {
+  public void updateTimeWon(int time, String word) {
     // first update total time then use that stat to calculate the rest of the time
     // related statistics
     this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
@@ -106,6 +106,15 @@ public class User {
       this.fastestWonGameTime = Integer.toString(time);
       this.fastestWonGame = word;
     }
+  }
+
+  public void updateTimeLost() {
+    // first update total time then use that stat to calculate the rest of the time
+    // related statistics
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + 60));
+    this.averageDrawingTime =
+        Integer.toString(
+            Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
   }
 
   public void incrementNoOfGamesPlayed() {

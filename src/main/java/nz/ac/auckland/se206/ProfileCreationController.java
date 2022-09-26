@@ -54,7 +54,7 @@ public class ProfileCreationController {
       Path path = Paths.get("profiles");
       Files.createDirectories(path);
     } catch (FileAlreadyExistsException e) {
-
+      e.printStackTrace();
     }
 
     // keep track of username and user id
@@ -76,7 +76,7 @@ public class ProfileCreationController {
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
       fr.close();
     } catch (FileNotFoundException e) {
-
+      e.printStackTrace();
     }
 
     // add new user profile to array list and store as JSON file

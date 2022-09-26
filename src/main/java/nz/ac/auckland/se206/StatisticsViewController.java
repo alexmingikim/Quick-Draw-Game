@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -48,9 +49,10 @@ public class StatisticsViewController {
       // read existing user profiles from JSON file and store into array list
       FileReader fr = new FileReader("profiles/profiles.json");
       userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      // fr.close();
-
+      fr.close();
     } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
       e.printStackTrace();
     }
 

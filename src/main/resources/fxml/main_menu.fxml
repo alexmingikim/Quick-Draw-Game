@@ -25,7 +25,7 @@
             <Image url="@../images/blank_canvas.png" />
          </image>
       </ImageView>
-      <Button fx:id="Play" alignment="CENTER" layoutX="442.0" layoutY="498.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
+      <Button fx:id="playButton" alignment="CENTER" layoutX="442.0" layoutY="498.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>
@@ -73,5 +73,10 @@
             <Font name="Courier New Bold Italic" size="20.0" />
          </font>
       </Label>
+      <Button fx:id="settingsButton" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" onAction="#onGoSettings" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Settings" textFill="WHITE">
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

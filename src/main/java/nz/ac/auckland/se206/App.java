@@ -49,17 +49,21 @@ public class App extends Application {
     // load and add all scenes to SceneManager
     SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
     SceneManager.addLoader(AppUi.MAIN_MENU, fxmlLoader);
+    // Profile scenes branch
     SceneManager.addUi(AppUi.PROFILE_VIEW, loadFxml("profile_view"));
     SceneManager.addLoader(AppUi.PROFILE_VIEW, fxmlLoader);
     SceneManager.addUi(AppUi.PROFILE_CREATION, loadFxml("profile_creation"));
     SceneManager.addLoader(AppUi.PROFILE_CREATION, fxmlLoader);
     SceneManager.addUi(AppUi.STATISTICS_VIEW, loadFxml("statistics_view"));
     SceneManager.addLoader(AppUi.STATISTICS_VIEW, fxmlLoader);
-
-    // load the canvas fxml and adds to appui, also set the stage in
-    // CanvasController as the primary stage
+    // Difficulty change branch
+    SceneManager.addUi(AppUi.SETTINGS, loadFxml("settings"));
+    SceneManager.addLoader(AppUi.SETTINGS, fxmlLoader);
+    // main game branch
     SceneManager.addUi(AppUi.CANVAS, loadFxml("canvas"));
     SceneManager.addLoader(AppUi.CANVAS, fxmlLoader);
+
+    // set the stage in CanvasController as the primary stage
     ((CanvasController) fxmlLoader.getController()).setStage(stage);
 
     // listen for window close and terminate text to speech on close

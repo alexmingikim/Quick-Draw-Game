@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -29,29 +30,116 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label alignment="CENTER_RIGHT" layoutX="180.0" layoutY="150.0" prefWidth="150.0" text="Accuracy">
+      <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="150.0" prefWidth="150.0" text="Accuracy">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="accuracyChoice" layoutX="450.0" layoutY="150.0" prefHeight="27.0" prefWidth="150.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="180.0" layoutY="227.0" prefWidth="150.0" text="Words">
+      <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="150.0" prefHeight="27.5" prefWidth="411.0" spacing="85.0">
+         <children>
+            <ToggleButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onEasyAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onMediumAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onHardAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </HBox>
+      <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="227.0" prefWidth="150.0" text="Words">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="wordsChoice" layoutX="450.0" layoutY="227.0" prefHeight="27.0" prefWidth="150.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="180.0" layoutY="304.0" prefWidth="150.0" text="Time">
+      <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="227.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
+         <children>
+            <ToggleButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onEasyWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onMediumWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onHardWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onMasterWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </HBox>
+      <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="304.0" prefWidth="150.0" text="Time">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="confidenceChoice" layoutX="450.0" layoutY="381.0" prefHeight="27.0" prefWidth="150.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="180.0" layoutY="381.0" prefWidth="150.0" text="Confidence">
+      <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="381.0" prefWidth="150.0" text="Confidence">
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="timeChoice" layoutX="450.0" layoutY="304.0" prefHeight="27.0" prefWidth="150.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="304.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
+         <children>
+            <ToggleButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onEasyTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onMediumTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onHardTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onMasterTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="381.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
+         <children>
+            <ToggleButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onEasyConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onMediumConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onHardConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onMasterConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </HBox>
    </children>
 </Pane>

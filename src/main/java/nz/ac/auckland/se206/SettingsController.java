@@ -1,49 +1,151 @@
 package nz.ac.auckland.se206;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class SettingsController {
+
+  public enum Difficulties {
+    Easy,
+    Medium,
+    Hard,
+    Master
+  }
+
   @FXML private Button btnGoBack;
 
-  @SuppressWarnings("rawtypes")
-  @FXML
-  private ChoiceBox accuracyChoice;
+  @FXML private ToggleButton easyAccuracyButton;
 
-  @SuppressWarnings("rawtypes")
-  @FXML
-  private ChoiceBox wordsChoice;
+  @FXML private ToggleButton mediumAccuracyButton;
 
-  @SuppressWarnings("rawtypes")
-  @FXML
-  private ChoiceBox timeChoice;
+  @FXML private ToggleButton hardAccuracyButton;
 
-  @SuppressWarnings("rawtypes")
-  @FXML
-  private ChoiceBox confidenceChoice;
+  @FXML private ToggleButton easyWordsButton;
 
-  private String[] accuracyDifficulties = {"Easy", "Medium", "Hard"};
+  @FXML private ToggleButton mediumWordsButton;
 
-  private String[] otherDifficulties = {"Easy", "Medium", "Hard", "Master"};
+  @FXML private ToggleButton hardWordsButton;
 
-  @SuppressWarnings("unchecked")
+  @FXML private ToggleButton masterWordsButton;
+
+  @FXML private ToggleButton easyTimeButton;
+
+  @FXML private ToggleButton mediumTimeButton;
+
+  @FXML private ToggleButton hardTimeButton;
+
+  @FXML private ToggleButton masterTimeButton;
+
+  @FXML private ToggleButton easyConfidenceButton;
+
+  @FXML private ToggleButton mediumConfidenceButton;
+
+  @FXML private ToggleButton hardConfidenceButton;
+
+  @FXML private ToggleButton masterConfidenceButton;
+
+  private ToggleButton lastAccuracyButton;
+
+  private ToggleButton lastWordsButton;
+
+  private ToggleButton lastTimeButton;
+
+  private ToggleButton lastConfidenceButton;
+
+  private ToggleGroup accuracyGroup = new ToggleGroup();
+
+  private ToggleGroup wordsGroup = new ToggleGroup();
+
+  private ToggleGroup timeGroup = new ToggleGroup();
+
+  private ToggleGroup confidenceGroup = new ToggleGroup();
+
   public void initialize() {
-    // set the difficulty levels for all difficulty settings
-    accuracyChoice.setItems(FXCollections.observableArrayList(accuracyDifficulties));
-    wordsChoice.setItems(FXCollections.observableArrayList(otherDifficulties));
-    timeChoice.setItems(FXCollections.observableArrayList(otherDifficulties));
-    confidenceChoice.setItems(FXCollections.observableArrayList(otherDifficulties));
+    // create the groups for difficulty buttons and set the default difficulty to
+    // easy
+    createGroups();
+    accuracyGroup.selectToggle(easyAccuracyButton);
+    wordsGroup.selectToggle(easyWordsButton);
+    timeGroup.selectToggle(easyTimeButton);
+    confidenceGroup.selectToggle(easyConfidenceButton);
 
-    // set the default difficulty to "Easy"
-    accuracyChoice.getSelectionModel().select(0);
-    wordsChoice.getSelectionModel().select(0);
-    timeChoice.getSelectionModel().select(0);
-    confidenceChoice.getSelectionModel().select(0);
+    // update changes to buttons
+    updateAccuracyButtons(easyAccuracyButton);
+    updateWordsButtons(easyWordsButton);
+    updateTimeButtons(easyTimeButton);
+    updateConfidenceButtons(easyConfidenceButton);
+
+    // stores the difficulty setting for the next change
+    lastAccuracyButton = easyAccuracyButton;
+    lastWordsButton = easyWordsButton;
+    lastTimeButton = easyTimeButton;
+    lastConfidenceButton = easyConfidenceButton;
+  }
+
+  private void updateAccuracyButtons(ToggleButton selectedAccuracy) {
+    // update changes to accuracy setting buttons
+    selectedAccuracy.setDisable(true);
+    if (!(lastAccuracyButton == null)) {
+      lastAccuracyButton.setDisable(false);
+    }
+    lastAccuracyButton = selectedAccuracy;
+  }
+
+  private void updateWordsButtons(ToggleButton selectedWords) {
+    // update changes to words setting buttons
+    selectedWords.setDisable(true);
+    if (!(lastWordsButton == null)) {
+      lastWordsButton.setDisable(false);
+    }
+    lastWordsButton = selectedWords;
+  }
+
+  private void updateTimeButtons(ToggleButton selectedTime) {
+    // update changes to time setting buttons
+    selectedTime.setDisable(true);
+    if (!(lastTimeButton == null)) {
+      lastTimeButton.setDisable(false);
+    }
+    lastTimeButton = selectedTime;
+  }
+
+  private void updateConfidenceButtons(ToggleButton selectedConfidence) {
+    // update changes to confidence setting buttons
+    selectedConfidence.setDisable(true);
+    if (!(lastConfidenceButton == null)) {
+      lastConfidenceButton.setDisable(false);
+    }
+    lastConfidenceButton = selectedConfidence;
+  }
+
+  private void createGroups() {
+    // store corresponding accuracy toggle buttons into toggle group
+    easyAccuracyButton.setToggleGroup(accuracyGroup);
+    mediumAccuracyButton.setToggleGroup(accuracyGroup);
+    hardAccuracyButton.setToggleGroup(accuracyGroup);
+
+    // store corresponding words toggle buttons into toggle group
+    easyWordsButton.setToggleGroup(wordsGroup);
+    mediumWordsButton.setToggleGroup(wordsGroup);
+    hardWordsButton.setToggleGroup(wordsGroup);
+    masterWordsButton.setToggleGroup(wordsGroup);
+
+    // store corresponding time toggle buttons into toggle group
+    easyTimeButton.setToggleGroup(timeGroup);
+    mediumTimeButton.setToggleGroup(timeGroup);
+    hardTimeButton.setToggleGroup(timeGroup);
+    masterTimeButton.setToggleGroup(timeGroup);
+
+    // store corresponding confidence toggle buttons into toggle group
+    easyConfidenceButton.setToggleGroup(confidenceGroup);
+    mediumConfidenceButton.setToggleGroup(confidenceGroup);
+    hardConfidenceButton.setToggleGroup(confidenceGroup);
+    masterConfidenceButton.setToggleGroup(confidenceGroup);
   }
 
   @FXML
@@ -51,5 +153,80 @@ public class SettingsController {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
+  }
+
+  @FXML
+  private void onEasyAccuracy() {
+    updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMediumAccuracy() {
+    updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onHardAccuracy() {
+    updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onEasyWords() {
+    updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMediumWords() {
+    updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onHardWords() {
+    updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMasterWords() {
+    updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onEasyTime() {
+    updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMediumTime() {
+    updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onHardTime() {
+    updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMasterTime() {
+    updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onEasyConfidence() {
+    updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMediumConfidence() {
+    updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onHardConfidence() {
+    updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle());
+  }
+
+  @FXML
+  private void onMasterConfidence() {
+    updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle());
   }
 }

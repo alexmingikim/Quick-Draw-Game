@@ -19,9 +19,11 @@ public class MainMenuController {
 
   @FXML private Label profileLabel;
 
-  @FXML private Button btnPlay;
+  @FXML private Button playButton;
 
   @FXML private Button btnSwitchProfile;
+
+  @FXML private Button settingsButton;
 
   private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -83,5 +85,12 @@ public class MainMenuController {
 
     ProfileViewController.loadOpacity();
     ProfileViewController.loadUserLabels();
+  }
+
+  @FXML
+  private void onGoSettings(ActionEvent event) {
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.SETTINGS));
   }
 }

@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206;
 
+import nz.ac.auckland.se206.SettingsController.Difficulty;
+
 public class User {
 
   private String id;
@@ -13,6 +15,10 @@ public class User {
   private String fastestWonGameTime;
   private String fastestWonGame;
   private String wordsEncountered;
+  private Difficulty accuracy;
+  private Difficulty words;
+  private Difficulty time;
+  private Difficulty confidence;
 
   public User(
       String id,
@@ -38,6 +44,10 @@ public class User {
     this.fastestWonGameTime = fastestWonGameTime;
     this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
+    this.accuracy = Difficulty.Easy;
+    this.words = Difficulty.Easy;
+    this.time = Difficulty.Easy;
+    this.confidence = Difficulty.Easy;
   }
 
   public String getName() {
@@ -86,6 +96,26 @@ public class User {
 
   public String getWords() {
     return wordsEncountered;
+  }
+
+  public Difficulty[] getDifficulties() {
+    return new Difficulty[] {this.accuracy, this.words, this.time, this.confidence};
+  }
+
+  public void setAccuracy(Difficulty accuracy) {
+    this.accuracy = accuracy;
+  }
+
+  public void setWords(Difficulty words) {
+    this.words = words;
+  }
+
+  public void setTime(Difficulty time) {
+    this.time = time;
+  }
+
+  public void setConfidence(Difficulty confidence) {
+    this.confidence = confidence;
   }
 
   public void updateWords(String word) {

@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ public class ProfileViewController {
   static Label labelAssociatedToLastUserButtonPressed;
 
   static String currentUserId = "Zero";
+
+  static User currentUser = null;
 
   @FXML private Button btnCreateNewProfile;
 
@@ -50,6 +53,10 @@ public class ProfileViewController {
 
   public static String getCurrentUserId() {
     return currentUserId;
+  }
+
+  public static User getCurrentUser() {
+    return currentUser;
   }
 
   public static ToggleButton getLastUserButtonPressed() {
@@ -115,6 +122,7 @@ public class ProfileViewController {
   public void initialize() {
     initializeButtonArray();
     initializeUserLabelArray();
+    getCurrentProfile();
   }
 
   public void initializeButtonArray() {
@@ -137,6 +145,31 @@ public class ProfileViewController {
     userLabels[3] = lblUserFour;
     userLabels[4] = lblUserFive;
     userLabels[5] = lblUserSix;
+  }
+
+  private void getCurrentProfile() {
+    if (currentUserId.equals("Zero")) {
+      currentUser = null;
+    } else {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      List<User> userProfiles = new ArrayList<User>();
+
+      try {
+        // read existing user profiles from JSON file and store into array list
+        FileReader fr = new FileReader("profiles/profiles.json");
+        userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+        fr.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      // select the current profile that was chosen by the user
+      for (User userProfile : userProfiles) {
+        if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
+          currentUser = userProfile;
+        }
+      }
+    }
   }
 
   @FXML
@@ -200,6 +233,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -221,6 +255,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -242,6 +277,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -263,6 +299,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -284,6 +321,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -305,6 +343,7 @@ public class ProfileViewController {
       btnCreateNewProfile.setDisable(true);
       btnDeleteProfile.setDisable(false);
       btnViewStatistics.setDisable(false);
+      getCurrentProfile();
     }
   }
 
@@ -314,6 +353,7 @@ public class ProfileViewController {
     lastUserButtonPressed = btnGuest;
     // user id 0 for guest
     currentUserId = "Zero";
+    getCurrentProfile();
 
     ToggleButton button = (ToggleButton) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

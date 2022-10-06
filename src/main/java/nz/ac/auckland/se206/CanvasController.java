@@ -5,7 +5,6 @@ import ai.djl.modality.Classifications;
 import ai.djl.translate.TranslateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -98,11 +97,7 @@ public class CanvasController {
 
   private TextToSpeech textToSpeech = new TextToSpeech();
 
-  private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-  private List<User> userProfiles = new ArrayList<User>();
-
-  private User currentProfile;
+  private User currentProfile = ProfileViewController.getCurrentUser();
 
   private boolean blankStatus = true;
 
@@ -138,7 +133,7 @@ public class CanvasController {
 
   public void subInitialize() throws IOException {
     // Changes the profile display name
-    getCurrentProfile();
+    currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile == null) {
       profileUsernameLabel.setText("Guest");
     } else {
@@ -206,29 +201,10 @@ public class CanvasController {
     }
   }
 
-  private void getCurrentProfile() throws IOException {
-    if (ProfileViewController.getCurrentUserId().equals("Zero")) {
-      currentProfile = null;
-    } else {
-      try {
-        // read existing user profiles from JSON file and store into array list
-        FileReader fr = new FileReader("profiles/profiles.json");
-        userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-        fr.close();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-
-      // select the current profile that was chosen by the user
-      for (User userProfile : userProfiles) {
-        if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
-          currentProfile = userProfile;
-        }
-      }
-    }
-  }
-
   private void updateProfile() throws IOException {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    List<User> userProfiles = new ArrayList<User>();
+
     int userIndex = userProfiles.indexOf(currentProfile);
     userProfiles.set(userIndex, currentProfile);
 

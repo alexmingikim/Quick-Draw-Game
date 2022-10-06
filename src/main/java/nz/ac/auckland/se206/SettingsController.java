@@ -10,7 +10,7 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class SettingsController {
 
-  public enum Difficulties {
+  public enum Difficulty {
     Easy,
     Medium,
     Hard,

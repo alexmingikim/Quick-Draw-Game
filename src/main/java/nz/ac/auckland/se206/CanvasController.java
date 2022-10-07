@@ -5,6 +5,7 @@ import ai.djl.modality.Classifications;
 import ai.djl.translate.TranslateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -201,18 +202,34 @@ public class CanvasController {
     }
   }
 
-  private void updateProfile() throws IOException {
+  private void updateProfile() {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<User> userProfiles = new ArrayList<User>();
+    currentProfile = ProfileViewController.getCurrentUser();
 
-    int userIndex = userProfiles.indexOf(currentProfile);
-    userProfiles.set(userIndex, currentProfile);
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
 
-    // Write any updates from the current game to the json file
-    FileWriter fw = new FileWriter("profiles/profiles.json");
-    gson.toJson(userProfiles, fw);
-    fw.flush();
-    fw.close();
+      // select the current profile that was chosen by the user
+      int userIndex = -1;
+      for (User userProfile : userProfiles) {
+        if (userProfile.getId().equals(currentProfile.getId())) {
+          userIndex = userProfiles.indexOf(userProfile);
+        }
+      }
+      userProfiles.set(userIndex, currentProfile);
+
+      // Write any updates from the current game to the json file
+      FileWriter fw = new FileWriter("profiles/profiles.json");
+      gson.toJson(userProfiles, fw);
+      fw.flush();
+      fw.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /** This method is called when the "Clear" button is pressed. */
@@ -472,11 +489,7 @@ public class CanvasController {
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.chooseWonOrLost(true);
       currentProfile.updateTimeWon(60 - counter, category);
-      try {
-        updateProfile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      updateProfile();
     }
 
     // make buttons visible or disabled
@@ -499,11 +512,7 @@ public class CanvasController {
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.chooseWonOrLost(false);
       currentProfile.updateTimeLost();
-      try {
-        updateProfile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      updateProfile();
     }
 
     // make buttons visible or disabled

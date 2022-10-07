@@ -44,10 +44,10 @@ public class User {
     this.fastestWonGameTime = fastestWonGameTime;
     this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
-    this.accuracy = Difficulty.Easy;
-    this.words = Difficulty.Easy;
-    this.time = Difficulty.Easy;
-    this.confidence = Difficulty.Easy;
+    this.accuracy = Difficulty.EASY;
+    this.words = Difficulty.EASY;
+    this.time = Difficulty.EASY;
+    this.confidence = Difficulty.EASY;
   }
 
   public String getName() {

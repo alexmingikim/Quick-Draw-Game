@@ -17,7 +17,6 @@ public class MainMenuController {
   @FXML private Button btnSwitchProfile;
 
   @FXML private Button settingsButton;
-  ;
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
@@ -57,6 +56,7 @@ public class MainMenuController {
 
   @FXML
   private void onGoSettings(ActionEvent event) {
+    ((SettingsController) SceneManager.getLoader(AppUi.SETTINGS).getController()).subInitialize();
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.SETTINGS));

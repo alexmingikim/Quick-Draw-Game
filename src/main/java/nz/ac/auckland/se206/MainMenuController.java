@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206;
 
+import ai.djl.ModelException;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,8 +36,8 @@ public class MainMenuController {
   }
 
   @FXML
-  private void onPlay(ActionEvent event) throws IOException {
-    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).subInitialize();
+  private void onPlay(ActionEvent event) throws IOException, ModelException {
+    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).initialize();
     // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

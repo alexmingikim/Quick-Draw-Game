@@ -86,8 +86,12 @@ public class SettingsController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
-  private Difficulty[] unsavedGuest =
+  static Difficulty[] unsavedGuest =
       new Difficulty[] {Difficulty.EASY, Difficulty.EASY, Difficulty.EASY, Difficulty.EASY};
+
+  public static Difficulty[] getGuestDifficulty() {
+    return unsavedGuest;
+  }
 
   public void initialize() {
     // create the groups for difficulty buttons

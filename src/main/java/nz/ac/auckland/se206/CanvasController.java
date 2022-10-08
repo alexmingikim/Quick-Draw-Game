@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -53,6 +52,12 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController {
+
+  static final int NUMBER_EASY_WORDS = 145;
+
+  static final int NUMBER_MEDIUM_WORDS = 132;
+
+  static final int NUMBER_HARD_WORDS = 68;
 
   @FXML private Canvas canvas;
 
@@ -98,11 +103,7 @@ public class CanvasController {
 
   private TextToSpeech textToSpeech = new TextToSpeech();
 
-  private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-  private List<User> userProfiles = new ArrayList<User>();
-
-  private User currentProfile;
+  private User currentProfile = ProfileViewController.getCurrentUser();
 
   private boolean blankStatus = true;
 
@@ -138,7 +139,7 @@ public class CanvasController {
 
   public void subInitialize() throws IOException {
     // Changes the profile display name
-    getCurrentProfile();
+    currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile == null) {
       profileUsernameLabel.setText("Guest");
     } else {
@@ -147,96 +148,201 @@ public class CanvasController {
   }
 
   private String selectRandomCategory() throws IOException {
+    if (currentProfile == null) {
+      return selectCategoryGuest();
+    } else {
+      return selectCategoryProfile();
+    }
+  }
+
+  private ArrayList<String[]> getCategories() {
     // get a list of all the categories
-    ArrayList<String> categoryList = new ArrayList<String>();
+    ArrayList<String[]> categoryList = new ArrayList<String[]>();
     // Declaring and initializing fields
-    Random random = new Random();
     String line;
     String[] category;
-    String difficulty;
-    BufferedReader br;
+    try {
+      // get all categories from csv file
+      BufferedReader br =
+          new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+      while ((line = br.readLine()) != null) {
+        category = line.split(",");
+        categoryList.add(category);
+      }
+      br.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return categoryList;
+  }
 
-    if (currentProfile == null) {
-      try {
-        // read from the csv file
-        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
+  private String selectCategoryProfile() throws IOException {
+    // get a list of all the categories
+    ArrayList<String> wordsList =
+        new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
+    ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
+    ArrayList<String> modifiedList = new ArrayList<String>();
+    Random random = new Random();
 
-        // get all categories that are rated E
-        while ((line = br.readLine()) != null) {
-          category = line.split(",");
-          difficulty = category[1];
-
-          if (difficulty.equals("E")) {
-            categoryList.add(category[0]);
+    // modify list of categories depending on difficulty chosen
+    switch (currentProfile.getDifficulties()[1]) {
+      case EASY:
+        // only include words under easy difficulty which the current profile
+        // hasn't encountered
+        for (String[] category : categoryList) {
+          if (category[1].equals("E") && !(wordsList.contains(category[0]))) {
+            modifiedList.add(category[0]);
           }
         }
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-
-      // return random category from list
-      int index = random.nextInt(categoryList.size());
-      return categoryList.get(index);
-    } else {
-      ArrayList<String> wordsList =
-          new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
-      try {
-        // read from the csv file
-        br = new BufferedReader(new FileReader("src/main/resources/category_difficulty.csv"));
-
-        // get all categories that are rated E
-        while ((line = br.readLine()) != null) {
-          category = line.split(",");
-          difficulty = category[1];
-
-          if (difficulty.equals("E") && !wordsList.contains(category[0])) {
-            categoryList.add(category[0]);
+        break;
+      case MEDIUM:
+        // only include words under easy and medium difficulty which the current profile
+        // hasn't encountered
+        for (String[] category : categoryList) {
+          if ((category[1].equals("E") || category[1].equals("M"))
+              && !(wordsList.contains(category[0]))) {
+            modifiedList.add(category[0]);
           }
         }
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
+        break;
+      case HARD:
+        // only all words which the current profile hasn't encountered
+        for (String[] category : categoryList) {
+          if (!(wordsList.contains(category[0]))) {
+            modifiedList.add(category[0]);
+          }
+        }
+        break;
+      case MASTER:
+        // only include words under hard difficulty which the current profile hasn't
+        // encountered
+        for (String[] category : categoryList) {
+          if (category[1].equals("H") && !(wordsList.contains(category[0]))) {
+            modifiedList.add(category[0]);
+          }
+        }
+        break;
+    }
 
-      // return random category from list
-      int index = random.nextInt(categoryList.size());
-      if (categoryList.size() == wordsList.size()) {
-        currentProfile.resetWords();
+    // return random category from modified list depending on difficulty
+    int index = random.nextInt(modifiedList.size());
+    return modifiedList.get(index);
+  }
+
+  private String selectCategoryGuest() throws IOException {
+    // get a list of all the categories
+    ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
+    ArrayList<String> modifiedList = new ArrayList<String>();
+    Random random = new Random();
+
+    // modify list of categories depending on difficulty chosen
+    switch (SettingsController.getGuestDifficulty()[1]) {
+      case EASY:
+        // only include words under easy difficulty
+        for (String[] category : categoryList) {
+          if (category[1].equals("E")) {
+            modifiedList.add(category[0]);
+          }
+        }
+        break;
+      case MEDIUM:
+        // only include words under easy and medium difficulty
+        for (String[] category : categoryList) {
+          if (category[1].equals("E") || category[1].equals("M")) {
+            modifiedList.add(category[0]);
+          }
+        }
+        break;
+      case HARD:
+        // include words under all difficulties
+        for (String[] category : categoryList) {
+          modifiedList.add(category[0]);
+        }
+        break;
+      case MASTER:
+        // only include words under hard difficulty
+        for (String[] category : categoryList) {
+          if (category[1].equals("H")) {
+            modifiedList.add(category[0]);
+          }
+        }
+        break;
+    }
+
+    // return random category from modified list depending on difficulty
+    int index = random.nextInt(modifiedList.size());
+    return modifiedList.get(index);
+  }
+
+  private void checkMaxWords() {
+    // get a list of all the categories and profile's encountered words
+    ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
+    ArrayList<String> wordsList =
+        new ArrayList<String>(Arrays.asList(currentProfile.getWords().split(",")));
+
+    // declare variables to store number of words encountered in each category
+    int easyWords = 0;
+    int mediumWords = 0;
+    int hardWords = 0;
+
+    // find number of words encountered in each category
+    for (String[] category : categoryList) {
+      if (wordsList.contains(category[0])) {
+        switch (category[1]) {
+          case "E":
+            easyWords++;
+            break;
+          case "M":
+            mediumWords++;
+            break;
+          case "H":
+            hardWords++;
+            break;
+        }
       }
-      return categoryList.get(index);
+    }
+
+    // check if the words encountered has reached maximum number of words available
+    // per difficulty
+    if (easyWords == NUMBER_EASY_WORDS) {
+      currentProfile.resetWords();
+    }
+    if (mediumWords == NUMBER_MEDIUM_WORDS) {
+      currentProfile.resetWords();
+    }
+    if (hardWords == NUMBER_HARD_WORDS) {
+      currentProfile.resetWords();
     }
   }
 
-  private void getCurrentProfile() throws IOException {
-    if (ProfileViewController.getCurrentUserId().equals("Zero")) {
-      currentProfile = null;
-    } else {
-      try {
-        // read existing user profiles from JSON file and store into array list
-        FileReader fr = new FileReader("profiles/profiles.json");
-        userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-        fr.close();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
+  private void updateProfile() {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    List<User> userProfiles = new ArrayList<User>();
+    currentProfile = ProfileViewController.getCurrentUser();
+
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
 
       // select the current profile that was chosen by the user
+      int userIndex = -1;
       for (User userProfile : userProfiles) {
-        if (userProfile.getId().equals(ProfileViewController.getCurrentUserId())) {
-          currentProfile = userProfile;
+        if (userProfile.getId().equals(currentProfile.getId())) {
+          userIndex = userProfiles.indexOf(userProfile);
         }
       }
+      userProfiles.set(userIndex, currentProfile);
+
+      // Write any updates from the current game to the json file
+      FileWriter fw = new FileWriter("profiles/profiles.json");
+      gson.toJson(userProfiles, fw);
+      fw.flush();
+      fw.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-  }
-
-  private void updateProfile() throws IOException {
-    int userIndex = userProfiles.indexOf(currentProfile);
-    userProfiles.set(userIndex, currentProfile);
-
-    // Write any updates from the current game to the json file
-    FileWriter fw = new FileWriter("profiles/profiles.json");
-    gson.toJson(userProfiles, fw);
-    fw.flush();
-    fw.close();
   }
 
   /** This method is called when the "Clear" button is pressed. */
@@ -496,11 +602,8 @@ public class CanvasController {
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.chooseWonOrLost(true);
       currentProfile.updateTimeWon(60 - counter, category);
-      try {
-        updateProfile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      checkMaxWords();
+      updateProfile();
     }
 
     // make buttons visible or disabled
@@ -523,11 +626,8 @@ public class CanvasController {
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.chooseWonOrLost(false);
       currentProfile.updateTimeLost();
-      try {
-        updateProfile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      checkMaxWords();
+      updateProfile();
     }
 
     // make buttons visible or disabled

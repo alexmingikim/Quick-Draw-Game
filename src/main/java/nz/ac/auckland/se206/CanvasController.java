@@ -560,9 +560,29 @@ public class CanvasController {
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
-        if (prediction.getClassName().equals(category.replace(" ", "_"))
-            && (i == 1 || i == 2 || i == 3)) {
-          setWin();
+        switch (currentProfile.getDifficulties()[0]) {
+          case EASY:
+            // user wins if the word is within top 3 of the AI's prediction
+            if (prediction.getClassName().equals(category.replace(" ", "_"))
+                && (i == 1 || i == 2 || i == 3)) {
+              setWin();
+            }
+            break;
+          case MEDIUM:
+            // user wins if the word is within top 2 of the AI's prediction
+            if (prediction.getClassName().equals(category.replace(" ", "_"))
+                && (i == 1 || i == 2)) {
+              setWin();
+            }
+            break;
+          case HARD:
+            // user wins if the word is within top 1 of the AI's prediction
+            if (prediction.getClassName().equals(category.replace(" ", "_")) && (i == 1)) {
+              setWin();
+            }
+            break;
+          default:
+            break;
         }
 
         // change the display format of the prediction word depending on length

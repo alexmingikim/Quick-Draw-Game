@@ -121,9 +121,6 @@ public class CanvasController {
   public void initialize() throws ModelException, IOException {
     // set a random category
     subInitialize();
-    category = selectRandomCategory();
-    categoryLabel.setText(
-        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
 
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
@@ -145,6 +142,10 @@ public class CanvasController {
     } else {
       profileUsernameLabel.setText(currentProfile.getName());
     }
+
+    category = selectRandomCategory();
+    categoryLabel.setText(
+        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
   }
 
   private String selectRandomCategory() throws IOException {
@@ -560,29 +561,63 @@ public class CanvasController {
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
+        int winCondition = 0;
+        // Checking for winning condition for each accuracy difficulty setting
         switch (currentProfile.getDifficulties()[0]) {
           case EASY:
             // user wins if the word is within top 3 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_"))
                 && (i == 1 || i == 2 || i == 3)) {
-              setWin();
+              winCondition++;
             }
             break;
           case MEDIUM:
             // user wins if the word is within top 2 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_"))
                 && (i == 1 || i == 2)) {
-              setWin();
+              winCondition++;
             }
             break;
           case HARD:
             // user wins if the word is within top 1 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_")) && (i == 1)) {
-              setWin();
+              winCondition++;
             }
             break;
           default:
             break;
+        }
+
+        // Checking for winning condition for each confidence difficulty setting
+        switch (currentProfile.getDifficulties()[3]) {
+          case EASY:
+            // user meets one win condition if the word has at least 1% confidence level
+            if (prediction.getProbability() >= 0.01) {
+              winCondition++;
+            }
+            break;
+          case MEDIUM:
+            // user meets one win condition if the word has at least 10% confidence level
+            if (prediction.getProbability() >= 0.1) {
+              winCondition++;
+            }
+            break;
+          case HARD:
+            // user meets one win condition if the word has at least 25% confidence level
+            if (prediction.getProbability() >= 0.25) {
+              winCondition++;
+            }
+            break;
+          case MASTER:
+            // user meets one win condition if the word has at least 50% confidence level
+            if (prediction.getProbability() >= 0.5) {
+              winCondition++;
+            }
+            break;
+        }
+
+        if (winCondition == 2) {
+          setWin();
         }
 
         // change the display format of the prediction word depending on length
@@ -606,7 +641,6 @@ public class CanvasController {
     } else {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
-      // return;
     }
   }
 

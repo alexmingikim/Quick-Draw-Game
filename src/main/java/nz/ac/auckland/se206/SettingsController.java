@@ -147,6 +147,7 @@ public class SettingsController {
   }
 
   private void updateProfile() {
+    // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<User> userProfiles = new ArrayList<User>();
 

@@ -36,6 +36,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.SettingsController.Difficulty;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -119,11 +120,7 @@ public class CanvasController {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
-    // set a random category
     subInitialize();
-    category = selectRandomCategory();
-    categoryLabel.setText(
-        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
 
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
@@ -145,13 +142,75 @@ public class CanvasController {
     } else {
       profileUsernameLabel.setText(currentProfile.getName());
     }
+
+    if (blankStatus == true) {
+      // set a random category according to difficulty
+      category = selectRandomCategory();
+      categoryLabel.setText(
+          "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
+      // set the time limit according to difficulty
+      setCounter();
+      timerLabel.setText(String.valueOf(counter));
+    }
+  }
+
+  private void setCounter() {
+    // execute different methods depending on guest or profile account
+    if (currentProfile == null) {
+      setCounterGuest();
+    } else {
+      setCounterProfile();
+    }
   }
 
   private String selectRandomCategory() throws IOException {
+    // execute different methods depending on guest or profile account
     if (currentProfile == null) {
       return selectCategoryGuest();
     } else {
       return selectCategoryProfile();
+    }
+  }
+
+  private void setCounterProfile() {
+    switch (currentProfile.getDifficulties()[2]) {
+      case EASY:
+        // 60s time limit for timer difficulty easy
+        counter = 60;
+        break;
+      case MEDIUM:
+        // 45s time limit for timer difficulty easy
+        counter = 45;
+        break;
+      case HARD:
+        // 30s time limit for timer difficulty easy
+        counter = 30;
+        break;
+      case MASTER:
+        // 15s time limit for timer difficulty easy
+        counter = 15;
+        break;
+    }
+  }
+
+  private void setCounterGuest() {
+    switch (SettingsController.getGuestDifficulty()[2]) {
+      case EASY:
+        // 60s time limit for timer difficulty easy
+        counter = 60;
+        break;
+      case MEDIUM:
+        // 45s time limit for timer difficulty easy
+        counter = 45;
+        break;
+      case HARD:
+        // 30s time limit for timer difficulty easy
+        counter = 30;
+        break;
+      case MASTER:
+        // 15s time limit for timer difficulty easy
+        counter = 15;
+        break;
     }
   }
 
@@ -316,6 +375,7 @@ public class CanvasController {
   }
 
   private void updateProfile() {
+    // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<User> userProfiles = new ArrayList<User>();
     currentProfile = ProfileViewController.getCurrentUser();
@@ -417,7 +477,7 @@ public class CanvasController {
               }
             });
     timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
-    timeline.setCycleCount(60);
+    timeline.setCycleCount(counter);
     timeline.play();
 
     // enable user to draw
@@ -438,8 +498,8 @@ public class CanvasController {
     statusLabel.setText("---------- Press Start to Begin ----------");
 
     // reset the timer and clear the canvas
-    counter = 60;
-    timerLabel.setText("60");
+    setCounter();
+    timerLabel.setText(String.valueOf(counter));
     onClear();
 
     // initialise to get new category and make the start button visible
@@ -560,29 +620,73 @@ public class CanvasController {
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
-        switch (currentProfile.getDifficulties()[0]) {
+        int winCondition = 0;
+        Difficulty accuracyDifficulty = null;
+        Difficulty confidenceDifficulty = null;
+
+        // Checking for winning condition for each accuracy difficulty setting
+        if (currentProfile == null) {
+          accuracyDifficulty = SettingsController.getGuestDifficulty()[0];
+          confidenceDifficulty = SettingsController.getGuestDifficulty()[3];
+        } else {
+          accuracyDifficulty = currentProfile.getDifficulties()[0];
+          confidenceDifficulty = currentProfile.getDifficulties()[3];
+        }
+        switch (accuracyDifficulty) {
           case EASY:
             // user wins if the word is within top 3 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_"))
                 && (i == 1 || i == 2 || i == 3)) {
-              setWin();
+              winCondition++;
             }
             break;
           case MEDIUM:
             // user wins if the word is within top 2 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_"))
                 && (i == 1 || i == 2)) {
-              setWin();
+              winCondition++;
             }
             break;
           case HARD:
             // user wins if the word is within top 1 of the AI's prediction
             if (prediction.getClassName().equals(category.replace(" ", "_")) && (i == 1)) {
-              setWin();
+              winCondition++;
             }
             break;
           default:
             break;
+        }
+
+        // Checking for winning condition for each confidence difficulty setting
+        switch (confidenceDifficulty) {
+          case EASY:
+            // user meets one win condition if the word has at least 1% confidence level
+            if (prediction.getProbability() >= 0.01) {
+              winCondition++;
+            }
+            break;
+          case MEDIUM:
+            // user meets one win condition if the word has at least 10% confidence level
+            if (prediction.getProbability() >= 0.1) {
+              winCondition++;
+            }
+            break;
+          case HARD:
+            // user meets one win condition if the word has at least 25% confidence level
+            if (prediction.getProbability() >= 0.25) {
+              winCondition++;
+            }
+            break;
+          case MASTER:
+            // user meets one win condition if the word has at least 50% confidence level
+            if (prediction.getProbability() >= 0.5) {
+              winCondition++;
+            }
+            break;
+        }
+
+        if (winCondition == 2) {
+          setWin();
         }
 
         // change the display format of the prediction word depending on length
@@ -606,7 +710,6 @@ public class CanvasController {
     } else {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
-      // return;
     }
   }
 

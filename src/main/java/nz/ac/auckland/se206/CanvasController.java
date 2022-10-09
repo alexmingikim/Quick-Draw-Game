@@ -32,6 +32,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -88,6 +93,8 @@ public class CanvasController {
   @FXML private Button startNewGameButton;
 
   @FXML private Button btnTextToSpeech;
+
+  @FXML private TextFlow predictionsTextFlow;
 
   private int counter = 60;
 
@@ -554,12 +561,20 @@ public class CanvasController {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
 
+      // clear the text flow
+      predictionsTextFlow.getChildren().clear();
+
       final StringBuilder sb = new StringBuilder();
       int i = 1;
+
+      // set the font
+      Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
+        Text text = new Text();
+        sb.setLength(0);
         if (prediction.getClassName().equals(category.replace(" ", "_"))
             && (i == 1 || i == 2 || i == 3)) {
           setWin();
@@ -567,22 +582,34 @@ public class CanvasController {
 
         // change the display format of the prediction word depending on length
         String word = prediction.getClassName().replace("_", " ");
+
+        // set the font to be bold if the guess is the category
+        if (prediction.getClassName().equals(category.replace(" ", "_"))) {
+          font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
+        } else {
+          font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+        }
+
         if (i != 10) {
           sb.append(i)
               .append("  :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
+          text.setText(sb.toString());
+          text.setFont(font);
+          predictionsTextFlow.getChildren().add(text);
         } else {
           sb.append(i)
               .append(" :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
+          text.setText(sb.toString());
+          text.setFont(font);
+          predictionsTextFlow.getChildren().add(text);
         }
         i++;
       }
 
-      // using string builder, add all the predictions
-      predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
     } else {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");

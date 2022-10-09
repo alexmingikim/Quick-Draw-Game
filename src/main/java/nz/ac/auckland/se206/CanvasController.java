@@ -119,7 +119,6 @@ public class CanvasController {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
-    // set a random category
     subInitialize();
 
     // initialise graphics and the prediction model
@@ -142,10 +141,12 @@ public class CanvasController {
     } else {
       profileUsernameLabel.setText(currentProfile.getName());
     }
-
-    category = selectRandomCategory();
-    categoryLabel.setText(
-        "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
+    // set a random category according to difficulty
+    if (blankStatus == true) {
+      category = selectRandomCategory();
+      categoryLabel.setText(
+          "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
+    }
   }
 
   private String selectRandomCategory() throws IOException {

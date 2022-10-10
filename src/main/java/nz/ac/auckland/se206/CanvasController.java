@@ -570,15 +570,14 @@ public class CanvasController {
       // set the font
       Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
 
+      // reset message
+      statusLabel.setText("Hmmmmmmmm............");
+
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
         Text text = new Text();
         sb.setLength(0);
-        if (prediction.getClassName().equals(category.replace(" ", "_"))
-            && (i == 1 || i == 2 || i == 3)) {
-          setWin();
-        }
 
         // change the display format of the prediction word depending on length
         String word = prediction.getClassName().replace("_", " ");
@@ -586,8 +585,19 @@ public class CanvasController {
         // set the font to be bold if the guess is the category
         if (prediction.getClassName().equals(category.replace(" ", "_"))) {
           font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
+          // change message depending on prediction ranking
+          if (i > 5) {
+            statusLabel.setText("Getting closer!");
+          } else if (i <= 5) {
+            statusLabel.setText("Almost there! So close!!!");
+          }
         } else {
           font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+        }
+
+        if (prediction.getClassName().equals(category.replace(" ", "_"))
+            && (i == 1 || i == 2 || i == 3)) {
+          setWin();
         }
 
         if (i != 10) {

@@ -32,6 +32,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -59,6 +64,8 @@ public class CanvasController {
   static final int NUMBER_MEDIUM_WORDS = 132;
 
   static final int NUMBER_HARD_WORDS = 68;
+
+  static final int TOTAL_NUMBER_WORDS = NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS + NUMBER_HARD_WORDS;
 
   @FXML private Canvas canvas;
 
@@ -90,6 +97,8 @@ public class CanvasController {
 
   @FXML private Button btnTextToSpeech;
 
+  @FXML private TextFlow predictionsTextFlow;
+
   private int counter = 60;
 
   private String category;
@@ -106,7 +115,13 @@ public class CanvasController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
+  private Difficulty[] guestDifficulty = SettingsController.getGuestDifficulty();
+
   private boolean blankStatus = true;
+
+  private int predictionRank = 1;
+
+  private int prevPredictionRank = 0;
 
   // mouse coordinates
   private double currentX;
@@ -496,6 +511,7 @@ public class CanvasController {
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
     statusLabel.setText("---------- Press Start to Begin ----------");
+    predictionsTextFlow.getChildren().clear();
 
     // reset the timer and clear the canvas
     setCounter();
@@ -606,20 +622,66 @@ public class CanvasController {
   // helper methods
   private void updatePrediction() throws TranslateException {
     if (blankStatus == false) {
-      // get all predictions
+      // get top 10 predictions
       List<Classifications.Classification> predictions =
           model.getPredictions(getCurrentSnapshot(), 10);
+      // get all predictions
+      List<Classifications.Classification> predictionsAll =
+          model.getPredictions(getCurrentSnapshot(), TOTAL_NUMBER_WORDS);
+      final StringBuilder sb = new StringBuilder();
+      int i = 1;
+
+      // get the rank of the prediction
+      predictionRank = 1;
+      for (Classifications.Classification prediction : predictionsAll) {
+        if (prediction.getClassName().equals(category.replace(" ", "_"))) {
+          break;
+        }
+        predictionRank++;
+      }
+
+      // set message depending on if user is getting further or closer
+      if (predictionRank > prevPredictionRank) {
+        statusLabel.setText("Getting further...");
+      } else {
+        statusLabel.setText("Getting closer!!!");
+      }
+
+      // statusLabel.setText(predictionRank + " " + prevPredictionRank);
+      prevPredictionRank = predictionRank;
 
       // set the labels
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
 
-      final StringBuilder sb = new StringBuilder();
-      int i = 1;
+      // clear the text flow
+      predictionsTextFlow.getChildren().clear();
+
+      // set the font
+      Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
       for (final Classifications.Classification prediction : predictions) {
+        Text text = new Text();
+        sb.setLength(0);
+
+        // change the display format of the prediction word depending on length
+        String word = prediction.getClassName().replace("_", " ");
+
+        // set the font to be bold if the guess is the category
+        if (prediction.getClassName().equals(category.replace(" ", "_"))) {
+          font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
+          // change message depending on prediction ranking
+          if (i > 5) {
+            statusLabel.setText("Almost there!! You're doing great!");
+          } else if (i <= 5) {
+            statusLabel.setText("So close!!! You can do it!");
+          }
+        } else {
+          font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+        }
+
         int winCondition = 0;
         Difficulty accuracyDifficulty = null;
         Difficulty confidenceDifficulty = null;
@@ -689,24 +751,26 @@ public class CanvasController {
           setWin();
         }
 
-        // change the display format of the prediction word depending on length
-        String word = prediction.getClassName().replace("_", " ");
         if (i != 10) {
           sb.append(i)
               .append("  :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
+          text.setText(sb.toString());
+          text.setFont(font);
+          predictionsTextFlow.getChildren().add(text);
         } else {
           sb.append(i)
               .append(" :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
               .append(System.lineSeparator());
+          text.setText(sb.toString());
+          text.setFont(font);
+          predictionsTextFlow.getChildren().add(text);
         }
         i++;
       }
 
-      // using string builder, add all the predictions
-      predictionsLabel.setText(predictionsLabel.getText() + sb.toString());
     } else {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");

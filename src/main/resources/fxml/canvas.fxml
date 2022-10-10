@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
   <children>
@@ -80,14 +81,14 @@
          </font></Label>
       <HBox maxHeight="324.0" minHeight="243.0" prefHeight="324.0" prefWidth="760.0" style="-fx-background-color: white;">
          <children>
-            <VBox maxWidth="232.0" minWidth="232.0" prefHeight="244.0" prefWidth="232.0">
+            <VBox maxWidth="232.0" minWidth="232.0" prefHeight="244.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
                <children>
                   <Label fx:id="predictionsTitleLabel" alignment="CENTER" minHeight="37.0" prefHeight="37.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
                      <font>
                         <Font name="Courier New Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="predictionsLabel" alignment="TOP_LEFT" lineSpacing="0.5" maxHeight="280.0" maxWidth="232.0" minHeight="-Infinity" minWidth="232.0" prefHeight="262.0" prefWidth="232.0" style="-fx-background-color: #ededed;" wrapText="true">
+                  <Label fx:id="predictionsLabel" alignment="TOP_LEFT" lineSpacing="0.5" maxHeight="280.0" maxWidth="232.0" minHeight="-Infinity" minWidth="232.0" prefHeight="34.0" prefWidth="232.0" style="-fx-background-color: #ededed;" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -95,6 +96,11 @@
                         <Font name="Courier New" size="16.0" />
                      </font>
                   </Label>
+                  <TextFlow fx:id="predictionsTextFlow" prefHeight="0.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </TextFlow>
                </children>
             </VBox>
             <StackPane maxHeight="316.0" maxWidth="414.0" minHeight="243.0" minWidth="400.0" prefHeight="316.0" prefWidth="414.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">

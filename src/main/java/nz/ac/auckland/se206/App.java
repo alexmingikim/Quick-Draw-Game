@@ -56,6 +56,8 @@ public class App extends Application {
     SceneManager.addLoader(AppUi.PROFILE_CREATION, fxmlLoader);
     SceneManager.addUi(AppUi.STATISTICS_VIEW, loadFxml("statistics_view"));
     SceneManager.addLoader(AppUi.STATISTICS_VIEW, fxmlLoader);
+    SceneManager.addUi(AppUi.BADGE_VIEW, loadFxml("badge_view"));
+    SceneManager.addLoader(AppUi.BADGE_VIEW, fxmlLoader);
     // Difficulty change branch
     SceneManager.addUi(AppUi.SETTINGS, loadFxml("settings"));
     SceneManager.addLoader(AppUi.SETTINGS, fxmlLoader);
@@ -67,7 +69,7 @@ public class App extends Application {
     SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
 
     // set the stage in CanvasController as the primary stage
-    //    ((GameModeController) fxmlLoader.getController()).setStage(stage);
+    // ((GameModeController) fxmlLoader.getController()).setStage(stage);
 
     // listen for window close and terminate text to speech on close
     stage.setOnCloseRequest(

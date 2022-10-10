@@ -20,7 +20,9 @@ import javafx.scene.text.Text;
 
 public class StatisticsViewController {
 
-  @FXML private Button goBackButton;
+  @FXML private Button btnGoBack;
+
+  @FXML private Button viewBadgesButton;
 
   @FXML private Label usernameLabel;
 
@@ -112,5 +114,12 @@ public class StatisticsViewController {
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.PROFILE_VIEW));
+  }
+
+  @FXML
+  private void onViewBadges(ActionEvent event) {
+    Button btnClicked = (Button) event.getSource();
+    Scene scene = btnClicked.getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.BADGE_VIEW));
   }
 }

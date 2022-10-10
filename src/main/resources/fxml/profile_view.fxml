@@ -16,7 +16,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfileViewController">
    <children>
-      <ImageView fitHeight="608.0" fitWidth="806.0" layoutX="-7.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="604.0" fitWidth="842.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/background_profile_view.jpg" />
          </image>
@@ -45,7 +45,7 @@
          <font>
             <Font name="Courier New Bold" size="22.0" />
          </font></Label>
-      <Button fx:id="btnGoBack" layoutX="42.0" layoutY="480.5" mnemonicParsing="false" onAction="#onGoBack" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnGoBack" layoutX="34.0" layoutY="480.5" mnemonicParsing="false" onAction="#onGoBack" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -421,7 +421,7 @@ public class CanvasController {
   private void onBack(ActionEvent event) {
     Button btnSceneIsIn = (Button) event.getSource();
     Scene scene = btnSceneIsIn.getScene();
-    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.GAME_MODE));
   }
 
   /**

@@ -194,8 +194,8 @@ public class ProfileViewController {
     // go to the main menu scene
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
-    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.MAIN_MENU));
-    ((MainMenuController) SceneManager.getLoader(AppUi.MAIN_MENU).getController()).subInitialize();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.GAME_MODE));
+    ((GameModeController) SceneManager.getLoader(AppUi.GAME_MODE).getController()).initialize();
   }
 
   @FXML
@@ -357,7 +357,7 @@ public class ProfileViewController {
 
     ToggleButton button = (ToggleButton) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
-    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
-    ((MainMenuController) SceneManager.getLoader(AppUi.MAIN_MENU).getController()).subInitialize();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.GAME_MODE));
+    ((GameModeController) SceneManager.getLoader(AppUi.GAME_MODE).getController()).initialize();
   }
 }

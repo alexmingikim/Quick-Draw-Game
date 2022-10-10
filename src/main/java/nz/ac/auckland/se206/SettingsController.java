@@ -325,7 +325,7 @@ public class SettingsController {
   private void onGoBack(ActionEvent event) {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
-    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.MAIN_MENU));
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.GAME_MODE));
   }
 
   @FXML

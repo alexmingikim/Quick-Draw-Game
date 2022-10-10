@@ -511,6 +511,7 @@ public class CanvasController {
   private void onStartNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
     statusLabel.setText("---------- Press Start to Begin ----------");
+    predictionsTextFlow.getChildren().clear();
 
     // reset the timer and clear the canvas
     setCounter();

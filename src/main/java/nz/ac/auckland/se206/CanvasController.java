@@ -65,6 +65,8 @@ public class CanvasController {
 
   static final int NUMBER_HARD_WORDS = 68;
 
+  static final int TOTAL_NUMBER_WORDS = NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS + NUMBER_HARD_WORDS;
+
   @FXML private Canvas canvas;
 
   @FXML private Label categoryLabel;
@@ -622,31 +624,11 @@ public class CanvasController {
       // get top 10 predictions
       List<Classifications.Classification> predictions =
           model.getPredictions(getCurrentSnapshot(), 10);
-      List<Classifications.Classification> predictionsAll;
+      // get all predictions
+      List<Classifications.Classification> predictionsAll =
+          model.getPredictions(getCurrentSnapshot(), TOTAL_NUMBER_WORDS);
       final StringBuilder sb = new StringBuilder();
       int i = 1;
-
-      Difficulty difficulty;
-
-      // get all predictions
-      if (currentProfile == null) {
-        difficulty = guestDifficulty[1];
-      } else {
-        difficulty = currentProfile.getDifficulties()[1];
-      }
-
-      if (difficulty == Difficulty.EASY) {
-        predictionsAll = model.getPredictions(getCurrentSnapshot(), NUMBER_EASY_WORDS);
-      } else if (difficulty == Difficulty.MEDIUM) {
-        predictionsAll =
-            model.getPredictions(getCurrentSnapshot(), NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS);
-      } else if (difficulty == Difficulty.HARD) {
-        predictionsAll =
-            model.getPredictions(
-                getCurrentSnapshot(), NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS + NUMBER_HARD_WORDS);
-      } else {
-        predictionsAll = model.getPredictions(getCurrentSnapshot(), NUMBER_HARD_WORDS);
-      }
 
       // get the rank of the prediction
       predictionRank = 1;

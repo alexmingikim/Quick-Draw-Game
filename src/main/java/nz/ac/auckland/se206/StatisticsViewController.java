@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class StatisticsViewController {
 
@@ -118,6 +119,8 @@ public class StatisticsViewController {
 
   @FXML
   private void onViewBadges(ActionEvent event) {
+    ((BadgeViewController) SceneManager.getLoader(AppUi.BADGE_VIEW).getController())
+        .subInitialize();
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.BADGE_VIEW));

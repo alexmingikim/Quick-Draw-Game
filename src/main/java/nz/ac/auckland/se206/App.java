@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.speech.TextToSpeech;
@@ -70,6 +71,10 @@ public class App extends Application {
 
     // set the stage in CanvasController as the primary stage
     // ((GameModeController) fxmlLoader.getController()).setStage(stage);
+
+    // https://www.freepik.com/free-vector/writting-pencil-design_850418.htm#query=pencil&position=0&from_view=search&track=sph
+    // by yurlick on Freepik
+    stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/pencil.jpg")));
 
     // listen for window close and terminate text to speech on close
     stage.setOnCloseRequest(

@@ -115,8 +115,6 @@ public class CanvasController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
-  private Difficulty[] guestDifficulty = SettingsController.getGuestDifficulty();
-
   private boolean blankStatus = true;
 
   private int predictionRank = 1;

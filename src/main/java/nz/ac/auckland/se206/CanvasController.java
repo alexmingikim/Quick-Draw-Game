@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +45,7 @@ import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.SettingsController.Difficulty;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 /**
  * This is the controller of the canvas. You are free to modify this class and the corresponding
@@ -116,6 +118,8 @@ public class CanvasController {
   private User currentProfile = ProfileViewController.getCurrentUser();
 
   private Difficulty[] guestDifficulty = SettingsController.getGuestDifficulty();
+
+  private MediaUtil player;
 
   private boolean blankStatus = true;
 
@@ -783,6 +787,14 @@ public class CanvasController {
     timeline.stop();
     statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
+    try {
+      player = new MediaUtil(MediaUtil.winGameFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // Update profile if it is not a guest profile
     if (currentProfile != null) {
       currentProfile.updateWords(category);
@@ -806,6 +818,14 @@ public class CanvasController {
     // stop game and print message
     canvas.setDisable(true);
     statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
+
+    try {
+      player = new MediaUtil(MediaUtil.loseGameFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
 
     // Update profile if it is not a guest profile
     if (currentProfile != null) {

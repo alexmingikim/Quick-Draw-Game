@@ -20,7 +20,7 @@ public class MainMenuController {
   @FXML
   private void onPlay(ActionEvent event) throws IOException, ModelException, URISyntaxException {
 
-    MediaUtil player = new MediaUtil("mixkit-sci-fi-click-900.mp3");
+    MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
     ((GameModeController) SceneManager.getLoader(AppUi.GAME_MODE).getController()).initialize();

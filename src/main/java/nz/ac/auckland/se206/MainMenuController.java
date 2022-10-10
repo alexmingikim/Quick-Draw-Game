@@ -7,9 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 public class MainMenuController {
 
@@ -20,9 +20,7 @@ public class MainMenuController {
   @FXML
   private void onPlay(ActionEvent event) throws IOException, ModelException, URISyntaxException {
 
-    Media file =
-        new Media(App.class.getResource("/sounds/mixkit-sci-fi-click-900.mp3").toURI().toString());
-    player = new MediaPlayer(file);
+    MediaUtil player = new MediaUtil("mixkit-sci-fi-click-900.mp3");
     player.play();
 
     ((GameModeController) SceneManager.getLoader(AppUi.GAME_MODE).getController()).initialize();

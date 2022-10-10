@@ -15,7 +15,7 @@
             <Image url="@../images/background_profile_view.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="btnSwitchProfile" layoutX="254.0" layoutY="478.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" textFill="WHITE">
+      <Button fx:id="btnSwitchProfile" layoutX="250.0" layoutY="490.0" mnemonicParsing="false" onAction="#onSwitchProfile" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font>

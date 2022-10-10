@@ -25,7 +25,7 @@
             <Image url="@../images/blank_canvas.png" />
          </image>
       </ImageView>
-      <Button fx:id="playButton" alignment="CENTER" layoutX="255.0" layoutY="498.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
+      <Button fx:id="playButton" alignment="CENTER" layoutX="250.0" layoutY="490.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>

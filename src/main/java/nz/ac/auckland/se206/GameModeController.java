@@ -53,7 +53,7 @@ public class GameModeController {
 
   @FXML
   private void onPlayClassic(ActionEvent event) throws IOException, ModelException {
-    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).initialize();
+    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).subInitialize();
     // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

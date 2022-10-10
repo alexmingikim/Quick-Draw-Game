@@ -12,6 +12,7 @@ public class MediaUtil {
   public static String buttonClickFile = "mixkit-typewriter-soft-click-1125.mp3";
   public static String winGameFile = "mixkit-fantasy-game-success-notification-270.mp3";
   public static String loseGameFile = "mixkit-retro-arcade-lose-2027.mp3";
+  public static String fastTickingFile = "mixkit-fast-wall-clock-ticking-1063.mp3";
 
   public MediaUtil(String fileName) throws URISyntaxException {
     this.mediaFile = new Media(App.class.getResource("/sounds/" + fileName).toURI().toString());
@@ -19,7 +20,7 @@ public class MediaUtil {
   }
 
   public void play() {
-    //    player.play();
+    // player.play();
 
     Task<Void> backgroundTask =
         new Task<Void>() {
@@ -34,5 +35,9 @@ public class MediaUtil {
 
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
+  }
+
+  public void stop() {
+    player.stop();
   }
 }

@@ -787,6 +787,8 @@ public class CanvasController {
     timeline.stop();
     statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
+    player.stop();
+
     try {
       player = new MediaUtil(MediaUtil.winGameFile);
     } catch (URISyntaxException e) {
@@ -849,6 +851,15 @@ public class CanvasController {
   private void decreaseTime() {
     counter--;
     timerLabel.setText(String.valueOf(counter));
+    if (counter == 10) {
+      try {
+        player = new MediaUtil(MediaUtil.fastTickingFile);
+      } catch (URISyntaxException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      player.play();
+    }
   }
 
   public void setStage(Stage stage) {

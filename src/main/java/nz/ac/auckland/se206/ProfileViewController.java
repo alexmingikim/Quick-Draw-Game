@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 public class ProfileViewController {
 
@@ -50,6 +52,8 @@ public class ProfileViewController {
   @FXML private Label lblUserFour;
   @FXML private Label lblUserFive;
   @FXML private Label lblUserSix;
+
+  private MediaUtil player;
 
   public static String getCurrentUserId() {
     return currentUserId;
@@ -191,6 +195,14 @@ public class ProfileViewController {
 
   @FXML
   private void onGoBack(ActionEvent event) throws IOException {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // go to the main menu scene
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();

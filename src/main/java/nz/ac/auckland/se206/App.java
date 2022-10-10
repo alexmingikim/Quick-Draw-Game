@@ -62,9 +62,12 @@ public class App extends Application {
     // main game branch
     SceneManager.addUi(AppUi.CANVAS, loadFxml("canvas"));
     SceneManager.addLoader(AppUi.CANVAS, fxmlLoader);
+    // Game mode
+    SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
+    SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
 
     // set the stage in CanvasController as the primary stage
-    ((CanvasController) fxmlLoader.getController()).setStage(stage);
+    //    ((GameModeController) fxmlLoader.getController()).setStage(stage);
 
     // listen for window close and terminate text to speech on close
     stage.setOnCloseRequest(

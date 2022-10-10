@@ -41,6 +41,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.SettingsController.Difficulty;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -112,7 +113,13 @@ public class CanvasController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
+  private Difficulty[] guestDifficulty = SettingsController.getGuestDifficulty();
+
   private boolean blankStatus = true;
+
+  private int predictionRank = 1;
+
+  private int prevPredictionRank = 0;
 
   // mouse coordinates
   private double currentX;
@@ -553,9 +560,53 @@ public class CanvasController {
   // helper methods
   private void updatePrediction() throws TranslateException {
     if (blankStatus == false) {
-      // get all predictions
+      // get top 10 predictions
       List<Classifications.Classification> predictions =
           model.getPredictions(getCurrentSnapshot(), 10);
+      List<Classifications.Classification> predictionsAll;
+      final StringBuilder sb = new StringBuilder();
+      int i = 1;
+
+      Difficulty difficulty;
+
+      // get all predictions
+      if (currentProfile == null) {
+        difficulty = guestDifficulty[1];
+      } else {
+        difficulty = currentProfile.getDifficulties()[1];
+      }
+
+      if (difficulty == Difficulty.EASY) {
+        predictionsAll = model.getPredictions(getCurrentSnapshot(), NUMBER_EASY_WORDS);
+      } else if (difficulty == Difficulty.MEDIUM) {
+        predictionsAll =
+            model.getPredictions(getCurrentSnapshot(), NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS);
+      } else if (difficulty == Difficulty.HARD) {
+        predictionsAll =
+            model.getPredictions(
+                getCurrentSnapshot(), NUMBER_EASY_WORDS + NUMBER_MEDIUM_WORDS + NUMBER_HARD_WORDS);
+      } else {
+        predictionsAll = model.getPredictions(getCurrentSnapshot(), NUMBER_HARD_WORDS);
+      }
+
+      // get the rank of the prediction
+      predictionRank = 1;
+      for (Classifications.Classification prediction : predictionsAll) {
+        if (prediction.getClassName().equals(category.replace(" ", "_"))) {
+          break;
+        }
+        predictionRank++;
+      }
+
+      // set message depending on if user is getting further or closer
+      if (predictionRank > prevPredictionRank) {
+        statusLabel.setText("Getting further...");
+      } else {
+        statusLabel.setText("Getting closer!!!");
+      }
+
+      //			statusLabel.setText(predictionRank + " " + prevPredictionRank);
+      prevPredictionRank = predictionRank;
 
       // set the labels
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
@@ -564,14 +615,10 @@ public class CanvasController {
       // clear the text flow
       predictionsTextFlow.getChildren().clear();
 
-      final StringBuilder sb = new StringBuilder();
-      int i = 1;
+      //			i = 1;
 
       // set the font
       Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
-
-      // reset message
-      statusLabel.setText("Hmmmmmmmm............");
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
@@ -587,9 +634,9 @@ public class CanvasController {
           font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
           // change message depending on prediction ranking
           if (i > 5) {
-            statusLabel.setText("Getting closer!");
+            statusLabel.setText("Almost there!!");
           } else if (i <= 5) {
-            statusLabel.setText("Almost there! So close!!!");
+            statusLabel.setText("So close!!!");
           }
         } else {
           font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);

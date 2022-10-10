@@ -178,6 +178,14 @@ public class ProfileViewController {
 
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // set the root to the profile creation scene when "Create Profile" button is
     // pressed
     Button button = (Button) event.getSource();
@@ -212,6 +220,14 @@ public class ProfileViewController {
 
   @FXML
   private void onViewStatistics(ActionEvent event) {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // change scene to statistics view scene on click of this button
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

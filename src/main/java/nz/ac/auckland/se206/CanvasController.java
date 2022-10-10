@@ -605,7 +605,7 @@ public class CanvasController {
         statusLabel.setText("Getting closer!!!");
       }
 
-      //			statusLabel.setText(predictionRank + " " + prevPredictionRank);
+      // statusLabel.setText(predictionRank + " " + prevPredictionRank);
       prevPredictionRank = predictionRank;
 
       // set the labels
@@ -614,8 +614,6 @@ public class CanvasController {
 
       // clear the text flow
       predictionsTextFlow.getChildren().clear();
-
-      //			i = 1;
 
       // set the font
       Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
@@ -634,9 +632,9 @@ public class CanvasController {
           font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
           // change message depending on prediction ranking
           if (i > 5) {
-            statusLabel.setText("Almost there!!");
+            statusLabel.setText("Almost there!! You're doing great!");
           } else if (i <= 5) {
-            statusLabel.setText("So close!!!");
+            statusLabel.setText("So close!!! You can do it!");
           }
         } else {
           font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);

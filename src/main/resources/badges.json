@@ -7,7 +7,7 @@
     {
         "id": 1,
         "name": "Speed Demon II",
-        "desciption": "Win a game in under 10 seconds"
+        "description": "Win a game in under 10 seconds"
     },
     {
         "id": 2,
@@ -47,6 +47,6 @@
     {
         "id": 9,
         "name": "Challenger",
-        "description": "Win a game with the hardest difficulty for each setting"
+        "description": "Win a game on master difficulty"
     }
 ]

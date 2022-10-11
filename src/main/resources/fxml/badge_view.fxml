@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -38,7 +39,7 @@
             <Font name="Courier New Bold" size="16.0" />
          </font>
       </Button>
-      <Label fx:id="oneBadgeLabel" layoutX="72.0" layoutY="120.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden solid solid hidden;" text="Label">
+      <Label fx:id="oneBadgeLabel" layoutX="72.0" layoutY="120.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden solid solid hidden;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -49,7 +50,7 @@
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font></Label>
-      <Label fx:id="twoBadgeLabel" layoutX="72.0" layoutY="184.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+      <Label fx:id="twoBadgeLabel" layoutX="72.0" layoutY="189.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -60,7 +61,7 @@
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font></Label>
-      <Label fx:id="threeBadgeLabel" layoutX="72.0" layoutY="248.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+      <Label fx:id="threeBadgeLabel" layoutX="72.0" layoutY="258.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -71,7 +72,7 @@
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font></Label>
-      <Label fx:id="fourBadgeLabel" layoutX="72.0" layoutY="312.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+      <Label fx:id="fourBadgeLabel" layoutX="72.0" layoutY="327.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -82,7 +83,7 @@
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font></Label>
-      <Label fx:id="fiveBadgeLabel" layoutX="72.0" layoutY="376.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid hidden hidden;" text="Label">
+      <Label fx:id="fiveBadgeLabel" layoutX="72.0" layoutY="396.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid hidden hidden;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -93,7 +94,7 @@
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font></Label>
-      <Label fx:id="sixBadgeLabel" layoutX="392.0" layoutY="120.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden hidden solid solid;" text="Label">
+      <Label fx:id="sixBadgeLabel" layoutX="392.0" layoutY="120.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden hidden solid solid;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -103,8 +104,11 @@
          </graphic>
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Label>
-      <Label fx:id="sevenBadgeLabel" layoutX="392.0" layoutY="184.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="sevenBadgeLabel" layoutX="392.0" layoutY="189.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -114,8 +118,11 @@
          </graphic>
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Label>
-      <Label fx:id="eightBadgeLabel" layoutX="392.0" layoutY="248.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="eightBadgeLabel" layoutX="392.0" layoutY="258.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -125,8 +132,11 @@
          </graphic>
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Label>
-      <Label fx:id="nineBadgeLabel" layoutX="392.0" layoutY="312.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="nineBadgeLabel" layoutX="392.0" layoutY="327.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -136,8 +146,11 @@
          </graphic>
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Label>
-      <Label fx:id="tenBadgeLabel" layoutX="392.0" layoutY="376.0" prefHeight="64.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden hidden solid;" text="Label">
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="tenBadgeLabel" layoutX="392.0" layoutY="396.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden hidden solid;" text="Label">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="39.6">
                <image>
@@ -147,6 +160,9 @@
          </graphic>
          <font>
             <Font name="Courier New Bold" size="14.0" />
-         </font></Label>
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
    </children>
 </Pane>

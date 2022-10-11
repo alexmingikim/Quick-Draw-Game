@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206;
 
-import ai.djl.ModelException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
@@ -26,6 +25,10 @@ public class GameModeController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
+  /**
+   * Initialises game mode scene. Updates label of "Welcome" button with name of user that is in
+   * play.
+   */
   public void initialize() {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
@@ -36,6 +39,13 @@ public class GameModeController {
     }
   }
 
+  /**
+   * Switches to profile view scene from game modes scene. Loads names of established user profiles
+   * and opacity data of user profile buttons.
+   *
+   * @param event when "Welcome" button is clicked
+   * @throws IOException if an input or output exception occurred
+   */
   @FXML
   private void onSwitchProfile(ActionEvent event) throws IOException, URISyntaxException {
 
@@ -51,6 +61,12 @@ public class GameModeController {
     ProfileViewController.loadUserLabels();
   }
 
+  /**
+   * Switches to difficulty settings scene from game modes scene, giving users the ability to select
+   * difficulty levels.
+   *
+   * @param event when "Settings" button is clicked
+   */
   @FXML
   private void onGoSettings(ActionEvent event) throws URISyntaxException {
     player = new MediaUtil(MediaUtil.buttonClickFile);
@@ -62,12 +78,17 @@ public class GameModeController {
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.SETTINGS));
   }
 
+  /**
+   * Starts the classic game mode. Users are given a word to draw under a time constraint.
+   *
+   * @param event when "Classic" button is clicked
+   * @throws IOException if an input or output exception occurred
+   */
   @FXML
-  private void onPlayClassic(ActionEvent event)
-      throws IOException, ModelException, URISyntaxException {
+  private void onPlayClassic(ActionEvent event) throws IOException {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
-
+    
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).subInitialize();
     // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();
@@ -75,12 +96,22 @@ public class GameModeController {
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.CANVAS));
   }
 
+  /**
+   * Sets the opacity to 1.0 once cursor is hovered over any of the buttons for the 3 game modes.
+   *
+   * @param event when cursor is hovered over buttons for game modes
+   */
   @FXML
   private void onMouseEntered(MouseEvent event) {
     Button button = (Button) event.getSource();
     button.setOpacity(1.0);
   }
 
+  /**
+   * Sets the opacity to 0.7 when cursor is no longer hovering the buttons for game modes.
+   *
+   * @param event when cursor is no longer hovered over buttons for game modes
+   */
   @FXML
   private void onMouseExited(MouseEvent event) {
     Button button = (Button) event.getSource();

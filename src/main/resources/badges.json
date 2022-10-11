@@ -1,0 +1,52 @@
+[
+    {
+        "id": 0,
+        "name": "Speed Demon I",
+        "description": "Win a game in under 30 seconds"
+    },
+    {
+        "id": 1,
+        "name": "Speed Demon II",
+        "description": "Win a game in under 10 seconds"
+    },
+    {
+        "id": 2,
+        "name": "Speed Demon III",
+        "description": "Win a game in under 5 seconds"
+    },
+    {
+        "id": 3,
+        "name": "Winning Streak I",
+        "description": "Win 2 games in a row"
+    },
+    {
+        "id": 4,
+        "name": "Winning Streak II",
+        "description": "Win 5 games in a row"
+    },
+    {
+        "id": 5,
+        "name": "Winning Streak III",
+        "description": "Win 10 games in a row"
+    },
+    {
+        "id": 6,
+        "name": "Veteran I",
+        "description": "Play 5 games"
+    },
+    {
+        "id": 7,
+        "name": "Veteran II",
+        "description": "Play 10 games"
+    },
+    {
+        "id": 8,
+        "name": "Veteran III",
+        "description": "Play 20 games"
+    },
+    {
+        "id": 9,
+        "name": "Challenger",
+        "description": "Win a game on master difficulty"
+    }
+]

@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -66,8 +68,15 @@ public class App extends Application {
     SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
     SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
 
+    try {
+      MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+
     // set the stage in CanvasController as the primary stage
-    //    ((GameModeController) fxmlLoader.getController()).setStage(stage);
+    // ((GameModeController) fxmlLoader.getController()).setStage(stage);
 
     // listen for window close and terminate text to speech on close
     stage.setOnCloseRequest(

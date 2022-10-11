@@ -787,7 +787,9 @@ public class CanvasController {
     timeline.stop();
     statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
 
-    player.stop();
+    if (player != null) {
+      player.stop();
+    }
 
     try {
       player = new MediaUtil(MediaUtil.winGameFile);

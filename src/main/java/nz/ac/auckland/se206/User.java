@@ -19,6 +19,7 @@ public class User {
   private Difficulty words;
   private Difficulty time;
   private Difficulty confidence;
+  private int[] badges;
 
   public User(
       String id,
@@ -48,6 +49,7 @@ public class User {
     this.words = Difficulty.EASY;
     this.time = Difficulty.EASY;
     this.confidence = Difficulty.EASY;
+    this.badges = null;
   }
 
   public String getName() {
@@ -102,6 +104,10 @@ public class User {
     return new Difficulty[] {this.accuracy, this.words, this.time, this.confidence};
   }
 
+  public int[] getBadges() {
+    return badges;
+  }
+
   public void setAccuracy(Difficulty accuracy) {
     this.accuracy = accuracy;
   }
@@ -146,6 +152,8 @@ public class User {
         Integer.toString(
             Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
   }
+
+  public void updateBadges() {}
 
   public void incrementNoOfGamesPlayed() {
     this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));

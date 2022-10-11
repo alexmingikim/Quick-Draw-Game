@@ -12,6 +12,7 @@ public class SceneManager {
     PROFILE_VIEW,
     PROFILE_CREATION,
     STATISTICS_VIEW,
+    BADGE_VIEW,
     SETTINGS,
     CANVAS,
   }

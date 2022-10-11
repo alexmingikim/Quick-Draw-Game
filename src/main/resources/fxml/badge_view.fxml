@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<!-- 
+	The source of the bronze, silver, gold medals: Image by vector4stock on Freepik https://www.freepik.com/free-vector/ribon-medals-set-white-background-golden-silver-bronze_25968325.htm#query=bronze%20trophy&position=1&from_view=search&track=sph
+	The source of the crown: Image by katemangostar on Freepik https://www.freepik.com/free-vector/realistic-illustration-gold-crown-with-red-gems-jewelry-award-royalty_2553309.htm#query=crown&position=6&from_view=search&track=sph
+ -->
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.BadgeViewController">
+   <children>
+      <ImageView fitHeight="604.0" fitWidth="842.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/background_profile_view.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="usernameLabel" layoutX="30.0" layoutY="25.0" text="Username">
+         <font>
+            <Font name="Courier New Bold Italic" size="44.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnGoBack" layoutX="34.0" layoutY="480.5" mnemonicParsing="false" onAction="#onGoBack" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="viewStatisticsButton" layoutX="562.0" layoutY="490.0" mnemonicParsing="false" onAction="#onViewStatistics" prefHeight="60.0" prefWidth="180.0" style="-fx-background-color: #404040;" text="View Statistics" textFill="WHITE">
+         <font>
+            <Font name="Courier New Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label fx:id="oneBadgeLabel" layoutX="72.0" layoutY="120.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden solid solid hidden;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/bronze.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="twoBadgeLabel" layoutX="72.0" layoutY="189.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/silver.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="threeBadgeLabel" layoutX="72.0" layoutY="258.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/gold.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="fourBadgeLabel" layoutX="72.0" layoutY="327.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid solid hidden;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/bronze.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="fiveBadgeLabel" layoutX="72.0" layoutY="396.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid solid hidden hidden;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/silver.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="sixBadgeLabel" layoutX="392.0" layoutY="120.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: hidden hidden solid solid;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/gold.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="sevenBadgeLabel" layoutX="392.0" layoutY="189.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/bronze.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="eightBadgeLabel" layoutX="392.0" layoutY="258.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/silver.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="nineBadgeLabel" layoutX="392.0" layoutY="327.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden solid solid;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/gold.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+      <Label fx:id="tenBadgeLabel" layoutX="392.0" layoutY="396.0" prefHeight="69.0" prefWidth="320.0" style="-fx-border-color: #404040; -fx-border-style: solid hidden hidden solid;" text="Label">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="39.6">
+               <image>
+                  <Image url="@../images/gold.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Courier New Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding></Label>
+   </children>
+</Pane>

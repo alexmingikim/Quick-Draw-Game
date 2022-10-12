@@ -123,7 +123,7 @@
             </StackPane>
          </children>
       </HBox>
-    <HBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="760.0">
+    <HBox prefHeight="59.0" prefWidth="760.0">
       <children>
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE">
                <HBox.margin>
@@ -143,17 +143,9 @@
                </HBox.margin></Button>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBack" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Back" textFill="WHITE">
                <HBox.margin>
-                  <Insets bottom="2.0" left="25.0" right="25.0" top="2.0" />
+                  <Insets bottom="2.0" left="110.0" top="2.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="saveDrawingButton" mnemonicParsing="false" onAction="#onSaveDrawing" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin></Button>
-            <Button fx:id="startNewGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefHeight="50.0" prefWidth="118.0" style="-fx-background-color: #404040;" text="Start New Game" textFill="WHITE">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin></Button>
       </children>
     </HBox>
 

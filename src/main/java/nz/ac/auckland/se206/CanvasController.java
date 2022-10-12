@@ -42,6 +42,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SettingsController.Difficulty;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeech;
@@ -93,10 +94,6 @@ public class CanvasController {
 
   @FXML private Button clearButton;
 
-  @FXML private Button saveDrawingButton;
-
-  @FXML private Button startNewGameButton;
-
   @FXML private Button btnTextToSpeech;
 
   @FXML private TextFlow predictionsTextFlow;
@@ -116,8 +113,6 @@ public class CanvasController {
   private TextToSpeech textToSpeech = new TextToSpeech();
 
   private User currentProfile = ProfileViewController.getCurrentUser();
-
-  private Difficulty[] guestDifficulty = SettingsController.getGuestDifficulty();
 
   private MediaUtil player;
 
@@ -149,8 +144,6 @@ public class CanvasController {
     clearButton.setDisable(true);
     penButton.setDisable(true);
     eraserButton.setDisable(true);
-    startNewGameButton.setVisible(false);
-    saveDrawingButton.setVisible(false);
   }
 
   public void subInitialize() throws IOException {
@@ -171,6 +164,75 @@ public class CanvasController {
       setCounter();
       timerLabel.setText(String.valueOf(counter));
     }
+  }
+
+  public void startNewGame() throws ModelException, IOException {
+    // clear the predictions board and change message when new game is started
+    statusLabel.setText("---------- Press Start to Begin ----------");
+    predictionsTextFlow.getChildren().clear();
+
+    // reset the timer and clear the canvas
+    setCounter();
+    timerLabel.setText(String.valueOf(counter));
+    onClear();
+
+    // initialise to get new category and make the start button visible
+    initialize();
+    startButton.setVisible(true);
+    blankStatus = true;
+    try {
+      updatePrediction();
+    } catch (TranslateException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void saveDrawing() {
+    // create a new file choose instance and prompt the user to select a location
+    // and name with a suggested default name
+    FileChooser saveFile = new FileChooser();
+    saveFile.setTitle("Save File");
+    FileChooser.ExtensionFilter extensionFilter =
+        new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    saveFile.getExtensionFilters().add(extensionFilter);
+    saveFile.setInitialFileName(category);
+    File file = saveFile.showSaveDialog(stage);
+
+    // if the file is not null, render and save the image
+    if (file != null) {
+      try {
+        WritableImage writableImage = new WritableImage(390, 250);
+        canvas.snapshot(null, writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ImageIO.write(renderedImage, "png", file);
+      } catch (IOException e) {
+        // otherwise print exception message
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Get the current snapshot of the canvas.
+   *
+   * @return The BufferedImage corresponding to the current canvas content.
+   */
+  public BufferedImage getCurrentSnapshot() {
+    final Image snapshot = canvas.snapshot(null, null);
+    final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+
+    // Convert into a binary image.
+    final BufferedImage imageBinary =
+        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+
+    final Graphics2D graphics = imageBinary.createGraphics();
+
+    graphics.drawImage(image, 0, 0, null);
+
+    // To release memory we dispose.
+    graphics.dispose();
+
+    return imageBinary;
   }
 
   private void setCounter() {
@@ -443,29 +505,6 @@ public class CanvasController {
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.GAME_MODE));
   }
 
-  /**
-   * Get the current snapshot of the canvas.
-   *
-   * @return The BufferedImage corresponding to the current canvas content.
-   */
-  private BufferedImage getCurrentSnapshot() {
-    final Image snapshot = canvas.snapshot(null, null);
-    final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
-
-    // Convert into a binary image.
-    final BufferedImage imageBinary =
-        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
-
-    final Graphics2D graphics = imageBinary.createGraphics();
-
-    graphics.drawImage(image, 0, 0, null);
-
-    // To release memory we dispose.
-    graphics.dispose();
-
-    return imageBinary;
-  }
-
   @FXML
   private void onStart() {
     // change message
@@ -509,54 +548,6 @@ public class CanvasController {
     eraserButton.setDisable(false);
     startButton.setVisible(false);
     backButton.setVisible(false);
-  }
-
-  @FXML
-  private void onStartNewGame() throws ModelException, IOException {
-    // clear the predictions board and change message when new game is started
-    statusLabel.setText("---------- Press Start to Begin ----------");
-    predictionsTextFlow.getChildren().clear();
-
-    // reset the timer and clear the canvas
-    setCounter();
-    timerLabel.setText(String.valueOf(counter));
-    onClear();
-
-    // initialise to get new category and make the start button visible
-    initialize();
-    startButton.setVisible(true);
-    blankStatus = true;
-    try {
-      updatePrediction();
-    } catch (TranslateException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @FXML
-  private void onSaveDrawing() {
-    // create a new file choose instance and prompt the user to select a location
-    // and name with a suggested default name
-    FileChooser saveFile = new FileChooser();
-    saveFile.setTitle("Save File");
-    FileChooser.ExtensionFilter extensionFilter =
-        new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-    saveFile.getExtensionFilters().add(extensionFilter);
-    saveFile.setInitialFileName(category);
-    File file = saveFile.showSaveDialog(stage);
-
-    // if the file is not null, render and save the image
-    if (file != null) {
-      try {
-        WritableImage writableImage = new WritableImage(390, 250);
-        canvas.snapshot(null, writableImage);
-        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-        ImageIO.write(renderedImage, "png", file);
-      } catch (IOException e) {
-        // otherwise print exception message
-        e.printStackTrace();
-      }
-    }
   }
 
   @FXML
@@ -814,8 +805,11 @@ public class CanvasController {
     penButton.setDisable(true);
     eraserButton.setDisable(true);
     backButton.setVisible(true);
-    startNewGameButton.setVisible(true);
-    saveDrawingButton.setVisible(true);
+
+    // show results of the game
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+        .setGameResults(true);
+    switchToResults();
   }
 
   private void setLose() {
@@ -846,8 +840,17 @@ public class CanvasController {
     penButton.setDisable(true);
     eraserButton.setDisable(true);
     backButton.setVisible(true);
-    startNewGameButton.setVisible(true);
-    saveDrawingButton.setVisible(true);
+
+    // show results of the game
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+        .setGameResults(false);
+    switchToResults();
+  }
+
+  private void switchToResults() {
+    Scene scene = startButton.getParent().getScene();
+    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.RESULTS));
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
   private void decreaseTime() {

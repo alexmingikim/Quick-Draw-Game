@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206;
 
+import ai.djl.ModelException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
@@ -84,13 +85,16 @@ public class GameModeController {
    * @param event when "Classic" button is clicked
    * @throws IOException if an input or output exception occurred
    * @throws URISyntaxException
+   * @throws ModelException
    */
   @FXML
-  private void onPlayClassic(ActionEvent event) throws IOException, URISyntaxException {
+  private void onPlayClassic(ActionEvent event)
+      throws IOException, URISyntaxException, ModelException {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
-    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).subInitialize();
+    ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).startNewGame();
+    ;
     // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

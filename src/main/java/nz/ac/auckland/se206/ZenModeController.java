@@ -254,6 +254,7 @@ public class ZenModeController {
     category = selectRandomCategory();
     lblCategory.setText(
         "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
+    enablePen();
   }
 
   /** Speaks the category chosen when TTS button is clicked */
@@ -366,5 +367,29 @@ public class ZenModeController {
         e.printStackTrace();
       }
     }
+  }
+
+  /** Enables user to draw with black paint */
+  @FXML
+  private void onSetBlackPaint() {
+    graphic.setStroke(Color.BLACK);
+  }
+
+  /** Enables user to draw with red paint */
+  @FXML
+  private void onSetRedPaint() {
+    graphic.setStroke(Color.RED);
+  }
+
+  /** Enables user to draw with green paint */
+  @FXML
+  private void onSetGreenPaint() {
+    graphic.setStroke(Color.GREEN);
+  }
+
+  /** Enables user to draw with blue paint */
+  @FXML
+  private void onSetBluePaint() {
+    graphic.setStroke(Color.BLUE);
   }
 }

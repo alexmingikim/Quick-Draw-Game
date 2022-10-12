@@ -54,7 +54,7 @@ Source of black_paint.png, red_paint.png, green_paint.png, blue_paint.png: https
          </font>
       </Label>
       <Pane layoutX="8.0" layoutY="95.0" opacity="0.2" prefHeight="67.0" prefWidth="292.0" style="-fx-background-color: grey;" />
-      <Button fx:id="btnNewWord" layoutX="308.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+      <Button fx:id="btnNewWord" layoutX="308.0" layoutY="104.0" mnemonicParsing="false" onAction="#onNewWord" prefHeight="50.0" prefWidth="50.0">
          <graphic>
             <ImageView fitHeight="43.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -100,10 +100,10 @@ Source of black_paint.png, red_paint.png, green_paint.png, blue_paint.png: https
             </Canvas>
          </children>
       </StackPane>
-      <Button fx:id="btnBack" layoutX="8.0" layoutY="560.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Back" textFill="WHITE" />
-      <Button fx:id="btnClear" layoutX="572.0" layoutY="560.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE" />
+      <Button fx:id="btnBack" layoutX="8.0" layoutY="560.0" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Back" textFill="WHITE" />
+      <Button fx:id="btnClear" layoutX="572.0" layoutY="560.0" mnemonicParsing="false" onAction="#onClear" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE" />
       <Pane layoutX="683.0" layoutY="235.0" opacity="0.2" prefHeight="312.0" prefWidth="103.0" style="-fx-background-color: grey;" />
-      <Button fx:id="btnSaveDrawing" layoutX="684.0" layoutY="560.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE" />
+      <Button fx:id="btnSaveDrawing" layoutX="684.0" layoutY="560.0" mnemonicParsing="false" onAction="#onSaveDrawing" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE" />
       <ToggleButton fx:id="togBtnBlackPaint" layoutX="689.0" layoutY="251.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="90.0">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
@@ -112,13 +112,13 @@ Source of black_paint.png, red_paint.png, green_paint.png, blue_paint.png: https
                </image>
             </ImageView>
          </graphic></ToggleButton>
-      <ToggleButton fx:id="togBtnErase" layoutX="689.0" layoutY="501.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="90.0" style="-fx-background-color: #878787;" text="Erase" textFill="WHITE" />
+      <ToggleButton fx:id="togBtnErase" layoutX="689.0" layoutY="501.0" mnemonicParsing="false" onAction="#onErase" prefHeight="37.0" prefWidth="90.0" style="-fx-background-color: #878787;" text="Erase" textFill="WHITE" />
       <ImageView fitHeight="173.0" fitWidth="205.0" layoutX="562.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/new_robo.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnTextToSpeech" layoutX="370.0" layoutY="104.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+      <Button fx:id="btnTextToSpeech" layoutX="370.0" layoutY="104.0" mnemonicParsing="false" onAction="#onPlayTextToSpeech" prefHeight="50.0" prefWidth="50.0">
          <graphic>
             <ImageView fitHeight="43.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>

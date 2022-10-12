@@ -115,7 +115,7 @@ public class GameModeController {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
-    ((ZenModeController) SceneManager.getLoader(AppUi.ZEN_MODE).getController()).startNewGame();
+    ((ZenModeController) SceneManager.getLoader(AppUi.ZEN_MODE).getController()).subInitialize();
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.ZEN_MODE));

@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 public class ProfileCreationController {
 
@@ -33,12 +35,22 @@ public class ProfileCreationController {
 
   private AppUi preScene;
 
+  private MediaUtil player;
+
   public void setPreScene(AppUi preScene) {
     this.preScene = preScene;
   }
 
   @FXML
   private void onConfirm(ActionEvent event) throws IOException {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // generate error if username field is blank
     if (usernameTextField.getText().isBlank()) {
       Alert alert = new Alert(AlertType.ERROR);
@@ -97,6 +109,14 @@ public class ProfileCreationController {
 
   @FXML
   private void onCancel(ActionEvent event) throws IOException {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     // Returning to previous scene
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();

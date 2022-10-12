@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import nz.ac.auckland.se206.util.MediaUtil;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class StatisticsViewController {
@@ -42,6 +44,8 @@ public class StatisticsViewController {
   @FXML private Label fastestGameWonLabel;
 
   @FXML private ScrollPane wordsEncounteredField;
+
+  private MediaUtil player;
 
   public void load() {
 
@@ -112,6 +116,14 @@ public class StatisticsViewController {
 
   @FXML
   private void onGoBack(ActionEvent event) {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.PROFILE_VIEW));

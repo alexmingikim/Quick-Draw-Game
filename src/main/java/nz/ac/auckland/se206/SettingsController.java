@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 public class SettingsController {
 
@@ -85,6 +87,8 @@ public class SettingsController {
   private ToggleGroup confidenceGroup = new ToggleGroup();
 
   private User currentProfile = ProfileViewController.getCurrentUser();
+
+  private MediaUtil player;
 
   static Difficulty[] unsavedGuest =
       new Difficulty[] {Difficulty.EASY, Difficulty.EASY, Difficulty.EASY, Difficulty.EASY};
@@ -323,6 +327,14 @@ public class SettingsController {
 
   @FXML
   private void onGoBack(ActionEvent event) {
+    try {
+      player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    player.play();
+
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.GAME_MODE));

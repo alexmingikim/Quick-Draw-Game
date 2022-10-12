@@ -83,12 +83,13 @@ public class GameModeController {
    *
    * @param event when "Classic" button is clicked
    * @throws IOException if an input or output exception occurred
+   * @throws URISyntaxException
    */
   @FXML
-  private void onPlayClassic(ActionEvent event) throws IOException {
+  private void onPlayClassic(ActionEvent event) throws IOException, URISyntaxException {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
-    
+
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).subInitialize();
     // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();

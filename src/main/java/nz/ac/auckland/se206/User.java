@@ -171,4 +171,8 @@ public class User {
   public void resetWords() {
     this.wordsEncountered = "";
   }
+
+  public void setOpacity(double opacity) {
+    this.opacity = opacity;
+  }
 }

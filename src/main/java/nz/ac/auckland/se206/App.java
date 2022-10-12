@@ -67,6 +67,9 @@ public class App extends Application {
     // main game branch
     SceneManager.addUi(AppUi.CANVAS, loadFxml("canvas"));
     SceneManager.addLoader(AppUi.CANVAS, fxmlLoader);
+    // game results scene
+    SceneManager.addUi(AppUi.RESULTS, loadFxml("results"));
+    SceneManager.addLoader(AppUi.RESULTS, fxmlLoader);
     // Game mode
     SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
     SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);

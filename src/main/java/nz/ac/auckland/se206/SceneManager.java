@@ -15,6 +15,7 @@ public class SceneManager {
     BADGE_VIEW,
     SETTINGS,
     CANVAS,
+    RESULTS
   }
 
   private static HashMap<AppUi, Parent> sceneMap = new HashMap<AppUi, Parent>();

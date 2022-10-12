@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ResultsController">
+   <children>
+      <ImageView fitHeight="604.0" fitWidth="842.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/background_profile_view.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="resultsLabel" alignment="CENTER" layoutX="226.0" layoutY="76.0" prefHeight="70.0" prefWidth="350.0" text="You Lost">
+         <font>
+            <Font name="Courier New Bold" size="64.0" />
+         </font>
+      </Label>
+      <Label fx:id="profileUsernameLabel" layoutX="28.0" layoutY="20.0" prefHeight="56.0" prefWidth="150.0" text="Guest">
+         <font>
+            <Font name="Courier New Italic" size="16.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="27.2" fitWidth="27.2">
+               <image>
+                  <Image url="@../images/guest.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
+      <HBox alignment="TOP_CENTER" layoutX="167.0" layoutY="460.0" prefHeight="35.0" prefWidth="466.0" spacing="30.0">
+         <children>
+            <Button fx:id="goGameModeButton" mnemonicParsing="false" onAction="#onGoGameMode" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Main Menu" textFill="WHITE" />
+            <Button fx:id="saveDrawingButton" mnemonicParsing="false" onAction="#onSaveDrawing" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE" />
+            <Button fx:id="startNewGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Start New Game" textFill="WHITE" />
+         </children>
+      </HBox>
+      <ImageView fx:id="finalDrawingImage" fitHeight="294.0" fitWidth="395.0" layoutX="203.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</Pane>

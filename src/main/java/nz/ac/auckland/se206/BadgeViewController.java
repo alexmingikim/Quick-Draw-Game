@@ -20,6 +20,12 @@ public class BadgeViewController {
 
   static final int TOTAL_BADGES = 10;
 
+  static List<Badge> allBadges;
+
+  public static List<Badge> getAllBadges() {
+    return allBadges;
+  }
+
   @FXML private Button btnGoBack;
 
   @FXML private Button viewStatisticsButton;
@@ -49,8 +55,6 @@ public class BadgeViewController {
   private Label[] displayBadges;
 
   private User currentProfile = ProfileViewController.getCurrentUser();
-
-  private List<Badge> allBadges;
 
   /**
    * Initializes the badge view scene. Creates and fills the label array and updates the username

@@ -3,6 +3,9 @@ package nz.ac.auckland.se206;
 import ai.djl.ModelException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ResultsController {
@@ -18,6 +22,10 @@ public class ResultsController {
   @FXML private Label resultsLabel;
 
   @FXML private Label profileUsernameLabel;
+
+  @FXML private Label earnedTitleLabel;
+
+  @FXML private Label badgesEarnedLabel;
 
   @FXML private Button goGameModeButton;
 
@@ -31,6 +39,8 @@ public class ResultsController {
 
   private Boolean isGameWon = false;
 
+  private List<Integer> newBadges = new ArrayList<Integer>();
+
   /** Initializes the results scene when the game app is ran. */
   public void initialize() {
     subInitialize();
@@ -43,12 +53,20 @@ public class ResultsController {
   public void subInitialize() {
     // get final snapshot of drawn image
     setFinalSnapshot();
+    badgesEarnedLabel.setText("");
 
     // change results label based on current game results
     if (isGameWon == true) {
       resultsLabel.setText("You Won");
+      if (!newBadges.isEmpty()) {
+        displayNewBadges();
+        earnedTitleLabel.setVisible(true);
+        badgesEarnedLabel.setVisible(true);
+      }
     } else {
       resultsLabel.setText("You Lost");
+      earnedTitleLabel.setVisible(false);
+      badgesEarnedLabel.setVisible(false);
     }
 
     // change username label based on current profile
@@ -58,6 +76,11 @@ public class ResultsController {
     } else {
       profileUsernameLabel.setText(currentProfile.getName());
     }
+  }
+
+  /** Set every badge that was earned this game. */
+  public void setNewBadges(List<Integer> newBadges) {
+    this.newBadges = newBadges;
   }
 
   /**
@@ -77,6 +100,20 @@ public class ResultsController {
             .getCurrentSnapshot();
     Image image = SwingFXUtils.toFXImage(finalSnapshot, null);
     finalDrawingImage.setImage(image);
+  }
+
+  /** Display all new badges earned in the latest game in order by index of the badges. */
+  private void displayNewBadges() {
+    Collections.sort(newBadges);
+    StringBuilder sb = new StringBuilder();
+    // retrieve the name of every badge that was earned in the latest game
+    for (Integer badgeIndex : newBadges) {
+      String badgeName = BadgeViewController.getAllBadges().get(badgeIndex).getName();
+      sb.append(badgeName).append(System.lineSeparator());
+    }
+    // display all badges earned
+    badgesEarnedLabel.setText(sb.toString());
+    badgesEarnedLabel.setTextAlignment(TextAlignment.RIGHT);
   }
 
   /**

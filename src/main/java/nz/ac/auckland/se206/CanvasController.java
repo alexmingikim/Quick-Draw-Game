@@ -120,6 +120,8 @@ public class CanvasController {
 
   private int prevPredictionRank = 0;
 
+  private List<Integer> newBadges = new ArrayList<Integer>();
+
   // mouse coordinates
   private double currentX;
   private double currentY;
@@ -152,6 +154,7 @@ public class CanvasController {
    * @throws IOException if an input or output exception occurs
    */
   public void subInitialize() throws IOException {
+    newBadges.clear();
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile == null) {
@@ -506,14 +509,17 @@ public class CanvasController {
     // Check if game won is under 30 seconds
     if (fastestGame < 30 && !currentProfile.getBadges().contains(0)) {
       currentProfile.updateBadges(0);
+      newBadges.add(0);
     }
     // Check if game won is under 10 seconds
     if (fastestGame < 10 && !currentProfile.getBadges().contains(1)) {
       currentProfile.updateBadges(1);
+      newBadges.add(1);
     }
     // Check if game won is under 5 seconds
     if (fastestGame < 5 && !currentProfile.getBadges().contains(2)) {
       currentProfile.updateBadges(2);
+      newBadges.add(2);
     }
   }
 
@@ -526,14 +532,17 @@ public class CanvasController {
     // Check if the winning streak on this profile is over 2
     if (winStreak >= 2 && !currentProfile.getBadges().contains(3)) {
       currentProfile.updateBadges(3);
+      newBadges.add(3);
     }
     // Check if the winning streak on this profile is over 5
     if (winStreak >= 5 && !currentProfile.getBadges().contains(4)) {
       currentProfile.updateBadges(4);
+      newBadges.add(4);
     }
     // Check if the winning streak on this profile is over 10
     if (winStreak >= 10 && !currentProfile.getBadges().contains(5)) {
       currentProfile.updateBadges(5);
+      newBadges.add(5);
     }
   }
 
@@ -546,14 +555,17 @@ public class CanvasController {
     // Check if total number of games on this profile is over 5
     if (totalGames >= 5 && !currentProfile.getBadges().contains(6)) {
       currentProfile.updateBadges(6);
+      newBadges.add(6);
     }
     // Check if total number of games on this profile is over 10
     if (totalGames >= 10 && !currentProfile.getBadges().contains(7)) {
       currentProfile.updateBadges(7);
+      newBadges.add(7);
     }
     // Check if total number of games on this profile is over 20
     if (totalGames >= 20 && !currentProfile.getBadges().contains(8)) {
       currentProfile.updateBadges(8);
+      newBadges.add(8);
     }
   }
 
@@ -566,6 +578,7 @@ public class CanvasController {
     for (Difficulty difficulty : currentProfile.getDifficulties()) {
       if (difficulty == Difficulty.MASTER && !currentProfile.getBadges().contains(9)) {
         currentProfile.updateBadges(9);
+        newBadges.add(9);
       }
     }
   }
@@ -971,6 +984,8 @@ public class CanvasController {
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(true);
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+        .setNewBadges(newBadges);
     switchToResults();
   }
 
@@ -1030,6 +1045,8 @@ public class CanvasController {
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(false);
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+        .setNewBadges(newBadges);
     switchToResults();
   }
 

@@ -497,6 +497,23 @@ public class CanvasController {
     }
   }
 
+  private Boolean checkMasterDifficulty() {
+    if (currentProfile == null) {
+      for (Difficulty difficulty : SettingsController.getGuestDifficulty()) {
+        if (difficulty == Difficulty.MASTER) {
+          return true;
+        }
+      }
+    } else {
+      for (Difficulty difficulty : currentProfile.getDifficulties()) {
+        if (difficulty == Difficulty.MASTER) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /** Update and save the new changes to the current profile to the local json file. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
@@ -864,6 +881,11 @@ public class CanvasController {
       currentProfile.chooseWonOrLost(true);
       currentProfile.updateTimeWon(60 - counter, category);
       checkMaxWords();
+      // check if the game was won with one or more difficulty setting on master and
+      // if the badge is already obtained
+      if (checkMasterDifficulty() && !currentProfile.getBadges().contains(9)) {
+        currentProfile.updateBadges(9);
+      }
       updateProfile();
     }
 

@@ -257,7 +257,9 @@ public class User {
   }
 
   /** Update the badges achieved on the current user profile. */
-  public void updateBadges() {}
+  public void updateBadges(int badgeIndex) {
+    this.badges.add(badgeIndex);
+  }
 
   /** Increment the number of games played on the current user profile. */
   public void incrementNoOfGamesPlayed() {

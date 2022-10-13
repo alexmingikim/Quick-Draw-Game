@@ -12,6 +12,14 @@ import org.json.JSONTokener;
 public class DictionaryLookUp {
   private static final String API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
+  /**
+   * Returns the definition of the input word.
+   *
+   * @param wordToLookUpDefinition word whose definition is to be found
+   * @return definition of input word
+   * @throws WordNotFoundException exception when definition cannot be found
+   * @throws IOException
+   */
   public static String searchWordDefinition(String wordToLookUpDefinition)
       throws WordNotFoundException, IOException {
 
@@ -26,10 +34,13 @@ public class DictionaryLookUp {
       JSONObject jsonObj = (JSONObject) new JSONTokener(jsonString).nextValue();
       String title = jsonObj.getString("title");
       String subMessage = jsonObj.getString("message");
+
+      // exception when defintion cannot be found
       throw new WordNotFoundException(wordToLookUpDefinition, title, subMessage);
     } catch (ClassCastException e) {
     }
 
+    // JSON library
     JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
     JSONObject jsonEntryObj = jArray.getJSONObject(0);
     JSONArray jsonMeanings = jsonEntryObj.getJSONArray("meanings");
@@ -37,6 +48,7 @@ public class DictionaryLookUp {
     JSONArray jsonDefinitions = jsonMeaningObj.getJSONArray("definitions");
     JSONObject jsonDefinitionObj = jsonDefinitions.getJSONObject(0);
 
+    // return definition
     String definition = jsonDefinitionObj.getString("definition");
     return definition;
   }

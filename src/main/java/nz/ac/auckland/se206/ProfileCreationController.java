@@ -37,16 +37,28 @@ public class ProfileCreationController {
 
   private MediaUtil player;
 
+  /**
+   * Retrieves the previous scene before the scene was switched to profile creation.
+   *
+   * @param preScene the previous scene
+   */
   public void setPreScene(AppUi preScene) {
     this.preScene = preScene;
   }
 
+  /**
+   * Creates a new user profile using the user-inputed username while also returning to the profile
+   * view scene.
+   *
+   * @param event the event triggered when the confirm button is clicked
+   * @throws IOException if an file input or output error occurs
+   */
   @FXML
   private void onConfirm(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -107,12 +119,18 @@ public class ProfileCreationController {
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(preScene));
   }
 
+  /**
+   * Switches from profile creation scene back to profile view scene without creating a new profile.
+   *
+   * @param event the event triggered when the cancel button is clicked
+   * @throws IOException {@inheritDoc}
+   */
   @FXML
   private void onCancel(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();

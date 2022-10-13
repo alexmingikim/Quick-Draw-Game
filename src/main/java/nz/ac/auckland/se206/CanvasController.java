@@ -144,6 +144,13 @@ public class CanvasController {
     eraserButton.setDisable(true);
   }
 
+  /**
+   * This method changes the username display based on the current user profile. The username
+   * becomes "Guest" if there is no user profile selected. A new game is also started if the canvas
+   * is blank.
+   *
+   * @throws IOException if an input or output exception occurs
+   */
   public void subInitialize() throws IOException {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
@@ -164,6 +171,12 @@ public class CanvasController {
     }
   }
 
+  /**
+   * This method is used to start a new game when the current game is finished.
+   *
+   * @throws ModelException if the prediction model has an error
+   * @throws IOException if the input and output of the file has an error
+   */
   public void startNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
     statusLabel.setText("---------- Press Start to Begin ----------");
@@ -185,6 +198,7 @@ public class CanvasController {
     }
   }
 
+  /** Save the final snapshot of the canvas after the game has ended. */
   public void saveDrawing() {
     // create a new file choose instance and prompt the user to select a location
     // and name with a suggested default name
@@ -233,6 +247,7 @@ public class CanvasController {
     return imageBinary;
   }
 
+  /** Set the value of the timer depending on the the user profile's difficulty setting. */
   private void setCounter() {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -242,6 +257,12 @@ public class CanvasController {
     }
   }
 
+  /**
+   * Select a random word depending on the user profile's difficulty
+   *
+   * @return the random selected word
+   * @throws IOException if a file input or output error occurs
+   */
   private String selectRandomCategory() throws IOException {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -251,6 +272,7 @@ public class CanvasController {
     }
   }
 
+  /** Set the initial timer value depending on current profile difficulty. */
   private void setCounterProfile() {
     switch (currentProfile.getDifficulties()[2]) {
       case EASY:
@@ -272,6 +294,7 @@ public class CanvasController {
     }
   }
 
+  /** Set the initial timer value depending on selected guest difficulty. */
   private void setCounterGuest() {
     switch (SettingsController.getGuestDifficulty()[2]) {
       case EASY:
@@ -293,6 +316,11 @@ public class CanvasController {
     }
   }
 
+  /**
+   * Retrieve all categories present in the resource file.
+   *
+   * @return the array of categories with their corresponding difficulty
+   */
   private ArrayList<String[]> getCategories() {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>();
@@ -314,6 +342,12 @@ public class CanvasController {
     return categoryList;
   }
 
+  /**
+   * Select a random category based on the difficulty setting of the current profile.
+   *
+   * @return the random selected word
+   * @throws IOException if a file input and output error occurs
+   */
   private String selectCategoryProfile() throws IOException {
     // get a list of all the categories
     ArrayList<String> wordsList =
@@ -367,6 +401,12 @@ public class CanvasController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Select a random category based on the difficulty setting of the guest profile.
+   *
+   * @return the random selected word
+   * @throws IOException if a file input and output error occurs
+   */
   private String selectCategoryGuest() throws IOException {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
@@ -412,6 +452,10 @@ public class CanvasController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Check if the current profile has encountered every single word in one or more of the categoryr
+   * difficulties.
+   */
   private void checkMaxWords() {
     // get a list of all the categories and profile's encountered words
     ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
@@ -453,10 +497,11 @@ public class CanvasController {
     }
   }
 
+  /** Update and save the new changes to the current profile to the local json file. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
     currentProfile = ProfileViewController.getCurrentUser();
 
     try {
@@ -503,6 +548,10 @@ public class CanvasController {
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.GAME_MODE));
   }
 
+  /**
+   * This method is executed when the start button is pressed. The timer begins and the AI predicts
+   * what is drawn.
+   */
   @FXML
   private void onStart() {
     // change message
@@ -548,6 +597,10 @@ public class CanvasController {
     backButton.setVisible(false);
   }
 
+  /**
+   * This method is executed whenever the user clicks and drags on the canvas to draw an image. The
+   * pen options are set according to the standard measurements.
+   */
   @FXML
   private void onPen() {
     // save coordinates when mouse is pressed on the canvas
@@ -579,6 +632,10 @@ public class CanvasController {
         });
   }
 
+  /**
+   * This method is executed when the user clicks and drags on the canvas and the eraser button is
+   * clicked. The eraser size option is set to be bigger than the pen for easier erasing.
+   */
   @FXML
   private void onErase() {
     canvas.setOnMouseDragged(
@@ -594,6 +651,7 @@ public class CanvasController {
         });
   }
 
+  /** This method plays the audio to inform users what the current category is. */
   @FXML
   private void onPlayTextToSpeech() {
     // text to speech: says the current category being played
@@ -612,7 +670,12 @@ public class CanvasController {
     backgroundThread.start();
   }
 
-  // helper methods
+  /**
+   * Retrieves the predictions for the current snapshot of the canvas and displays the top 10
+   * predictions as well as an indicator for whether the AI is close to guessing the current word.
+   *
+   * @throws TranslateException if the model translation has an error
+   */
   private void updatePrediction() throws TranslateException {
     if (blankStatus == false) {
       // get top 10 predictions
@@ -651,7 +714,7 @@ public class CanvasController {
       predictionsTextFlow.getChildren().clear();
 
       // set the font
-      Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+      Font font;
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
@@ -676,8 +739,8 @@ public class CanvasController {
         }
 
         int winCondition = 0;
-        Difficulty accuracyDifficulty = null;
-        Difficulty confidenceDifficulty = null;
+        Difficulty accuracyDifficulty;
+        Difficulty confidenceDifficulty;
 
         // Checking for winning condition for each accuracy difficulty setting
         if (currentProfile == null) {
@@ -744,6 +807,7 @@ public class CanvasController {
           setWin();
         }
 
+        // combining all the predicted words into a list
         if (i != 10) {
           sb.append(i)
               .append("  :  ")
@@ -753,6 +817,7 @@ public class CanvasController {
           text.setFont(font);
           predictionsTextFlow.getChildren().add(text);
         } else {
+          // special consideration for spacing if it is the 10th word
           sb.append(i)
               .append(" :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
@@ -770,6 +835,10 @@ public class CanvasController {
     }
   }
 
+  /**
+   * This method is executed when the user wins the game. A sound effect is played for winning and
+   * the stats of the game is stored if the current user profile is not the default guest.
+   */
   private void setWin() {
     // stop game and print message
     canvas.setDisable(true);
@@ -780,10 +849,10 @@ public class CanvasController {
       player.stop();
     }
 
+    // play winning sound effect
     try {
       player = new MediaUtil(MediaUtil.winGameFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -810,11 +879,16 @@ public class CanvasController {
     switchToResults();
   }
 
+  /**
+   * This method is executed when the user loses the game. A sound effect is played for losing and
+   * the stats of the game is stored if the current user profile is not the default guest.
+   */
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
     statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
+    // play losing sound effect
     try {
       player = new MediaUtil(MediaUtil.loseGameFile);
     } catch (URISyntaxException e) {
@@ -845,26 +919,36 @@ public class CanvasController {
     switchToResults();
   }
 
+  /** Switch from canvas scene to results scene. */
   private void switchToResults() {
     Scene scene = startButton.getParent().getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.RESULTS));
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
+  /**
+   * Decrease the game timer by 1 second and play a sound effect when the time reaches 10 and below.
+   */
   private void decreaseTime() {
+    // decrease counter by 1
     counter--;
     timerLabel.setText(String.valueOf(counter));
+    // play time ticking sound effects when time is at 10 seconds and below
     if (counter == 10) {
       try {
         player = new MediaUtil(MediaUtil.fastTickingFile);
       } catch (URISyntaxException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       player.play();
     }
   }
 
+  /**
+   * Sets canvas scene onto the current scene.
+   *
+   * @param stage the stage of the application
+   */
   public void setStage(Stage stage) {
     this.stage = stage;
   }

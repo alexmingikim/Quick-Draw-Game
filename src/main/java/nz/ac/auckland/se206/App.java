@@ -76,6 +76,9 @@ public class App extends Application {
     // Zen mode
     SceneManager.addUi(AppUi.ZEN_MODE, loadFxml("zen_mode"));
     SceneManager.addLoader(AppUi.ZEN_MODE, fxmlLoader);
+    // Hidden Word mode
+    SceneManager.addUi(AppUi.HIDDEN_WORD_MODE, loadFxml("hidden_word_mode"));
+    SceneManager.addLoader(AppUi.HIDDEN_WORD_MODE, fxmlLoader);
 
     try {
       MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);

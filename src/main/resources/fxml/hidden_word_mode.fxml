@@ -29,9 +29,9 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
             <Font name="Brush Script MT Italic" size="60.0" />
          </font>
       </Label>
-      <Label fx:id="lblProfileName" layoutX="8.0" layoutY="18.0" prefHeight="51.0" prefWidth="145.0" text="Guest" textFill="WHITE">
+      <Label fx:id="lblProfileName" layoutX="15.0" layoutY="18.0" prefHeight="43.0" prefWidth="140.0" text="Guest" textFill="WHITE">
          <font>
-            <Font name="Courier New Italic" size="16.0" />
+            <Font name="Courier New Italic" size="14.0" />
          </font>
          <graphic>
             <ImageView fitHeight="27.2" fitWidth="27.2">
@@ -41,22 +41,22 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
             </ImageView>
          </graphic>
       </Label>
-      <Pane layoutX="8.0" layoutY="95.0" opacity="0.9" prefHeight="134.0" prefWidth="231.0" style="-fx-background-color: white;" />
-      <Label fx:id="lblCategory" layoutX="10.0" layoutY="96.0" prefHeight="134.0" prefWidth="230.0" text="Definition&#10;***************&#10;&#10;&#10;&#10;&#10;&#10;">
+      <Pane layoutX="12.0" layoutY="95.0" opacity="0.9" prefHeight="134.0" prefWidth="232.0" style="-fx-background-color: white;" />
+      <Label fx:id="lblDefinition" layoutX="12.0" layoutY="96.0" prefHeight="134.0" prefWidth="230.0" text="Definition&#10;***************&#10;&#10;&#10;&#10;&#10;&#10;">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font name="Courier New Bold" size="20.0" />
+            <Font name="Courier New Bold" size="16.0" />
          </font>
       </Label>
-      <Pane layoutX="241.0" layoutY="174.0" opacity="0.9" prefHeight="55.0" prefWidth="432.0" style="-fx-background-color: white;" />
-      <Label fx:id="lblStatus" alignment="CENTER" layoutX="241.0" layoutY="174.0" prefHeight="55.0" prefWidth="432.0" text="Let's Get Drawing!" textAlignment="CENTER">
+      <Pane layoutX="249.0" layoutY="174.0" opacity="0.9" prefHeight="55.0" prefWidth="429.0" style="-fx-background-color: white;" />
+      <Label fx:id="lblStatus" alignment="CENTER" layoutX="246.0" layoutY="174.0" prefHeight="55.0" prefWidth="431.0" text="Let's Get Drawing!" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold Italic" size="16.0" />
          </font>
       </Label>
-      <VBox layoutX="8.0" layoutY="233.0" maxWidth="265.0" minWidth="232.0" prefHeight="315.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
+      <VBox layoutX="12.0" layoutY="233.0" maxWidth="265.0" minWidth="232.0" prefHeight="315.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
          <children>
             <Label fx:id="predictionsTitleLabel" alignment="CENTER" minHeight="37.0" prefHeight="37.0" prefWidth="232.0" style="-fx-background-color: #ededed;">
                <font>
@@ -78,7 +78,7 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
             </TextFlow>
          </children>
       </VBox>
-      <StackPane layoutX="239.0" layoutY="230.0" maxHeight="320.0" maxWidth="434.0" minHeight="243.0" minWidth="400.0" prefHeight="320.0" prefWidth="434.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">
+      <StackPane layoutX="246.0" layoutY="230.0" maxHeight="320.0" maxWidth="434.0" minHeight="243.0" minWidth="400.0" prefHeight="320.0" prefWidth="434.0" style="-fx-background-color: #404040, #f9f9f9; -fx-background-insets: 0, 3;">
          <children>
             <Canvas fx:id="canvas" height="315.0" width="428.0">
                <cursor>
@@ -92,21 +92,21 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
             <Image url="@../images/new_robo.png" />
          </image>
       </ImageView>
-      <Pane layoutX="676.0" layoutY="139.0" opacity="0.9" prefHeight="93.0" prefWidth="110.0" style="-fx-background-color: white;" />
-      <Label layoutX="701.0" layoutY="141.0" prefHeight="31.0" prefWidth="65.0" text="Timer:">
+      <Pane layoutX="684.0" layoutY="139.0" opacity="0.9" prefHeight="89.0" prefWidth="102.0" style="-fx-background-color: white;" />
+      <Label layoutX="705.0" layoutY="143.0" prefHeight="31.0" prefWidth="65.0" text="Timer:">
          <font>
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="699.0" layoutY="171.0" prefHeight="46.0" prefWidth="63.0" text="60" textAlignment="CENTER">
+      <Label fx:id="lblTimer" layoutX="704.0" layoutY="168.0" prefHeight="46.0" prefWidth="63.0" text="60" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold" size="49.0" />
          </font>
       </Label>
-      <Button fx:id="startButton" layoutX="8.0" layoutY="555.0" mnemonicParsing="false" onAction="#onStart" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE" />
-      <Button fx:id="penButton" layoutX="120.0" layoutY="555.0" mnemonicParsing="false" onAction="#onPen" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #989898;" text="Draw!" textFill="WHITE" />
-      <Button fx:id="eraserButton" layoutX="232.0" layoutY="555.0" mnemonicParsing="false" onAction="#onErase" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #989898;" text="Erase" textFill="WHITE" />
-      <Button fx:id="clearButton" layoutX="400.0" layoutY="555.0" mnemonicParsing="false" onAction="#onClear" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE" />
-      <Button fx:id="backButton" layoutX="572.0" layoutY="555.0" mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Back" textFill="WHITE" />
+      <Button fx:id="btnStart" layoutX="12.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #404040; -fx-border-radius: 6;" text="Start" textFill="WHITE" />
+      <Button fx:id="btnDraw" layoutX="122.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #989898;" text="Draw!" textFill="WHITE" />
+      <Button fx:id="btnErase" layoutX="232.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #989898;" text="Erase" textFill="WHITE" />
+      <Button fx:id="btnClear" layoutX="400.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #878787; -fx-border-radius: 6;" text="Clear" textFill="WHITE" />
+      <Button fx:id="btnBack" layoutX="578.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Back" textFill="WHITE" />
    </children>
 </Pane>

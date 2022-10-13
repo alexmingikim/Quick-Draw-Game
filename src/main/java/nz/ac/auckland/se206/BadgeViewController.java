@@ -57,12 +57,13 @@ public class BadgeViewController {
    * display for the current profile. All badges are also setup and displayed correspondingly.
    */
   public void initialize() {
-    // set up array to store display labels and retrieve current profile
+    // set up array to store display labels
     createGroup();
-    subInitialize();
     // retrieve all badges
     getBadges();
     setUpBadges();
+    // retrieve current profile
+    subInitialize();
   }
 
   /**
@@ -133,7 +134,17 @@ public class BadgeViewController {
   }
 
   /** Updates the display based on the status of the badges for the current user profile. */
-  private void updateBadges() {}
+  private void updateBadges() {
+    for (int i = 0; i < TOTAL_BADGES; i++) {
+      // set opacity of badge's label depending on whether or not the current profile
+      // has achieved it
+      if (currentProfile.getBadges().contains(i)) {
+        displayBadges[i].setOpacity(1);
+      } else {
+        displayBadges[i].setOpacity(0.5);
+      }
+    }
+  }
 
   /**
    * Switches to the profile view scene from the badge view scene.

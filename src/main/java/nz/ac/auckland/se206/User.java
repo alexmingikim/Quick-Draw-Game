@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206;
 
+import java.util.ArrayList;
+import java.util.List;
 import nz.ac.auckland.se206.SettingsController.Difficulty;
 
 public class User {
@@ -19,7 +21,7 @@ public class User {
   private Difficulty words;
   private Difficulty time;
   private Difficulty confidence;
-  private int[] badges;
+  private List<Integer> badges = new ArrayList<Integer>();
 
   public User(
       String id,
@@ -49,7 +51,6 @@ public class User {
     this.words = Difficulty.EASY;
     this.time = Difficulty.EASY;
     this.confidence = Difficulty.EASY;
-    this.badges = null;
   }
 
   /**
@@ -174,7 +175,7 @@ public class User {
    *
    * @return badges
    */
-  public int[] getBadges() {
+  public List<Integer> getBadges() {
     return badges;
   }
 

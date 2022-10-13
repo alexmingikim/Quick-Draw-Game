@@ -341,77 +341,77 @@ public class SettingsController {
   }
 
   @FXML
-  private void onEasyAccuracy() {
+  private void onSelectEasyAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
   @FXML
-  private void onMediumAccuracy() {
+  private void onSelectMediumAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
   @FXML
-  private void onHardAccuracy() {
+  private void onSelectHardAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
   @FXML
-  private void onEasyWords() {
+  private void onSelectEasyWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
   @FXML
-  private void onMediumWords() {
+  private void onSelectMediumWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
   @FXML
-  private void onHardWords() {
+  private void onSelectHardWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
   @FXML
-  private void onMasterWords() {
+  private void onSelectMasterWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MASTER);
   }
 
   @FXML
-  private void onEasyTime() {
+  private void onSelectEasyTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
   @FXML
-  private void onMediumTime() {
+  private void onSelectMediumTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
   @FXML
-  private void onHardTime() {
+  private void onSelectHardTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
   @FXML
-  private void onMasterTime() {
+  private void onSelectMasterTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MASTER);
   }
 
   @FXML
-  private void onEasyConfidence() {
+  private void onSelectEasyConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
   @FXML
-  private void onMediumConfidence() {
+  private void onSelectMediumConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
   @FXML
-  private void onHardConfidence() {
+  private void onSelectHardConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
   @FXML
-  private void onMasterConfidence() {
+  private void onSelectMasterConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MASTER);
   }
 }

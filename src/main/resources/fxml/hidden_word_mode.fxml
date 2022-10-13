@@ -5,6 +5,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -42,14 +43,14 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
          </graphic>
       </Label>
       <Pane layoutX="12.0" layoutY="95.0" opacity="0.9" prefHeight="134.0" prefWidth="232.0" style="-fx-background-color: white;" />
-      <Label fx:id="lblDefinition" layoutX="12.0" layoutY="96.0" prefHeight="134.0" prefWidth="230.0" text="Definition&#10;***************&#10;&#10;&#10;&#10;&#10;&#10;">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <font>
-            <Font name="Courier New Bold" size="16.0" />
-         </font>
-      </Label>
+      <ScrollPane fx:id="scrollPaneDefinition" hbarPolicy="NEVER" layoutX="12.0" layoutY="96.0" prefHeight="134.0" prefWidth="232.0">
+         <content>
+            <Label fx:id="lblDefinition" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="300.0" maxWidth="215.0" prefHeight="209.0" prefWidth="215.0" wrapText="true">
+               <font>
+                  <Font name="Courier New Bold Italic" size="16.0" />
+               </font>
+            </Label>
+         </content></ScrollPane>
       <Pane layoutX="249.0" layoutY="174.0" opacity="0.9" prefHeight="55.0" prefWidth="429.0" style="-fx-background-color: white;" />
       <Label fx:id="lblStatus" alignment="CENTER" layoutX="246.0" layoutY="174.0" prefHeight="55.0" prefWidth="431.0" text="Let's Get Drawing!" textAlignment="CENTER">
          <font>

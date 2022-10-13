@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.TextFlow;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 
@@ -21,8 +23,6 @@ public class HiddenWordModeController {
 
   @FXML private Label lblProfileName;
 
-  @FXML private Label lblDefinition;
-
   @FXML private Label lblStatus;
 
   @FXML private Label lblTimer;
@@ -30,6 +30,10 @@ public class HiddenWordModeController {
   @FXML private Label predictionsLabel;
 
   @FXML private Label predictionsTitleLabel;
+
+  @FXML private Label lblDefinition;
+
+  @FXML private ScrollPane scrollPaneDefinition;
 
   @FXML private TextFlow predictionsTextFlow;
 
@@ -53,6 +57,8 @@ public class HiddenWordModeController {
 
   private String category;
 
+  private String definition;
+
   private int counter = 60;
 
   /**
@@ -64,8 +70,6 @@ public class HiddenWordModeController {
    * @throws WordNotFoundException
    */
   public void initialize() throws ModelException, IOException, WordNotFoundException {
-    subInitialize();
-
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
     model = new DoodlePrediction();
@@ -89,12 +93,40 @@ public class HiddenWordModeController {
       // set a random category according to difficulty
       category = selectRandomCategory();
 
-      // display definition
-      lblDefinition.setText("Definition: " + DictionaryLookUp.searchWordDefinition(category));
+      // find and display definition
+      findAndDisplayDefinition(category);
+
       // set the time limit according to difficulty
       setCounter();
       lblTimer.setText(String.valueOf(counter));
     }
+  }
+
+  /**
+   * Finds the definition of an input word.
+   *
+   * @param word word whose definition must be found
+   */
+  private void findAndDisplayDefinition(String word) {
+    // assign background thread to find definition
+    Task<Void> backgroundTask =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+            definition = DictionaryLookUp.searchWordDefinition(word);
+            return null;
+          }
+        };
+
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+
+    backgroundTask.setOnSucceeded(
+        event -> {
+          lblDefinition.setText(
+              "Definition: \n" + definition + "\n\nHint: starts with '" + word.charAt(0) + "'");
+        });
   }
 
   private void setCounter() {

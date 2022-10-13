@@ -12,6 +12,7 @@ public class User {
   private String noOfGamesPlayed;
   private String noOfGamesWon;
   private String noOfGamesLost;
+  private int winStreak;
   private String averageDrawingTime;
   private String totalGameTime;
   private String fastestWonGameTime;
@@ -47,6 +48,7 @@ public class User {
     this.fastestWonGameTime = fastestWonGameTime;
     this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
+    this.winStreak = 0;
     this.accuracy = Difficulty.EASY;
     this.words = Difficulty.EASY;
     this.time = Difficulty.EASY;
@@ -87,6 +89,15 @@ public class User {
    */
   public String getNoOfGamesLost() {
     return noOfGamesLost;
+  }
+
+  /**
+   * Get the win streak of the current user profile.
+   *
+   * @return win streak
+   */
+  public int getWinStreak() {
+    return winStreak;
   }
 
   /**
@@ -247,10 +258,10 @@ public class User {
   }
 
   /** Update the time related stats of the current user profile when gamee was lost. */
-  public void updateTimeLost() {
+  public void updateTimeLost(int time) {
     // first update total time then use that stat to calculate the rest of the time
     // related statistics
-    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + 60));
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
     this.averageDrawingTime =
         Integer.toString(
             Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
@@ -264,6 +275,11 @@ public class User {
   /** Increment the number of games played on the current user profile. */
   public void incrementNoOfGamesPlayed() {
     this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
+  }
+
+  /** Increment the win streak of the current user profile. */
+  public void incrementWinStreak() {
+    this.winStreak++;
   }
 
   /**
@@ -283,5 +299,10 @@ public class User {
   /** Reset all words encountered for this current user profile. */
   public void resetWords() {
     this.wordsEncountered = "";
+  }
+
+  /** Reset the win streak if the user loses for the current user profile. */
+  public void resetWinStreak() {
+    this.winStreak = 0;
   }
 }

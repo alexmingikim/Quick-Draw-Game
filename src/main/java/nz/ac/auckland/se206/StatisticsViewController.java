@@ -47,6 +47,7 @@ public class StatisticsViewController {
 
   private MediaUtil player;
 
+  /** Display the stats from the current user profile on the statistics view scene. */
   public void load() {
     // initializing tools for dealing with json files and retrieving current user
     String currentUserId = ProfileViewController.currentUserId;
@@ -107,6 +108,11 @@ public class StatisticsViewController {
     }
   }
 
+  /**
+   * Switch from statistics view scene to profile view scene.
+   *
+   * @param event the event triggered when the back button is clicked
+   */
   @FXML
   private void onGoBack(ActionEvent event) {
     // Add sound effects for when the button is clicked
@@ -122,6 +128,11 @@ public class StatisticsViewController {
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.PROFILE_VIEW));
   }
 
+  /**
+   * Switch from statistics view scene to badge view scene.
+   *
+   * @param event the event triggered when the back button is clicked
+   */
   @FXML
   private void onViewBadges(ActionEvent event) {
     // run a method in BadgeViewController to change the username display to the

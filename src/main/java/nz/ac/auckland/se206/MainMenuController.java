@@ -17,6 +17,14 @@ public class MainMenuController {
 
   @FXML private Button playButton;
 
+  /**
+   * Switches from main menu scene to game mode scene.
+   *
+   * @param event event triggered when the play button is clicked
+   * @throws IOException if an file input or output error occurs
+   * @throws ModelException if an error in the prediction model occurs
+   * @throws URISyntaxException if an inappropriate URI is given
+   */
   @FXML
   private void onPlay(ActionEvent event) throws IOException, ModelException, URISyntaxException {
     // play sound effect when button is clicked

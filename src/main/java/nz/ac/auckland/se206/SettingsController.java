@@ -93,10 +93,19 @@ public class SettingsController {
   static Difficulty[] unsavedGuest =
       new Difficulty[] {Difficulty.EASY, Difficulty.EASY, Difficulty.EASY, Difficulty.EASY};
 
+  /**
+   * Retrieve the difficulties of the default guest profile.
+   *
+   * @return the difficulty settings for guest profile
+   */
   public static Difficulty[] getGuestDifficulty() {
     return unsavedGuest;
   }
 
+  /**
+   * Initializes the settings scene to create the toggle button groups and setup the button and name
+   * hashmap.
+   */
   public void initialize() {
     // create the groups for difficulty buttons
     createGroups();
@@ -106,6 +115,10 @@ public class SettingsController {
     subInitialize();
   }
 
+  /**
+   * Sets up the initial difficulty settings to all easy for guest profile or the previous
+   * difficulties if the current profile isn't guest.
+   */
   public void subInitialize() {
     currentProfile = ProfileViewController.getCurrentUser();
     resetAllButtons();
@@ -150,6 +163,7 @@ public class SettingsController {
     }
   }
 
+  /** Update the difficulty settings of the current user profile with new changes. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -180,6 +194,12 @@ public class SettingsController {
     }
   }
 
+  /**
+   * Change the selected accuracy button and store appropriately.
+   *
+   * @param selectedAccuracy the button the user clicked
+   * @param selectedDifficulty the user chosen accuracy difficulty
+   */
   private void updateAccuracyButtons(ToggleButton selectedAccuracy, Difficulty selectedDifficulty) {
     currentProfile = ProfileViewController.getCurrentUser();
     // update changes to accuracy setting buttons
@@ -197,6 +217,12 @@ public class SettingsController {
     lastAccuracyButton = selectedAccuracy;
   }
 
+  /**
+   * Change the selected words button and store appropriately.
+   *
+   * @param selectedAccuracy the button the user clicked
+   * @param selectedDifficulty the user chosen words difficulty
+   */
   private void updateWordsButtons(ToggleButton selectedWords, Difficulty selectedDifficulty) {
     currentProfile = ProfileViewController.getCurrentUser();
     // update changes to words setting buttons
@@ -214,6 +240,12 @@ public class SettingsController {
     lastWordsButton = selectedWords;
   }
 
+  /**
+   * Change the selected time button and store appropriately.
+   *
+   * @param selectedAccuracy the button the user clicked
+   * @param selectedDifficulty the user chosen time difficulty
+   */
   private void updateTimeButtons(ToggleButton selectedTime, Difficulty selectedDifficulty) {
     currentProfile = ProfileViewController.getCurrentUser();
     // update changes to time setting buttons
@@ -231,6 +263,12 @@ public class SettingsController {
     lastTimeButton = selectedTime;
   }
 
+  /**
+   * Change the selected confidence button and store appropriately.
+   *
+   * @param selectedAccuracy the button the user clicked
+   * @param selectedDifficulty the user chosen confidence difficulty
+   */
   private void updateConfidenceButtons(
       ToggleButton selectedConfidence, Difficulty selectedDifficulty) {
     currentProfile = ProfileViewController.getCurrentUser();
@@ -249,6 +287,7 @@ public class SettingsController {
     lastConfidenceButton = selectedConfidence;
   }
 
+  /** Map the names of the difficulty settings to their corresponding toggle buttons. */
   private void setUpMap() {
     // store corresponding accuracy toggle buttons to label
     accuracyMap.put(Difficulty.EASY, easyAccuracyButton);
@@ -274,6 +313,7 @@ public class SettingsController {
     confidenceMap.put(Difficulty.MASTER, masterConfidenceButton);
   }
 
+  /** Set the difficulty setting toggle buttons to their corresponding toggle groups. */
   private void createGroups() {
     // store corresponding accuracy toggle buttons into toggle group
     easyAccuracyButton.setToggleGroup(accuracyGroup);
@@ -299,6 +339,7 @@ public class SettingsController {
     masterConfidenceButton.setToggleGroup(confidenceGroup);
   }
 
+  /** Reset all toggle buttons so no button is disabled or selected. */
   private void resetAllButtons() {
     // enable and deselect all accuracy difficulty buttons
     for (Toggle accuracyButton : accuracyGroup.getToggles()) {
@@ -325,6 +366,11 @@ public class SettingsController {
     }
   }
 
+  /**
+   * Switch from settings scene to game mode scene.
+   *
+   * @param event the event triggered when the back button is clicked
+   */
   @FXML
   private void onGoBack(ActionEvent event) {
     // play sound effect when button is clicked
@@ -340,76 +386,91 @@ public class SettingsController {
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.GAME_MODE));
   }
 
+  /** The method executed when the user selects the easy accuracy toggle button. */
   @FXML
   private void onSelectEasyAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
+  /** The method executed when the user selects the medium accuracy toggle button. */
   @FXML
   private void onSelectMediumAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
+  /** The method executed when the user selects the hard accuracy toggle button. */
   @FXML
   private void onSelectHardAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
+  /** The method executed when the user selects the easy words toggle button. */
   @FXML
   private void onSelectEasyWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
+  /** The method executed when the user selects the medium words toggle button. */
   @FXML
   private void onSelectMediumWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
+  /** The method executed when the user selects the hard words toggle button. */
   @FXML
   private void onSelectHardWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
+  /** The method executed when the user selects the master words toggle button. */
   @FXML
   private void onSelectMasterWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MASTER);
   }
 
+  /** The method executed when the user selects the easy time toggle button. */
   @FXML
   private void onSelectEasyTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
+  /** The method executed when the user selects the medium time toggle button. */
   @FXML
   private void onSelectMediumTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
+  /** The method executed when the user selects the hard time toggle button. */
   @FXML
   private void onSelectHardTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
+  /** The method executed when the user selects the master time toggle button. */
   @FXML
   private void onSelectMasterTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MASTER);
   }
 
+  /** The method executed when the user selects the easy confidence toggle button. */
   @FXML
   private void onSelectEasyConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.EASY);
   }
 
+  /** The method executed when the user selects the medium confidence toggle button. */
   @FXML
   private void onSelectMediumConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MEDIUM);
   }
 
+  /** The method executed when the user selects the hard confidence toggle button. */
   @FXML
   private void onSelectHardConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.HARD);
   }
 
+  /** The method executed when the user selects the master confidence toggle button. */
   @FXML
   private void onSelectMasterConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MASTER);

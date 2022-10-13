@@ -131,10 +131,11 @@ public class GameModeController {
    * @throws IOException if an input or output exception occurred
    * @throws URISyntaxException
    * @throws ModelException
+   * @throws WordNotFoundException
    */
   @FXML
   private void onPlayHiddenWordMode(ActionEvent event)
-      throws IOException, URISyntaxException, ModelException {
+      throws IOException, URISyntaxException, ModelException, WordNotFoundException {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 

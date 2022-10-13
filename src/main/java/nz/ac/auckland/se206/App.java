@@ -73,6 +73,9 @@ public class App extends Application {
     // Game mode
     SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
     SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
+    // Zen mode
+    SceneManager.addUi(AppUi.ZEN_MODE, loadFxml("zen_mode"));
+    SceneManager.addLoader(AppUi.ZEN_MODE, fxmlLoader);
 
     try {
       MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);

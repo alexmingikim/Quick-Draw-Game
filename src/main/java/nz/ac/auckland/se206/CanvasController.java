@@ -94,8 +94,6 @@ public class CanvasController {
 
   @FXML private Button clearButton;
 
-  @FXML private Button btnTextToSpeech;
-
   @FXML private TextFlow predictionsTextFlow;
 
   private int counter = 60;

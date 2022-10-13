@@ -22,6 +22,8 @@ public class GameModeController {
 
   @FXML private Button btnClassic;
 
+  @FXML private Button btnZenMode;
+
   @FXML private Label profileLabel;
 
   private User currentProfile = ProfileViewController.getCurrentUser();
@@ -94,11 +96,29 @@ public class GameModeController {
     player.play();
 
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).startNewGame();
-    ;
-    // set root to profile view scene if "let's start" button is pressed
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.CANVAS));
+  }
+
+  /**
+   * Starts the Zen game mode. Users are given a word to draw under no time constraints.
+   *
+   * @param event when "Zen Mode" button is clicked
+   * @throws IOException if an input or output exception occurred
+   * @throws URISyntaxException
+   * @throws ModelException
+   */
+  @FXML
+  private void onPlayZenMode(ActionEvent event)
+      throws IOException, URISyntaxException, ModelException {
+    player = new MediaUtil(MediaUtil.buttonClickFile);
+    player.play();
+
+    ((ZenModeController) SceneManager.getLoader(AppUi.ZEN_MODE).getController()).subInitialize();
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.ZEN_MODE));
   }
 
   /**

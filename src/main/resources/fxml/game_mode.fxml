@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.GameModeController">
    <children>
       <ImageView fitHeight="617.0" fitWidth="815.0" layoutX="-12.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
@@ -34,7 +33,7 @@
             </Label>
          </graphic>
       </Button>
-      <Button layoutX="64.0" layoutY="195.0" mnemonicParsing="false" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.7" prefHeight="240.0" prefWidth="200.0" style="-fx-background-color: #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768); -fx-background-radius: 30;" text="Zen Mode" textFill="WHITE">
+      <Button fx:id="btnZenMode" layoutX="64.0" layoutY="195.0" mnemonicParsing="false" onAction="#onPlayZenMode" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.7" prefHeight="240.0" prefWidth="200.0" style="-fx-background-color: #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768); -fx-background-radius: 30;" text="Zen Mode" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>

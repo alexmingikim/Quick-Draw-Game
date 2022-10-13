@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -167,7 +166,7 @@ public class SettingsController {
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
 
     try {
       // read existing user profiles from JSON file and store into array list

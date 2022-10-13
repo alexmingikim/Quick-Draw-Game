@@ -501,7 +501,7 @@ public class CanvasController {
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    List<User> userProfiles = new ArrayList<User>();
+    List<User> userProfiles;
     currentProfile = ProfileViewController.getCurrentUser();
 
     try {
@@ -714,7 +714,7 @@ public class CanvasController {
       predictionsTextFlow.getChildren().clear();
 
       // set the font
-      Font font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+      Font font;
 
       // for all predictions, print its ranking and if a prediction is in top 3 and
       // matches with the category, call the player win method
@@ -739,8 +739,8 @@ public class CanvasController {
         }
 
         int winCondition = 0;
-        Difficulty accuracyDifficulty = null;
-        Difficulty confidenceDifficulty = null;
+        Difficulty accuracyDifficulty;
+        Difficulty confidenceDifficulty;
 
         // Checking for winning condition for each accuracy difficulty setting
         if (currentProfile == null) {

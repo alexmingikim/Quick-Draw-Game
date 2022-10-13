@@ -60,6 +60,7 @@ public class ResultsController {
   }
 
   private void setFinalSnapshot() {
+    // retrieve final snapshot of the canvas from canvas scene
     BufferedImage finalSnapshot =
         ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController())
             .getCurrentSnapshot();
@@ -76,6 +77,7 @@ public class ResultsController {
 
   @FXML
   private void onStartNewGame(ActionEvent event) throws IOException, ModelException {
+    // change the scene back to canvas after resetting everything
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).startNewGame();
     Button btnSceneIsIn = (Button) event.getSource();
     Scene scene = btnSceneIsIn.getScene();

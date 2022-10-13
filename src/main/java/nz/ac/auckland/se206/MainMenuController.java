@@ -19,7 +19,7 @@ public class MainMenuController {
 
   @FXML
   private void onPlay(ActionEvent event) throws IOException, ModelException, URISyntaxException {
-
+    // play sound effect when button is clicked
     MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 

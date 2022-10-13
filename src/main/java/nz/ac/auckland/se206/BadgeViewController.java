@@ -71,6 +71,9 @@ public class BadgeViewController {
   }
 
   private void createGroup() {
+    // store all display badge labels into a label array for easier iterations to
+    // change all labels when needed.
+    // Current total of unique badges is 10, more badges can be added for new modes
     displayBadges = new Label[TOTAL_BADGES];
     displayBadges[0] = oneBadgeLabel;
     displayBadges[1] = twoBadgeLabel;

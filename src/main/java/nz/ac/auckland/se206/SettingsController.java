@@ -327,14 +327,14 @@ public class SettingsController {
 
   @FXML
   private void onGoBack(ActionEvent event) {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
-
+    // switch scene back to game mode when button is clicked
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.GAME_MODE));

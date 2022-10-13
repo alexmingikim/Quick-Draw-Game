@@ -48,9 +48,8 @@ public class StatisticsViewController {
   private MediaUtil player;
 
   public void load() {
-
+    // initializing tools for dealing with json files and retrieving current user
     String currentUserId = ProfileViewController.currentUserId;
-
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<User> userProfiles = new ArrayList<User>();
 
@@ -67,7 +66,6 @@ public class StatisticsViewController {
 
     for (User user : userProfiles) {
       String userId = user.getId();
-
       if (userId.equals(currentUserId)) {
         // display non-time related statistics of the current profile
         usernameLabel.setText(user.getName());
@@ -90,25 +88,20 @@ public class StatisticsViewController {
           totalGameTimeLabel.setText(totalMins + "m " + totalSecs + "s");
           fastestGameWonTimeLabel.setText(user.getFastestWonGameTime() + "s");
         }
-
         fastestGameWonLabel.setText("(" + user.getFastestWonGame() + ")");
 
         // displaying all the words encountered by the current profile
         String wordsEncountered = user.getWordsEncountered();
-
         String[] words = wordsEncountered.split(",");
-
         StringBuilder sb = new StringBuilder();
-
+        // making each word encountered appear on a new line
         for (String word : words) {
           sb.append(word + "\n");
         }
-
+        // changing the font of the text to maintain consistency
         String displayWords = sb.toString();
-
         Text text = new Text(displayWords);
         text.setFont(Font.font("Courier New", FontPosture.REGULAR, 16));
-
         wordsEncounteredField.setContent(text);
       }
     }
@@ -116,14 +109,14 @@ public class StatisticsViewController {
 
   @FXML
   private void onGoBack(ActionEvent event) {
+    // Add sound effects for when the button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
-
+    // change the current scene back to profile view
     Button btnClicked = (Button) event.getSource();
     Scene scene = btnClicked.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.PROFILE_VIEW));
@@ -131,6 +124,8 @@ public class StatisticsViewController {
 
   @FXML
   private void onViewBadges(ActionEvent event) {
+    // run a method in BadgeViewController to change the username display to the
+    // current user
     ((BadgeViewController) SceneManager.getLoader(AppUi.BADGE_VIEW).getController())
         .subInitialize();
     Button btnClicked = (Button) event.getSource();

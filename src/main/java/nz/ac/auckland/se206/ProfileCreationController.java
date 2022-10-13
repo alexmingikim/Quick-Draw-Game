@@ -43,10 +43,10 @@ public class ProfileCreationController {
 
   @FXML
   private void onConfirm(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -109,10 +109,10 @@ public class ProfileCreationController {
 
   @FXML
   private void onCancel(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();

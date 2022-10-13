@@ -744,6 +744,7 @@ public class CanvasController {
           setWin();
         }
 
+        // combining all the predicted words into a list
         if (i != 10) {
           sb.append(i)
               .append("  :  ")
@@ -753,6 +754,7 @@ public class CanvasController {
           text.setFont(font);
           predictionsTextFlow.getChildren().add(text);
         } else {
+          // special consideration for spacing if it is the 10th word
           sb.append(i)
               .append(" :  ")
               .append(word.substring(0, 1).toUpperCase() + word.substring(1))
@@ -780,10 +782,10 @@ public class CanvasController {
       player.stop();
     }
 
+    // play winning sound effect
     try {
       player = new MediaUtil(MediaUtil.winGameFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -815,6 +817,7 @@ public class CanvasController {
     canvas.setDisable(true);
     statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
+    // play losing sound effect
     try {
       player = new MediaUtil(MediaUtil.loseGameFile);
     } catch (URISyntaxException e) {
@@ -852,13 +855,14 @@ public class CanvasController {
   }
 
   private void decreaseTime() {
+    // decrease counter by 1
     counter--;
     timerLabel.setText(String.valueOf(counter));
+    // play time ticking sound effects when time is at 10 seconds and below
     if (counter == 10) {
       try {
         player = new MediaUtil(MediaUtil.fastTickingFile);
       } catch (URISyntaxException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       player.play();

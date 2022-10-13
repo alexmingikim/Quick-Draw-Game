@@ -38,6 +38,18 @@ public class SettingsController {
   private static HashMap<Difficulty, ToggleButton> confidenceMap =
       new HashMap<Difficulty, ToggleButton>();
 
+  static Difficulty[] unsavedGuest =
+      new Difficulty[] {Difficulty.EASY, Difficulty.EASY, Difficulty.EASY, Difficulty.EASY};
+
+  /**
+   * Retrieve the difficulties of the default guest profile.
+   *
+   * @return the difficulty settings for guest profile
+   */
+  public static Difficulty[] getGuestDifficulty() {
+    return unsavedGuest;
+  }
+
   @FXML private Button btnGoBack;
 
   @FXML private ToggleButton easyAccuracyButton;
@@ -89,18 +101,6 @@ public class SettingsController {
   private User currentProfile = ProfileViewController.getCurrentUser();
 
   private MediaUtil player;
-
-  static Difficulty[] unsavedGuest =
-      new Difficulty[] {Difficulty.EASY, Difficulty.EASY, Difficulty.EASY, Difficulty.EASY};
-
-  /**
-   * Retrieve the difficulties of the default guest profile.
-   *
-   * @return the difficulty settings for guest profile
-   */
-  public static Difficulty[] getGuestDifficulty() {
-    return unsavedGuest;
-  }
 
   /**
    * Initializes the settings scene to create the toggle button groups and setup the button and name

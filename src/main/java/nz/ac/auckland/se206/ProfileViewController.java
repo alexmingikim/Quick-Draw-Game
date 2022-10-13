@@ -30,31 +30,6 @@ public class ProfileViewController {
 
   static User currentUser = null;
 
-  @FXML private Button btnCreateNewProfile;
-
-  @FXML private Button btnViewStatistics;
-
-  @FXML private Button btnDeleteProfile;
-
-  @FXML private Button btnGoBack;
-
-  @FXML private ToggleButton btnUserOne;
-  @FXML private ToggleButton btnUserTwo;
-  @FXML private ToggleButton btnUserThree;
-  @FXML private ToggleButton btnUserFour;
-  @FXML private ToggleButton btnUserFive;
-  @FXML private ToggleButton btnUserSix;
-  @FXML private ToggleButton btnGuest;
-
-  @FXML private Label lblUserOne;
-  @FXML private Label lblUserTwo;
-  @FXML private Label lblUserThree;
-  @FXML private Label lblUserFour;
-  @FXML private Label lblUserFive;
-  @FXML private Label lblUserSix;
-
-  private MediaUtil player;
-
   /**
    * Gives the current user's ID.
    *
@@ -150,6 +125,31 @@ public class ProfileViewController {
       }
     }
   }
+
+  @FXML private Button btnCreateNewProfile;
+
+  @FXML private Button btnViewStatistics;
+
+  @FXML private Button btnDeleteProfile;
+
+  @FXML private Button btnGoBack;
+
+  @FXML private ToggleButton btnUserOne;
+  @FXML private ToggleButton btnUserTwo;
+  @FXML private ToggleButton btnUserThree;
+  @FXML private ToggleButton btnUserFour;
+  @FXML private ToggleButton btnUserFive;
+  @FXML private ToggleButton btnUserSix;
+  @FXML private ToggleButton btnGuest;
+
+  @FXML private Label lblUserOne;
+  @FXML private Label lblUserTwo;
+  @FXML private Label lblUserThree;
+  @FXML private Label lblUserFour;
+  @FXML private Label lblUserFive;
+  @FXML private Label lblUserSix;
+
+  private MediaUtil player;
 
   /**
    * Initialize the profile view scene and setup the button and label arrays while retrieving the

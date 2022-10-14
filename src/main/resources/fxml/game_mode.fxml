@@ -43,7 +43,7 @@
             <Font name="Courier New Bold" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="541.0" layoutY="196.0" mnemonicParsing="false" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.7" prefHeight="240.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#f0ff35, #a9ff00),        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%); -fx-background-radius: 30; -fx-background-insets: 0,1,2,3;" text="  Hidden-Word &#10; Mode" textAlignment="CENTER">
+      <Button fx:id="btnHiddenWordMode" layoutX="541.0" layoutY="196.0" mnemonicParsing="false" onAction="#onPlayHiddenWordMode" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.7" prefHeight="240.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#f0ff35, #a9ff00),        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%); -fx-background-radius: 30; -fx-background-insets: 0,1,2,3;" text="  Hidden-Word &#10; Mode" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>

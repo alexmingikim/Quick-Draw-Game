@@ -24,6 +24,8 @@ public class GameModeController {
 
   @FXML private Button btnZenMode;
 
+  @FXML private Button btnHiddenWordMode;
+
   @FXML private Label profileLabel;
 
   private User currentProfile = ProfileViewController.getCurrentUser();
@@ -122,6 +124,29 @@ public class GameModeController {
     Button button = (Button) event.getSource();
     Scene sceneButtonIsIn = button.getScene();
     sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.ZEN_MODE));
+  }
+
+  /**
+   * Starts the Hidden Word game mode. Users are provided a definition of the word they are supposed
+   * to draw.
+   *
+   * @param event when "Hidden Word Mode" button is clicked
+   * @throws IOException if an input or output exception occurred
+   * @throws URISyntaxException
+   * @throws ModelException
+   * @throws WordNotFoundException
+   */
+  @FXML
+  private void onPlayHiddenWordMode(ActionEvent event)
+      throws IOException, URISyntaxException, ModelException, WordNotFoundException {
+    player = new MediaUtil(MediaUtil.buttonClickFile);
+    player.play();
+
+    ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController())
+        .subInitialize();
+    Button button = (Button) event.getSource();
+    Scene sceneButtonIsIn = button.getScene();
+    sceneButtonIsIn.setRoot(SceneManager.getUiRoot(AppUi.HIDDEN_WORD_MODE));
   }
 
   /**

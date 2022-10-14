@@ -16,7 +16,8 @@ public class SceneManager {
     SETTINGS,
     CANVAS,
     RESULTS,
-    ZEN_MODE
+    ZEN_MODE,
+    HIDDEN_WORD_MODE
   }
 
   private static HashMap<AppUi, Parent> sceneMap = new HashMap<AppUi, Parent>();

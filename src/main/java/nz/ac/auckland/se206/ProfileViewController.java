@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -29,6 +30,102 @@ public class ProfileViewController {
   static String currentUserId = "Zero";
 
   static User currentUser = null;
+
+  /**
+   * Gives the current user's ID.
+   *
+   * @return the current user's ID
+   */
+  public static String getCurrentUserId() {
+    return currentUserId;
+  }
+
+  /**
+   * Gives the current user as an object.
+   *
+   * @return current user
+   */
+  public static User getCurrentUser() {
+    return currentUser;
+  }
+
+  /**
+   * Gives the last user profile slot the user clicked.
+   *
+   * @return the last user profile button
+   */
+  public static ToggleButton getLastUserButtonPressed() {
+    return lastUserButtonPressed;
+  }
+
+  /**
+   * Gives the last user profile slot's label the user clicked.
+   *
+   * @return the user profile label
+   */
+  public static Label getLabelAssociatedToLastUserButtonPressed() {
+    return labelAssociatedToLastUserButtonPressed;
+  }
+
+  /**
+   * Load the opacity status for each user profile.
+   *
+   * @throws IOException {@inheritDoc}
+   */
+  public static void loadOpacity() throws IOException {
+
+    // create new JSON file
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // store user information into array
+    List<User> userProfiles;
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (FileNotFoundException e) {
+      return;
+    }
+
+    for (ToggleButton button : arrayButtons) {
+      for (User user : userProfiles) {
+        if (button.getId().substring(7).equals(user.getId())) {
+          button.setOpacity(user.getOpacity());
+        }
+      }
+    }
+  }
+
+  /**
+   * Load the opacity status for each user profile's label.
+   *
+   * @throws IOException {@inheritDoc}
+   */
+  public static void loadUserLabels() throws IOException {
+
+    // create new JSON file
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // store user information into array
+    List<User> userProfiles;
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (FileNotFoundException e) {
+      return;
+    }
+
+    for (Label label : userLabels) {
+      for (User user : userProfiles) {
+        if (label.getId().substring(7).equals(user.getId())) {
+          label.setText(user.getName());
+        }
+      }
+    }
+  }
 
   @FXML private Button btnCreateNewProfile;
 
@@ -55,80 +152,17 @@ public class ProfileViewController {
 
   private MediaUtil player;
 
-  public static String getCurrentUserId() {
-    return currentUserId;
-  }
-
-  public static User getCurrentUser() {
-    return currentUser;
-  }
-
-  public static ToggleButton getLastUserButtonPressed() {
-    return lastUserButtonPressed;
-  }
-
-  public static Label getLabelAssociatedToLastUserButtonPressed() {
-    return labelAssociatedToLastUserButtonPressed;
-  }
-
-  // load opacity status
-  public static void loadOpacity() throws IOException {
-
-    // create new JSON file
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    // store user information into array
-    List<User> userProfiles;
-    try {
-      // read existing user profiles from JSON file and store into array list
-      FileReader fr = new FileReader("profiles/profiles.json");
-      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      fr.close();
-    } catch (FileNotFoundException e) {
-      return;
-    }
-
-    for (ToggleButton button : arrayButtons) {
-      for (User user : userProfiles) {
-        if (button.getId().substring(7).equals(user.getId())) {
-          button.setOpacity(user.getOpacity());
-        }
-      }
-    }
-  }
-
-  // load opacity status
-  public static void loadUserLabels() throws IOException {
-
-    // create new JSON file
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    // store user information into array
-    List<User> userProfiles;
-    try {
-      // read existing user profiles from JSON file and store into array list
-      FileReader fr = new FileReader("profiles/profiles.json");
-      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
-      fr.close();
-    } catch (FileNotFoundException e) {
-      return;
-    }
-
-    for (Label label : userLabels) {
-      for (User user : userProfiles) {
-        if (label.getId().substring(7).equals(user.getId())) {
-          label.setText(user.getName());
-        }
-      }
-    }
-  }
-
+  /**
+   * Initialize the profile view scene and setup the button and label arrays while retrieving the
+   * current user profile.
+   */
   public void initialize() {
     initializeButtonArray();
     initializeUserLabelArray();
     getCurrentProfile();
   }
 
+  /** Setup the array for user buttons. */
   public void initializeButtonArray() {
     // store all 6 buttons into an array
     arrayButtons = new ToggleButton[6];
@@ -140,6 +174,7 @@ public class ProfileViewController {
     arrayButtons[5] = btnUserSix;
   }
 
+  /** Setup the array for user labels. */
   public void initializeUserLabelArray() {
     // store all 6 user labels into an array
     userLabels = new Label[6];
@@ -151,6 +186,7 @@ public class ProfileViewController {
     userLabels[5] = lblUserSix;
   }
 
+  /** Get the current user profile using the given ID. */
   private void getCurrentProfile() {
     if (currentUserId.equals("Zero")) {
       currentUser = null;
@@ -176,12 +212,18 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Switch from profile view scene to profile creation scene.
+   *
+   * @param event the event triggered when the create new profile button is clicked
+   * @throws IOException {@inheritDoc}
+   */
   @FXML
   private void onCreateNewProfile(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -201,12 +243,66 @@ public class ProfileViewController {
     btnDeleteProfile.setDisable(false);
   }
 
+  /**
+   * Switch from profile view scene to game mode scene.
+   *
+   * @param event the event triggered when the back button is clicked
+   * @throws IOException {@inheritDoc}
+   */
+  @FXML
+  private void onDeleteProfile() throws IOException {
+    int userId = 0;
+
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    List<User> userProfiles = new ArrayList<User>();
+
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // find the user profile and delete it from the array
+    for (User user : userProfiles) {
+      if (user.getId().equals(currentUserId)) {
+        userProfiles.remove(user);
+        break;
+      }
+    }
+
+    // update the json file with the new array
+    FileWriter writer = new FileWriter("profiles/profiles.json");
+    gson.toJson(userProfiles, writer);
+    writer.flush();
+    writer.close();
+
+    // rename label to default
+    for (Label label : userLabels) {
+      userId++;
+      if (label.getId().substring(7).equals(currentUserId)) {
+        label.setText("User" + userId);
+      }
+    }
+
+    currentUserId = "Zero";
+    currentUser = null;
+
+    // change usability of buttons
+    lastUserButtonPressed.setOpacity(0.5);
+    btnCreateNewProfile.setDisable(false);
+    btnDeleteProfile.setDisable(true);
+    btnViewStatistics.setDisable(true);
+  }
+
   @FXML
   private void onGoBack(ActionEvent event) throws IOException {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -218,12 +314,17 @@ public class ProfileViewController {
     ((GameModeController) SceneManager.getLoader(AppUi.GAME_MODE).getController()).initialize();
   }
 
+  /**
+   * Switch from profile view scene to the statistics view page of the current user profile.
+   *
+   * @param event the event triggered when the view statistics button is clicked
+   */
   @FXML
   private void onViewStatistics(ActionEvent event) {
+    // play sound effect when button is clicked
     try {
       player = new MediaUtil(MediaUtil.buttonClickFile);
     } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     player.play();
@@ -237,6 +338,11 @@ public class ProfileViewController {
         .load();
   }
 
+  /**
+   * Select user profile slot 1 as the current profile.
+   *
+   * @param event the event triggered when user one button is clicked
+   */
   @FXML
   private void onSelectUserOne(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -265,6 +371,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select user profile slot 2 as the current profile.
+   *
+   * @param event the event triggered when user two button is clicked
+   */
   @FXML
   private void onSelectUserTwo(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -287,6 +398,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select user profile slot 3 as the current profile.
+   *
+   * @param event the event triggered when user three button is clicked
+   */
   @FXML
   private void onSelectUserThree(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -309,6 +425,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select user profile slot 4 as the current profile.
+   *
+   * @param event the event triggered when user four button is clicked
+   */
   @FXML
   private void onSelectUserFour(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -331,6 +452,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select user profile slot 5 as the current profile.
+   *
+   * @param event the event triggered when user five button is clicked
+   */
   @FXML
   private void onSelectUserFive(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -353,6 +479,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select user profile slot 6 as the current profile.
+   *
+   * @param event the event triggered when user six button is clicked
+   */
   @FXML
   private void onSelectUserSix(ActionEvent event) {
     ToggleButton btnClicked = (ToggleButton) event.getSource();
@@ -375,6 +506,11 @@ public class ProfileViewController {
     }
   }
 
+  /**
+   * Select to play with a guest profile.
+   *
+   * @param event the event triggered when guest button is clicked
+   */
   @FXML
   private void onSelectGuest(ActionEvent event) throws IOException {
     // keep track of button pressed

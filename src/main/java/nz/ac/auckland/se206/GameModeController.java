@@ -53,7 +53,7 @@ public class GameModeController {
    */
   @FXML
   private void onSwitchProfile(ActionEvent event) throws IOException, URISyntaxException {
-
+    // play sound effect when button is clicked
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
@@ -74,6 +74,7 @@ public class GameModeController {
    */
   @FXML
   private void onGoSettings(ActionEvent event) throws URISyntaxException {
+    // play sound effect when button is clicked
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
@@ -94,6 +95,7 @@ public class GameModeController {
   @FXML
   private void onPlayClassic(ActionEvent event)
       throws IOException, URISyntaxException, ModelException {
+    // play sound effect when button is clicked
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
@@ -114,6 +116,7 @@ public class GameModeController {
   @FXML
   private void onPlayZenMode(ActionEvent event)
       throws IOException, URISyntaxException, ModelException {
+    // play sound effect when button is clicked
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 

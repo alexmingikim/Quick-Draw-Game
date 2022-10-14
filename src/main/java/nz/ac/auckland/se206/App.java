@@ -49,9 +49,13 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    // load and add all scenes to SceneManager
+    // load and add all scenes to SceneManager/
+    // main menu branch
     SceneManager.addUi(AppUi.MAIN_MENU, loadFxml("main_menu"));
     SceneManager.addLoader(AppUi.MAIN_MENU, fxmlLoader);
+    // Game mode selection branch
+    SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
+    SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
     // Profile scenes branch
     SceneManager.addUi(AppUi.PROFILE_VIEW, loadFxml("profile_view"));
     SceneManager.addLoader(AppUi.PROFILE_VIEW, fxmlLoader);
@@ -61,24 +65,23 @@ public class App extends Application {
     SceneManager.addLoader(AppUi.STATISTICS_VIEW, fxmlLoader);
     SceneManager.addUi(AppUi.BADGE_VIEW, loadFxml("badge_view"));
     SceneManager.addLoader(AppUi.BADGE_VIEW, fxmlLoader);
-    // Difficulty change branch
+
+    // Difficulty settings change branch
     SceneManager.addUi(AppUi.SETTINGS, loadFxml("settings"));
     SceneManager.addLoader(AppUi.SETTINGS, fxmlLoader);
+
     // main game branch
     SceneManager.addUi(AppUi.CANVAS, loadFxml("canvas"));
     SceneManager.addLoader(AppUi.CANVAS, fxmlLoader);
-    // game results scene
-    SceneManager.addUi(AppUi.RESULTS, loadFxml("results"));
-    SceneManager.addLoader(AppUi.RESULTS, fxmlLoader);
-    // Game mode
-    SceneManager.addUi(AppUi.GAME_MODE, loadFxml("game_mode"));
-    SceneManager.addLoader(AppUi.GAME_MODE, fxmlLoader);
     // Zen mode
     SceneManager.addUi(AppUi.ZEN_MODE, loadFxml("zen_mode"));
     SceneManager.addLoader(AppUi.ZEN_MODE, fxmlLoader);
     // Hidden Word mode
     SceneManager.addUi(AppUi.HIDDEN_WORD_MODE, loadFxml("hidden_word_mode"));
     SceneManager.addLoader(AppUi.HIDDEN_WORD_MODE, fxmlLoader);
+    // game results scene
+    SceneManager.addUi(AppUi.RESULTS, loadFxml("results"));
+    SceneManager.addLoader(AppUi.RESULTS, fxmlLoader);
 
     try {
       MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);
@@ -86,9 +89,6 @@ public class App extends Application {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
-
-    // set the stage in CanvasController as the primary stage
-    // ((GameModeController) fxmlLoader.getController()).setStage(stage);
 
     // https://www.freepik.com/free-vector/writting-pencil-design_850418.htm#query=pencil&position=0&from_view=search&track=sph
     // by yurlick on Freepik

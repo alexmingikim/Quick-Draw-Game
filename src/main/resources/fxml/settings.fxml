@@ -37,17 +37,17 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="150.0" prefHeight="27.5" prefWidth="411.0" spacing="85.0">
          <children>
-            <ToggleButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onEasyAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+            <ToggleButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSelectEasyAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onMediumAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+            <ToggleButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onSelectMediumAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onHardAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+            <ToggleButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onSelectHardAccuracy" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
@@ -61,22 +61,22 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="227.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
          <children>
-            <ToggleButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onEasyWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+            <ToggleButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSelectEasyWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onMediumWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+            <ToggleButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSelectMediumWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onHardWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+            <ToggleButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSelectHardWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onMasterWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+            <ToggleButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSelectMasterWords" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
@@ -95,22 +95,22 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="304.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
          <children>
-            <ToggleButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onEasyTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+            <ToggleButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSelectEasyTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onMediumTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+            <ToggleButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onSelectMediumTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onHardTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+            <ToggleButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onSelectHardTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onMasterTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+            <ToggleButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onSelectMasterTime" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
@@ -119,22 +119,22 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="280.0" layoutY="381.0" prefHeight="27.5" prefWidth="411.0" spacing="30.0">
          <children>
-            <ToggleButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onEasyConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
+            <ToggleButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onSelectEasyConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Easy" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onMediumConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
+            <ToggleButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onSelectMediumConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Medium" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onHardConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
+            <ToggleButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onSelectHardConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Hard" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onMasterConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
+            <ToggleButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onSelectMasterConfidence" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #404040;" text="Master" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="14.0" />
                </font>

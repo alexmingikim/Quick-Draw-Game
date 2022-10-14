@@ -97,6 +97,13 @@ public class ZenModeController {
     model = new DoodlePrediction();
   }
 
+  /**
+   * This method changes the username display based on the current user profile. The username
+   * becomes "Guest" if there is no user profile selected. A new game is also started if the canvas
+   * is blank.
+   *
+   * @throws IOException {@inheritDoc}
+   */
   public void subInitialize() throws IOException {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
@@ -116,6 +123,12 @@ public class ZenModeController {
     enablePen();
   }
 
+  /**
+   * Select a random word depending on the user profile's difficulty
+   *
+   * @return the random selected word
+   * @throws IOException {@inheritDoc}
+   */
   private String selectRandomCategory() throws IOException {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -125,6 +138,12 @@ public class ZenModeController {
     }
   }
 
+  /**
+   * Select a random category based on the difficulty setting of the guest profile.
+   *
+   * @return the random selected word
+   * @throws IOException {@inheritDoc}
+   */
   private String selectCategoryGuest() throws IOException {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
@@ -170,6 +189,12 @@ public class ZenModeController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Select a random category based on the difficulty setting of the current profile.
+   *
+   * @return the random selected word
+   * @throws IOException {@inheritDoc}
+   */
   private String selectCategoryProfile() throws IOException {
     // get a list of all the categories
     ArrayList<String> wordsList =
@@ -223,6 +248,11 @@ public class ZenModeController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Retrieve all categories present in the resource file.
+   *
+   * @return the array of categories with their corresponding difficulty
+   */
   private ArrayList<String[]> getCategories() {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>();

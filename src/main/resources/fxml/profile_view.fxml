@@ -61,7 +61,7 @@
                   <Font name="Courier New Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #404040#404040;" text="DELETE" textFill="WHITE">
+            <Button fx:id="btnDeleteProfile" disable="true" mnemonicParsing="false" onAction="#onDeleteProfile" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #404040#404040;" text="DELETE" textFill="WHITE">
                <font>
                   <Font name="Courier New Bold" size="16.0" />
                </font>

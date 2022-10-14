@@ -20,6 +20,12 @@ public class BadgeViewController {
 
   static final int TOTAL_BADGES = 10;
 
+  static List<Badge> allBadges;
+
+  public static List<Badge> getAllBadges() {
+    return allBadges;
+  }
+
   @FXML private Button btnGoBack;
 
   @FXML private Button viewStatisticsButton;
@@ -50,17 +56,24 @@ public class BadgeViewController {
 
   private User currentProfile = ProfileViewController.getCurrentUser();
 
-  private List<Badge> allBadges;
-
+  /**
+   * Initializes the badge view scene. Creates and fills the label array and updates the username
+   * display for the current profile. All badges are also setup and displayed correspondingly.
+   */
   public void initialize() {
-    // set up array to store display labels and retrieve current profile
+    // set up array to store display labels
     createGroup();
-    subInitialize();
     // retrieve all badges
     getBadges();
     setUpBadges();
+    // retrieve current profile
+    subInitialize();
   }
 
+  /**
+   * Changes the display of the username to fit the current user profile. This method is called
+   * whenever the user switches to this scene to update the username and the status of the badges.
+   */
   public void subInitialize() {
     currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile != null) {
@@ -70,7 +83,11 @@ public class BadgeViewController {
     }
   }
 
+  /** creates the label array for all the display badge labels. */
   private void createGroup() {
+    // store all display badge labels into a label array for easier iterations to
+    // change all labels when needed.
+    // Current total of unique badges is 10, more badges can be added for new modes
     displayBadges = new Label[TOTAL_BADGES];
     displayBadges[0] = oneBadgeLabel;
     displayBadges[1] = twoBadgeLabel;
@@ -84,6 +101,7 @@ public class BadgeViewController {
     displayBadges[9] = tenBadgeLabel;
   }
 
+  /** Retrieves all badges from the locally stored json file. */
   private void getBadges() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -99,6 +117,10 @@ public class BadgeViewController {
     }
   }
 
+  /**
+   * Display all badges correctly in the badge view scene with an image, name and description for
+   * each badge in a table-like fashion.
+   */
   private void setUpBadges() {
     // string concatenation to build the message to display in label
     StringBuilder sb = new StringBuilder();
@@ -115,8 +137,24 @@ public class BadgeViewController {
     }
   }
 
-  private void updateBadges() {}
+  /** Updates the display based on the status of the badges for the current user profile. */
+  private void updateBadges() {
+    for (int i = 0; i < TOTAL_BADGES; i++) {
+      // set opacity of badge's label depending on whether or not the current profile
+      // has achieved it
+      if (currentProfile.getBadges().contains(i)) {
+        displayBadges[i].setOpacity(1);
+      } else {
+        displayBadges[i].setOpacity(0.5);
+      }
+    }
+  }
 
+  /**
+   * Switches to the profile view scene from the badge view scene.
+   *
+   * @param event the event when the back button is clicked
+   */
   @FXML
   private void onGoBack(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();
@@ -124,6 +162,11 @@ public class BadgeViewController {
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.PROFILE_VIEW));
   }
 
+  /**
+   * Switches to the view statistics scene from the badge view scene.
+   *
+   * @param event the event when the view stats button is clicked
+   */
   @FXML
   private void onViewStatistics(ActionEvent event) {
     Button btnClicked = (Button) event.getSource();

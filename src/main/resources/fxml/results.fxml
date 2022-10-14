@@ -40,5 +40,15 @@
          </children>
       </HBox>
       <ImageView fx:id="finalDrawingImage" fitHeight="294.0" fitWidth="395.0" layoutX="203.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="badgesEarnedLabel" alignment="TOP_RIGHT" layoutX="584.0" layoutY="61.0" prefHeight="300.0" prefWidth="190.0" text="Label">
+         <font>
+            <Font name="Courier New Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="earnedTitleLabel" alignment="CENTER_RIGHT" layoutX="584.0" layoutY="36.0" prefHeight="25.0" prefWidth="190.0" text="Badges Earned:">
+         <font>
+            <Font name="Courier New Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206;
 
+import java.util.ArrayList;
+import java.util.List;
 import nz.ac.auckland.se206.SettingsController.Difficulty;
 
 public class User {
@@ -10,6 +12,7 @@ public class User {
   private String noOfGamesPlayed;
   private String noOfGamesWon;
   private String noOfGamesLost;
+  private int winStreak;
   private String averageDrawingTime;
   private String totalGameTime;
   private String fastestWonGameTime;
@@ -19,7 +22,7 @@ public class User {
   private Difficulty words;
   private Difficulty time;
   private Difficulty confidence;
-  private int[] badges;
+  private List<Integer> badges = new ArrayList<Integer>();
 
   public User(
       String id,
@@ -45,11 +48,11 @@ public class User {
     this.fastestWonGameTime = fastestWonGameTime;
     this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
+    this.winStreak = 0;
     this.accuracy = Difficulty.EASY;
     this.words = Difficulty.EASY;
     this.time = Difficulty.EASY;
     this.confidence = Difficulty.EASY;
-    this.badges = null;
   }
 
   /**
@@ -86,6 +89,15 @@ public class User {
    */
   public String getNoOfGamesLost() {
     return noOfGamesLost;
+  }
+
+  /**
+   * Get the win streak of the current user profile.
+   *
+   * @return win streak
+   */
+  public int getWinStreak() {
+    return winStreak;
   }
 
   /**
@@ -174,7 +186,7 @@ public class User {
    *
    * @return badges
    */
-  public int[] getBadges() {
+  public List<Integer> getBadges() {
     return badges;
   }
 
@@ -246,21 +258,28 @@ public class User {
   }
 
   /** Update the time related stats of the current user profile when gamee was lost. */
-  public void updateTimeLost() {
+  public void updateTimeLost(int time) {
     // first update total time then use that stat to calculate the rest of the time
     // related statistics
-    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + 60));
+    this.totalGameTime = Integer.toString((Integer.parseInt(this.totalGameTime) + time));
     this.averageDrawingTime =
         Integer.toString(
             Integer.parseInt(this.totalGameTime) / Integer.parseInt(this.noOfGamesPlayed));
   }
 
   /** Update the badges achieved on the current user profile. */
-  public void updateBadges() {}
+  public void updateBadges(int badgeIndex) {
+    this.badges.add(badgeIndex);
+  }
 
   /** Increment the number of games played on the current user profile. */
   public void incrementNoOfGamesPlayed() {
     this.noOfGamesPlayed = Integer.toString((Integer.parseInt(this.noOfGamesPlayed) + 1));
+  }
+
+  /** Increment the win streak of the current user profile. */
+  public void incrementWinStreak() {
+    this.winStreak++;
   }
 
   /**
@@ -282,6 +301,11 @@ public class User {
     this.wordsEncountered = "";
   }
 
+  /** Reset the win streak if the user loses for the current user profile. */
+  public void resetWinStreak() {
+    this.winStreak = 0;
+
+  /** Set the opacity of the current user profile. */
   public void setOpacity(double opacity) {
     this.opacity = opacity;
   }

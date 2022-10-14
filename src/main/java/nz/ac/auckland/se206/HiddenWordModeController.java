@@ -808,7 +808,6 @@ public class HiddenWordModeController {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
       currentProfile.chooseWonOrLost(false);
-      currentProfile.updateTimeLost();
       checkMaxWords();
       updateProfile();
     }

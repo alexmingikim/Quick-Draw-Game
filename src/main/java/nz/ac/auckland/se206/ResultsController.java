@@ -62,11 +62,20 @@ public class ResultsController {
         displayNewBadges();
         earnedTitleLabel.setVisible(true);
         badgesEarnedLabel.setVisible(true);
+      } else {
+        earnedTitleLabel.setVisible(false);
+        badgesEarnedLabel.setVisible(false);
       }
     } else {
       resultsLabel.setText("You Lost");
-      earnedTitleLabel.setVisible(false);
-      badgesEarnedLabel.setVisible(false);
+      if (!newBadges.isEmpty()) {
+        displayNewBadges();
+        earnedTitleLabel.setVisible(true);
+        badgesEarnedLabel.setVisible(true);
+      } else {
+        earnedTitleLabel.setVisible(false);
+        badgesEarnedLabel.setVisible(false);
+      }
     }
 
     // change username label based on current profile

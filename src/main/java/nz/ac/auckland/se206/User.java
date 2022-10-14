@@ -304,6 +304,7 @@ public class User {
   /** Reset the win streak if the user loses for the current user profile. */
   public void resetWinStreak() {
     this.winStreak = 0;
+  }
 
   /** Set the opacity of the current user profile. */
   public void setOpacity(double opacity) {

@@ -8,7 +8,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
@@ -30,12 +35,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SettingsController.Difficulty;
@@ -103,6 +111,8 @@ public class HiddenWordModeController {
   private MediaUtil player;
   
   private List<Integer> newBadges = new ArrayList<Integer>();
+  
+  private Stage stage;
 
   // mouse coordinates
   private double currentX;
@@ -397,7 +407,9 @@ public class HiddenWordModeController {
     btnDraw.setDisable(true);
     btnErase.setDisable(true);
     btnBack.setVisible(true);
-
+    
+	ResultsController.setPreviousScene("hiddenWordMode");
+    
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(true);
@@ -456,6 +468,8 @@ public class HiddenWordModeController {
 	    btnDraw.setDisable(true);
 	    btnErase.setDisable(true);
 	    btnBack.setVisible(true);
+	    
+		ResultsController.setPreviousScene("hiddenWordMode");
 
 	    // show results of the game
 	    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
@@ -801,6 +815,41 @@ public class HiddenWordModeController {
       e.printStackTrace();
     }
     return categoryList;
+  }
+  
+  /** Save the final snapshot of the canvas after the game has ended. */
+  public void saveDrawing() {
+    // create a new file choose instance and prompt the user to select a location
+    // and name with a suggested default name
+    FileChooser saveFile = new FileChooser();
+    saveFile.setTitle("Save File");
+    FileChooser.ExtensionFilter extensionFilter =
+        new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    saveFile.getExtensionFilters().add(extensionFilter);
+    saveFile.setInitialFileName(category);
+    File file = saveFile.showSaveDialog(stage);
+
+    // if the file is not null, render and save the image
+    if (file != null) {
+      try {
+        WritableImage writableImage = new WritableImage(390, 250);
+        canvas.snapshot(null, writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ImageIO.write(renderedImage, "png", file);
+      } catch (IOException e) {
+        // otherwise print exception message
+        e.printStackTrace();
+      }
+    }
+  }
+  
+  /**
+   * Sets canvas scene onto the current scene.
+   *
+   * @param stage the stage of the application
+   */
+  public void setStage(Stage stage) {
+    this.stage = stage;
   }
 
   /**

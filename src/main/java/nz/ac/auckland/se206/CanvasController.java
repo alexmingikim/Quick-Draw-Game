@@ -981,6 +981,8 @@ public class CanvasController {
     penButton.setDisable(true);
     eraserButton.setDisable(true);
     backButton.setVisible(true);
+    
+	ResultsController.setPreviousScene("canvas");
 
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
@@ -1043,6 +1045,8 @@ public class CanvasController {
     eraserButton.setDisable(true);
     backButton.setVisible(true);
 
+	ResultsController.setPreviousScene("canvas");
+	
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(false);

@@ -40,8 +40,10 @@ public class ResultsController {
   private Boolean isGameWon = false;
 
   private List<Integer> newBadges = new ArrayList<Integer>();
+  
+  static private String previousScene = "canvas";
 
-  /** Initializes the results scene when the game app is ran. */
+/** Initializes the results scene when the game app is ran. */
   public void initialize() {
     subInitialize();
   }
@@ -101,14 +103,24 @@ public class ResultsController {
     this.isGameWon = isGameWon;
   }
 
-  /** Retrieve the final snapshot of the canvas after the game ended. */
+  /** Retrieve the final snapshot of canvas after game is ended. */
   private void setFinalSnapshot() {
+	if (previousScene.equals("canvas")) {
     // retrieve final snapshot of the canvas from canvas scene
     BufferedImage finalSnapshot =
         ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController())
             .getCurrentSnapshot();
     Image image = SwingFXUtils.toFXImage(finalSnapshot, null);
     finalDrawingImage.setImage(image);
+  }
+	else {
+	    // retrieve final snapshot of the canvas from canvas scene
+	    BufferedImage finalSnapshot =
+	        ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController())
+	            .getCurrentSnapshot();
+	    Image image = SwingFXUtils.toFXImage(finalSnapshot, null);
+	    finalDrawingImage.setImage(image);
+	}
   }
 
   /** Display all new badges earned in the latest game in order by index of the badges. */
@@ -124,6 +136,15 @@ public class ResultsController {
     badgesEarnedLabel.setText(sb.toString());
     badgesEarnedLabel.setTextAlignment(TextAlignment.RIGHT);
   }
+  
+  /**
+   * Identifies which scene (out of canvas and hidden word mode) called the results scene.
+   * 
+   * @param previousScene either canvas or hidden word mode scene
+   */
+  public static void setPreviousScene(String previousScene) {
+	ResultsController.previousScene = previousScene;
+}
 
   /**
    * Switch from results scene to game mode scene.
@@ -138,24 +159,38 @@ public class ResultsController {
   }
 
   /**
-   * Switch from results scene to canvas scene while resetting the canvas scene to start a new game.
+   * Switch from results scene to either canvas scene (classic) or hidden word mode scene.
    *
    * @param event the event triggered when the new game button is clicked
    * @throws IOException {@inheritDoc}
    * @throws ModelException {@inheritDoc}
+ * @throws WordNotFoundException 
    */
   @FXML
-  private void onStartNewGame(ActionEvent event) throws IOException, ModelException {
+  private void onStartNewGame(ActionEvent event) throws IOException, ModelException, WordNotFoundException {
+	  if (previousScene.equals("canvas")) {
     // change the scene back to canvas after resetting everything
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).startNewGame();
     Button btnSceneIsIn = (Button) event.getSource();
     Scene scene = btnSceneIsIn.getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.CANVAS));
   }
+  else {
+	// change the scene back to hidden word mode scene 
+	    ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController()).subInitialize();
+	    Button btnSceneIsIn = (Button) event.getSource();
+	    Scene scene = btnSceneIsIn.getScene();
+	    scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.HIDDEN_WORD_MODE));
+  }
+  }
 
-  /** Save the final snapshot of the canvas. */
+  /** Save the final snapshot of canvas. */
   @FXML
   private void onSaveDrawing() {
+	  if (previousScene.equals("canvas")) {
     ((CanvasController) SceneManager.getLoader(AppUi.CANVAS).getController()).saveDrawing();
+  } else {
+	  ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController()).saveDrawing();
   }
+}
 }

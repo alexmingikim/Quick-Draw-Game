@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -248,6 +249,54 @@ public class ProfileViewController {
    * @param event the event triggered when the back button is clicked
    * @throws IOException {@inheritDoc}
    */
+  @FXML
+  private void onDeleteProfile() throws IOException {
+    int userId = 0;
+
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    List<User> userProfiles = new ArrayList<User>();
+
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    // find the user profile and delete it from the array
+    for (User user : userProfiles) {
+      if (user.getId().equals(currentUserId)) {
+        userProfiles.remove(user);
+        break;
+      }
+    }
+
+    // update the json file with the new array
+    FileWriter writer = new FileWriter("profiles/profiles.json");
+    gson.toJson(userProfiles, writer);
+    writer.flush();
+    writer.close();
+
+    // rename label to default
+    for (Label label : userLabels) {
+      userId++;
+      if (label.getId().substring(7).equals(currentUserId)) {
+        label.setText("User" + userId);
+      }
+    }
+
+    currentUserId = "Zero";
+    currentUser = null;
+
+    // change usability of buttons
+    lastUserButtonPressed.setOpacity(0.5);
+    btnCreateNewProfile.setDisable(false);
+    btnDeleteProfile.setDisable(true);
+    btnViewStatistics.setDisable(true);
+  }
+
   @FXML
   private void onGoBack(ActionEvent event) throws IOException {
     // play sound effect when button is clicked

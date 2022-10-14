@@ -45,14 +45,14 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
       <Pane layoutX="12.0" layoutY="95.0" opacity="0.9" prefHeight="134.0" prefWidth="232.0" style="-fx-background-color: white;" />
       <ScrollPane fx:id="scrollPaneDefinition" hbarPolicy="NEVER" layoutX="12.0" layoutY="96.0" prefHeight="134.0" prefWidth="232.0">
          <content>
-            <Label fx:id="lblDefinition" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="300.0" maxWidth="215.0" prefHeight="209.0" prefWidth="215.0" wrapText="true">
+            <Label fx:id="lblDefinition" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="451.0" maxWidth="215.0" prefHeight="451.0" prefWidth="215.0" wrapText="true">
                <font>
                   <Font name="Courier New Bold Italic" size="16.0" />
                </font>
             </Label>
          </content></ScrollPane>
       <Pane layoutX="249.0" layoutY="174.0" opacity="0.9" prefHeight="55.0" prefWidth="429.0" style="-fx-background-color: white;" />
-      <Label fx:id="lblStatus" alignment="CENTER" layoutX="246.0" layoutY="174.0" prefHeight="55.0" prefWidth="431.0" text="Let's Get Drawing!" textAlignment="CENTER">
+      <Label fx:id="lblStatus" alignment="CENTER" layoutX="246.0" layoutY="174.0" prefHeight="55.0" prefWidth="434.0" text="-------- Press Start to Begin --------" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold Italic" size="16.0" />
          </font>
@@ -99,7 +99,7 @@ Source of library_background.png: <a href="https://www.freepik.com/free-vector/b
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblTimer" layoutX="704.0" layoutY="168.0" prefHeight="46.0" prefWidth="63.0" text="60" textAlignment="CENTER">
+      <Label fx:id="lblTimer" alignment="CENTER" layoutX="704.0" layoutY="168.0" prefHeight="46.0" prefWidth="63.0" text="60" textAlignment="CENTER">
          <font>
             <Font name="Courier New Bold" size="49.0" />
          </font>

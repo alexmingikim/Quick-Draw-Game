@@ -125,7 +125,7 @@ public class HiddenWordModeController {
     btnErase.setDisable(true);
   }
 
-  public void subInitialize() throws IOException, WordNotFoundException {
+  public void subInitialize() throws IOException, WordNotFoundException, ModelException {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile == null) {
@@ -134,20 +134,16 @@ public class HiddenWordModeController {
       lblProfileName.setText(currentProfile.getName());
     }
 
-    if (blankStatus == true) {
-      // set a random category according to difficulty
-      category = selectRandomCategory();
+    // set a random category according to difficulty
+    category = selectRandomCategory();
 
-      // find and display definition
-      findAndDisplayDefinition(category);
+    // find and display definition
+    findAndDisplayDefinition(category);
 
-      // set the time limit according to difficulty
-      setCounter();
-      lblTimer.setText(String.valueOf(counter));
-    }
-  }
+    // set the time limit according to difficulty
+    setCounter();
+    lblTimer.setText(String.valueOf(counter));
 
-  public void startNewGame() throws ModelException, IOException, WordNotFoundException {
     // clear the predictions board and change message when new game is started
     lblStatus.setText("---------- Press Start to Begin ----------");
     predictionsTextFlow.getChildren().clear();
@@ -159,9 +155,7 @@ public class HiddenWordModeController {
 
     // initialise to get new category and make the start button visible
     initialize();
-    subInitialize();
     btnStart.setVisible(true);
-    blankStatus = true;
     try {
       updatePrediction();
     } catch (TranslateException e) {
@@ -331,7 +325,6 @@ public class HiddenWordModeController {
     // stop game and print message
     canvas.setDisable(true);
     timeline.stop();
-    lblStatus.setText("Congratulations! You Won! Surely, the next Picasso!");
 
     if (player != null) {
       player.stop();
@@ -801,7 +794,6 @@ public class HiddenWordModeController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-    lblStatus.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     try {
       player = new MediaUtil(MediaUtil.loseGameFile);

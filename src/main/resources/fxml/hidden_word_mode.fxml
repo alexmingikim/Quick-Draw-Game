@@ -15,7 +15,7 @@
 <?import javafx.scene.text.TextFlow?>
 
 <!--
-Source of library_background.png: <a href="https://www.freepik.com/free-vector/bookstore-interior-with-shelves-desk-cashier-counter_9396104.htm#query=librarian%20cartoon&position=1&from_view=keyword">Image by upklyak</a> on Freepik
+Source of classroom_background.png: <a href="https://www.freepik.com/free-vector/classroom-mathematics-learning_7588635.htm#query=classroom&position=4&from_view=search&track=sph">Image by upklyak</a> on Freepik
 -->
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.HiddenWordModeController">

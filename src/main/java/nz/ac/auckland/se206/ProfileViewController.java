@@ -240,6 +240,9 @@ public class ProfileViewController {
       }
     }
 
+    currentUserId = "Zero";
+    currentUser = null;
+
     // change usability of buttons
     lastUserButtonPressed.setOpacity(0.5);
     btnCreateNewProfile.setDisable(false);

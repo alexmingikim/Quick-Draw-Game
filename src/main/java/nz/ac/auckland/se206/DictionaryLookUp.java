@@ -32,11 +32,10 @@ public class DictionaryLookUp {
 
     try {
       JSONObject jsonObj = (JSONObject) new JSONTokener(jsonString).nextValue();
-      String title = jsonObj.getString("title");
       String subMessage = jsonObj.getString("message");
 
-      // exception when defintion cannot be found
-      throw new WordNotFoundException(wordToLookUpDefinition, title, subMessage);
+      // exception when definition cannot be found
+      throw new WordNotFoundException(wordToLookUpDefinition, subMessage);
     } catch (ClassCastException e) {
     }
 

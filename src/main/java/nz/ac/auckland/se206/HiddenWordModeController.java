@@ -96,7 +96,7 @@ public class HiddenWordModeController {
 
   private boolean blankStatus = true;
 
-  private String category;
+  private static String category;
 
   private String definition;
 
@@ -155,7 +155,7 @@ public class HiddenWordModeController {
     
     // set a random category according to difficulty
     category = selectRandomCategory();
-
+    
     // find and display definition
     findAndDisplayDefinition(category);
 
@@ -184,6 +184,38 @@ public class HiddenWordModeController {
 
     // definition is only visible once "start" button is clicked
     lblDefinition.setVisible(false);
+  }
+  
+  /**
+   * Finds and displays the definition of an input word to user.
+   *
+   * @param word word whose definition must be found
+   */
+  private void findAndDisplayDefinition(String word) {
+    // assign background thread to find definition
+    Task<Void> backgroundTask =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+        	  try {
+            definition = DictionaryLookUp.searchWordDefinition(word);
+            // if definition is not found, load new category and find new definition
+        	  } catch(WordNotFoundException e) {
+        		  System.out.println("DEFINITION NOT FOUND");
+        		  subInitialize();
+        	  }
+            return null;
+          }
+        };
+
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+
+    backgroundTask.setOnSucceeded(
+        event -> {
+          lblDefinition.setText(definition + "\n\nHint: starts with '" + word.charAt(0) + "'");
+        });
   }
 
   /**
@@ -486,7 +518,7 @@ public class HiddenWordModeController {
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
-  /** Update and save the new changes to the current profile to the local json file. */
+/** Update and save the new changes to the current profile to the local json file. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -585,32 +617,6 @@ public class HiddenWordModeController {
     graphics.dispose();
 
     return imageBinary;
-  }
-
-  /**
-   * Finds and displays the definition of an input word to user.
-   *
-   * @param word word whose definition must be found
-   */
-  private void findAndDisplayDefinition(String word) {
-    // assign background thread to find definition
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-            definition = DictionaryLookUp.searchWordDefinition(word);
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
-
-    backgroundTask.setOnSucceeded(
-        event -> {
-          lblDefinition.setText(definition + "\n\nHint: starts with '" + word.charAt(0) + "'");
-        });
   }
 
   /** Set the value of the timer depending on the user profile's difficulty setting. */
@@ -1074,4 +1080,8 @@ public class HiddenWordModeController {
       }
     }
   }
+  
+  public static String getCategory() {
+	return category;
+}
 }

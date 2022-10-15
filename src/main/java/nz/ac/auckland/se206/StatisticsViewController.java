@@ -35,6 +35,8 @@ public class StatisticsViewController {
 
   @FXML private Label gamesLostLabel;
 
+  @FXML private Label highScoreLabel;
+
   @FXML private Label averageDrawingTimeLabel;
 
   @FXML private Label totalGameTimeLabel;
@@ -73,6 +75,7 @@ public class StatisticsViewController {
         gamesPlayedLabel.setText(user.getNoOfGamesPlayed());
         gamesWonLabel.setText(user.getNoOfGamesWon());
         gamesLostLabel.setText(user.getNoOfGamesLost());
+        highScoreLabel.setText(String.format("%,d", user.getHighScore()));
 
         // initialize fields for time related statistics
         int totalTime = Integer.parseInt(user.getTotalGameTime());

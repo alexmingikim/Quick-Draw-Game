@@ -24,9 +24,9 @@ Source of classroom_background.png: <a href="https://www.freepik.com/free-vector
             <Image url="@../images/background_profile_view.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="220.0" layoutY="19.0" prefHeight="43.0" prefWidth="413.0" text="Classic Mode" textAlignment="CENTER" textFill="#060a3c">
+      <Label alignment="CENTER" layoutX="220.0" layoutY="17.0" prefHeight="43.0" prefWidth="413.0" text="Classic Mode" textAlignment="CENTER" textFill="#060a3c">
          <font>
-            <Font name="Brush Script MT Italic" size="60.0" />
+            <Font name="Brush Script MT Italic" size="70.0" />
          </font>
       </Label>
       <Label fx:id="lblProfileName" layoutX="15.0" layoutY="21.0" prefHeight="41.0" prefWidth="140.0" text="Guest">

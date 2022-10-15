@@ -28,7 +28,7 @@ Source of black_paint.png, red_paint.png, green_paint.png, blue_paint.png: https
             <Image url="@../images/calligraphy_background.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="186.0" layoutY="-4.0" prefHeight="43.0" prefWidth="452.0" text="Zen Mode" textAlignment="CENTER" textFill="#d3d073">
+      <Label alignment="CENTER" layoutX="182.0" layoutY="-4.0" prefHeight="43.0" prefWidth="452.0" text="Zen Mode" textAlignment="CENTER" textFill="#d3d073">
          <font>
             <Font name="Brush Script MT Italic" size="70.0" />
          </font>

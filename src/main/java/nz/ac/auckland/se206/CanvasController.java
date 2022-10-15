@@ -72,27 +72,29 @@ public class CanvasController {
 
   @FXML private Canvas canvas;
 
-  @FXML private Label categoryLabel;
+  @FXML private Label lblCategory;
 
   @FXML private Label predictionsLabel;
 
   @FXML private Label predictionsTitleLabel;
 
-  @FXML private Label statusLabel;
+  @FXML private Label lblStatus;
 
-  @FXML private Label timerLabel;
+  @FXML private Label lblTimer;
 
-  @FXML private Label profileUsernameLabel;
+  @FXML private Label lblProfileName;
 
-  @FXML private Button penButton;
+  @FXML private Button btnDraw;
 
-  @FXML private Button eraserButton;
+  @FXML private Button btnErase;
 
-  @FXML private Button startButton;
+  @FXML private Button btnStart;
 
-  @FXML private Button backButton;
+  @FXML private Button btnBack;
 
-  @FXML private Button clearButton;
+  @FXML private Button btnClear;
+  
+  @FXML private Button btnTextToSpeech;
 
   @FXML private TextFlow predictionsTextFlow;
 
@@ -141,9 +143,9 @@ public class CanvasController {
     model = new DoodlePrediction();
 
     // set buttons to not visible or disabled
-    clearButton.setDisable(true);
-    penButton.setDisable(true);
-    eraserButton.setDisable(true);
+    btnClear.setDisable(true);
+    btnDraw.setDisable(true);
+    btnErase.setDisable(true);
   }
 
   /**
@@ -158,19 +160,19 @@ public class CanvasController {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
     if (currentProfile == null) {
-      profileUsernameLabel.setText("Guest");
+      lblProfileName.setText("Guest");
     } else {
-      profileUsernameLabel.setText(currentProfile.getName());
+      lblProfileName.setText(currentProfile.getName());
     }
 
     if (blankStatus == true) {
       // set a random category according to difficulty
       category = selectRandomCategory();
-      categoryLabel.setText(
+      lblCategory.setText(
           "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
       // set the time limit according to difficulty
       setCounter();
-      timerLabel.setText(String.valueOf(counter));
+      lblTimer.setText(String.valueOf(counter));
     }
   }
 
@@ -182,17 +184,17 @@ public class CanvasController {
    */
   public void startNewGame() throws ModelException, IOException {
     // clear the predictions board and change message when new game is started
-    statusLabel.setText("---------- Press Start to Begin ----------");
+    lblStatus.setText("---------- Press Start to Begin ----------");
     predictionsTextFlow.getChildren().clear();
 
     // reset the timer and clear the canvas
     setCounter();
-    timerLabel.setText(String.valueOf(counter));
+    lblTimer.setText(String.valueOf(counter));
     onClear();
 
     // initialise to get new category and make the start button visible
     initialize();
-    startButton.setVisible(true);
+    btnStart.setVisible(true);
     blankStatus = true;
     try {
       updatePrediction();
@@ -642,7 +644,7 @@ public class CanvasController {
   @FXML
   private void onStart() {
     // change message
-    statusLabel.setText("Hmmmmmmmm............");
+    lblStatus.setText("Hmmmmmmmm............");
 
     // create a timeline instance for timer countdown and to update predictions
     // every second
@@ -673,15 +675,15 @@ public class CanvasController {
     timeline.play();
 
     // enable user to draw
-    onPen();
+    onDraw();
 
     // Set start and back buttons to invisible and other buttons enabled
-    clearButton.setDisable(false);
+    btnClear.setDisable(false);
     canvas.setDisable(false);
-    penButton.setDisable(false);
-    eraserButton.setDisable(false);
-    startButton.setVisible(false);
-    backButton.setVisible(false);
+    btnDraw.setDisable(false);
+    btnErase.setDisable(false);
+    btnStart.setVisible(false);
+    btnBack.setVisible(false);
   }
 
   /**
@@ -689,7 +691,7 @@ public class CanvasController {
    * pen options are set according to the standard measurements.
    */
   @FXML
-  private void onPen() {
+  private void onDraw() {
     // save coordinates when mouse is pressed on the canvas
     canvas.setOnMousePressed(
         e -> {
@@ -785,9 +787,9 @@ public class CanvasController {
 
       // set message depending on if user is getting further or closer
       if (predictionRank > prevPredictionRank) {
-        statusLabel.setText("Getting further...");
+        lblStatus.setText("Getting further...");
       } else {
-        statusLabel.setText("Getting closer!!!");
+        lblStatus.setText("Getting closer!!!");
       }
 
       // statusLabel.setText(predictionRank + " " + prevPredictionRank);
@@ -817,9 +819,9 @@ public class CanvasController {
           font = Font.font("Courier New", FontWeight.BOLD, FontPosture.REGULAR, 16);
           // change message depending on prediction ranking
           if (i > 5) {
-            statusLabel.setText("Almost there!! You're doing great!");
+            lblStatus.setText("Almost there!! You're doing great!");
           } else if (i <= 5) {
-            statusLabel.setText("So close!!! You can do it!");
+            lblStatus.setText("So close!!! You can do it!");
           }
         } else {
           font = Font.font("Courier New", FontWeight.NORMAL, FontPosture.REGULAR, 16);
@@ -930,7 +932,7 @@ public class CanvasController {
     // stop game and print message
     canvas.setDisable(true);
     timeline.stop();
-    statusLabel.setText("Congratulations! You Won! Surely, the next Picasso!");
+    lblStatus.setText("Congratulations! You Won! Surely, the next Picasso!");
 
     if (player != null) {
       player.stop();
@@ -977,10 +979,10 @@ public class CanvasController {
     }
 
     // make buttons visible or disabled
-    clearButton.setDisable(true);
-    penButton.setDisable(true);
-    eraserButton.setDisable(true);
-    backButton.setVisible(true);
+    btnClear.setDisable(true);
+    btnDraw.setDisable(true);
+    btnErase.setDisable(true);
+    btnBack.setVisible(true);
     
 	ResultsController.setPreviousScene("canvas");
 
@@ -999,7 +1001,7 @@ public class CanvasController {
   private void setLose() {
     // stop game and print message
     canvas.setDisable(true);
-    statusLabel.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
+    lblStatus.setText("You Lost. Unfortunately, I was not able to guess your drawing in time.");
 
     // play losing sound effect
     try {
@@ -1040,10 +1042,10 @@ public class CanvasController {
     }
 
     // make buttons visible or disabled
-    clearButton.setDisable(true);
-    penButton.setDisable(true);
-    eraserButton.setDisable(true);
-    backButton.setVisible(true);
+    btnClear.setDisable(true);
+    btnDraw.setDisable(true);
+    btnErase.setDisable(true);
+    btnBack.setVisible(true);
 
 	ResultsController.setPreviousScene("canvas");
 	
@@ -1057,7 +1059,7 @@ public class CanvasController {
 
   /** Switch from canvas scene to results scene. */
   private void switchToResults() {
-    Scene scene = startButton.getParent().getScene();
+    Scene scene = btnStart.getParent().getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.RESULTS));
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
@@ -1068,7 +1070,7 @@ public class CanvasController {
   private void decreaseTime() {
     // decrease counter by 1
     counter--;
-    timerLabel.setText(String.valueOf(counter));
+    lblTimer.setText(String.valueOf(counter));
     // play time ticking sound effects when time is at 10 seconds and below
     if (counter == 10) {
       try {

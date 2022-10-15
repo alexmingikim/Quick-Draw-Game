@@ -250,7 +250,7 @@ public class CanvasController {
     return imageBinary;
   }
 
-  /** Set the value of the timer depending on the the user profile's difficulty setting. */
+  /** Set the value of the timer depending on the user profile's difficulty setting. */
   private void setCounter() {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -261,7 +261,7 @@ public class CanvasController {
   }
 
   /**
-   * Select a random word depending on the user profile's difficulty
+   * Select a random word depending on the user profile's difficulty.
    *
    * @return the random selected word
    * @throws IOException if a file input or output error occurs
@@ -320,7 +320,7 @@ public class CanvasController {
   }
 
   /**
-   * Retrieve all categories present in the resource file.
+   * Retrieves all categories present in the resource file.
    *
    * @return the array of categories with their corresponding difficulty
    */
@@ -348,7 +348,7 @@ public class CanvasController {
   /**
    * Select a random category based on the difficulty setting of the current profile.
    *
-   * @return the random selected word
+   * @return the randomly selected category
    * @throws IOException if a file input and output error occurs
    */
   private String selectCategoryProfile() throws IOException {
@@ -405,9 +405,9 @@ public class CanvasController {
   }
 
   /**
-   * Select a random category based on the difficulty setting of the guest profile.
+   * Selects a random category based on the difficulty setting of the guest profile.
    *
-   * @return the random selected word
+   * @return the random selected category
    * @throws IOException if a file input and output error occurs
    */
   private String selectCategoryGuest() throws IOException {
@@ -456,8 +456,9 @@ public class CanvasController {
   }
 
   /**
-   * Check if the current profile has encountered every single word in one or more of the categoryr
+   * Check if the current profile has encountered every single word in one or more of the category
    * difficulties.
+   * 
    */
   private void checkMaxWords() {
     // get a list of all the categories and profile's encountered words
@@ -727,7 +728,7 @@ public class CanvasController {
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 10.0;
+          final double size = 20.0;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;

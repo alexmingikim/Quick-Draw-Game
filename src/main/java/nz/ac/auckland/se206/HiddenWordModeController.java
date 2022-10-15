@@ -101,6 +101,8 @@ public class HiddenWordModeController {
   private Timeline timeline;
 
   private MediaUtil player;
+  
+  private List<Integer> newBadges = new ArrayList<Integer>();
 
   // mouse coordinates
   private double currentX;
@@ -125,6 +127,11 @@ public class HiddenWordModeController {
     btnErase.setDisable(true);
   }
 
+  /**
+   * Initialises a new game state. Generates new category and finds its definition.
+   *
+   * @throws IOException if an input or output exception occurs
+   */
   public void subInitialize() throws IOException, WordNotFoundException, ModelException {
     // Changes the profile display name
     currentProfile = ProfileViewController.getCurrentUser();
@@ -134,6 +141,8 @@ public class HiddenWordModeController {
       lblProfileName.setText(currentProfile.getName());
     }
 
+    newBadges.clear();
+    
     // set a random category according to difficulty
     category = selectRandomCategory();
 
@@ -153,8 +162,9 @@ public class HiddenWordModeController {
     lblTimer.setText(String.valueOf(counter));
     onClear();
 
-    // initialise to get new category and make the start button visible
-    initialize();
+    btnClear.setDisable(true);
+    btnDraw.setDisable(true);
+    btnErase.setDisable(true);
     btnStart.setVisible(true);
     try {
       updatePrediction();
@@ -162,10 +172,16 @@ public class HiddenWordModeController {
       e.printStackTrace();
     }
 
+    // definition is only visible once "start" button is clicked
     lblDefinition.setVisible(false);
   }
 
-  // helper methods
+  /**
+   * Retrieves the predictions for the current snapshot of the canvas and displays the top 10
+   * predictions as well as an indicator for whether the AI is close to guessing the current word.
+   *
+   * @throws TranslateException if the model translation has an error
+   */
   private void updatePrediction() throws TranslateException {
     if (blankStatus == false) {
       // get top 10 predictions
@@ -323,6 +339,10 @@ public class HiddenWordModeController {
     }
   }
 
+  /**
+   * This method is executed when the user wins the game. A sound effect is played for winning and
+   * the stats of the game is stored if the current user profile is not the default guest.
+   */
   private void setWin() {
     // stop game and print message
     canvas.setDisable(true);
@@ -344,9 +364,31 @@ public class HiddenWordModeController {
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
+      currentProfile.incrementWinStreak();
       currentProfile.chooseWonOrLost(true);
-      currentProfile.updateTimeWon(60 - counter, category);
+      // Set the time it took to win the game depending on the current profile's time
+      // difficulty setting
+      switch (currentProfile.getDifficulties()[2]) {
+        case EASY:
+          currentProfile.updateTimeWon(60 - counter, category);
+          break;
+        case MEDIUM:
+          currentProfile.updateTimeWon(45 - counter, category);
+          break;
+        case HARD:
+          currentProfile.updateTimeWon(30 - counter, category);
+          break;
+        case MASTER:
+          currentProfile.updateTimeWon(15 - counter, category);
+          break;
+      }
       checkMaxWords();
+      // check if the current game allowed the user to earn any badges
+      checkSpeedDemonQualifications();
+      checkWinningStreakQualifications();
+      checkVeteranQualifications();
+      checkChallengerQualifications();
+      // update the profile with new stats
       updateProfile();
     }
 
@@ -359,15 +401,78 @@ public class HiddenWordModeController {
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(true);
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+        .setNewBadges(newBadges);
     switchToResults();
   }
 
+  /**
+   * This method is executed when the user loses the game. A sound effect is played for losing and
+   * the stats of the game is stored if the current user profile is not the default guest.
+   */
+  private void setLose() {
+	    // stop game and print message
+	    canvas.setDisable(true);
+
+	    try {
+	      player = new MediaUtil(MediaUtil.loseGameFile);
+	    } catch (URISyntaxException e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	    }
+	    player.play();
+
+	 // Update profile if it is not a guest profile
+	    if (currentProfile != null) {
+	      currentProfile.updateWords(category);
+	      currentProfile.incrementNoOfGamesPlayed();
+	      currentProfile.resetWinStreak();
+	      currentProfile.chooseWonOrLost(false);
+	      // Set the time it took to lost the game depending on the current profile's time
+	      // difficulty setting
+	      switch (currentProfile.getDifficulties()[2]) {
+	        case EASY:
+	          currentProfile.updateTimeLost(60);
+	          break;
+	        case MEDIUM:
+	          currentProfile.updateTimeLost(45);
+	          break;
+	        case HARD:
+	          currentProfile.updateTimeLost(30);
+	          break;
+	        case MASTER:
+	          currentProfile.updateTimeLost(15);
+	          break;
+	      }
+	      checkMaxWords();
+	      // check if the current game allowed the user to earn any badges
+	      checkVeteranQualifications();
+	      // update the profile with new stats
+	      updateProfile();
+	    }
+
+	    // make buttons visible or disabled
+	    btnClear.setDisable(true);
+	    btnDraw.setDisable(true);
+	    btnErase.setDisable(true);
+	    btnBack.setVisible(true);
+
+	    // show results of the game
+	    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+	        .setGameResults(false);
+	    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
+	        .setNewBadges(newBadges);
+	    switchToResults();
+	  }
+
+  /** Switch from hidden word mode scene to results scene. */
   private void switchToResults() {
     Scene scene = btnStart.getParent().getScene();
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.RESULTS));
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
+  /** Update and save the new changes to the current profile to the local json file. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -399,6 +504,11 @@ public class HiddenWordModeController {
     }
   }
 
+  /**
+   * Check if the current profile has encountered every single word in one or more of the category
+   * difficulties.
+   * 
+   */
   private void checkMaxWords() {
     // get a list of all the categories and profile's encountered words
     ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
@@ -489,6 +599,7 @@ public class HiddenWordModeController {
         });
   }
 
+  /** Set the value of the timer depending on the user profile's difficulty setting. */
   private void setCounter() {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -498,6 +609,7 @@ public class HiddenWordModeController {
     }
   }
 
+  /** Set the initial timer value depending on selected guest difficulty. */
   private void setCounterGuest() {
     switch (SettingsController.getGuestDifficulty()[2]) {
       case EASY:
@@ -519,6 +631,7 @@ public class HiddenWordModeController {
     }
   }
 
+  /** Set the initial timer value depending on current profile difficulty. */
   private void setCounterProfile() {
     switch (currentProfile.getDifficulties()[2]) {
       case EASY:
@@ -540,6 +653,12 @@ public class HiddenWordModeController {
     }
   }
 
+  /**
+   * Selects a random category depending on the user profile's difficulty.
+   *
+   * @return the randomly selected category
+   * @throws IOException if a file input or output error occurs
+   */
   private String selectRandomCategory() throws IOException {
     // execute different methods depending on guest or profile account
     if (currentProfile == null) {
@@ -549,6 +668,11 @@ public class HiddenWordModeController {
     }
   }
 
+  /** Selects a random category based on the difficulty setting of the guest profile.
+  *
+  * @return the randomly selected category
+  * @throws IOException if a file input and output error occurs
+  */
   private String selectCategoryGuest() throws IOException {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>(getCategories());
@@ -594,6 +718,12 @@ public class HiddenWordModeController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Select a random category based on the difficulty setting of the current profile.
+   *
+   * @return the randomly selected category
+   * @throws IOException if a file input and output error occurs
+   */
   private String selectCategoryProfile() throws IOException {
     // get a list of all the categories
     ArrayList<String> wordsList =
@@ -647,6 +777,11 @@ public class HiddenWordModeController {
     return modifiedList.get(index);
   }
 
+  /**
+   * Retrieves all categories present in the resource file.
+   *
+   * @return the array of categories with their corresponding difficulty
+   */
   private ArrayList<String[]> getCategories() {
     // get a list of all the categories
     ArrayList<String[]> categoryList = new ArrayList<String[]>();
@@ -668,6 +803,10 @@ public class HiddenWordModeController {
     return categoryList;
   }
 
+  /**
+   * This method is executed when the "start" button is clicked. The timer begins and the AI predicts
+   * what is drawn.
+   */
   @FXML
   private void onStart() {
     // change message
@@ -716,7 +855,7 @@ public class HiddenWordModeController {
   }
 
   /**
-   * This method is called when the "Back" button is pressed.
+   * This method is called when the "Back" button is clicked
    *
    * @param event the clicking action from the user
    */
@@ -727,19 +866,23 @@ public class HiddenWordModeController {
     scene.setRoot(SceneManager.getUiRoot(SceneManager.AppUi.GAME_MODE));
   }
 
-  /** This method is called when the "Clear" button is pressed. */
+  /** This method is called when the "Clear" button is clicked. */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     blankStatus = true;
   }
 
+  /**
+   * This method is executed when the user clicks and drags on the canvas and the eraser button is
+   * clicked. The eraser size option is set to be bigger than the pen for easier erasing.
+   */
   @FXML
   private void onErase() {
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 10.0;
+          final double size = 20.0;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
@@ -749,6 +892,9 @@ public class HiddenWordModeController {
         });
   }
 
+  /**
+   * This method is executed whenever the user clicks and drags on the canvas to draw an image.
+   */
   @FXML
   private void onDraw() {
     // save coordinates when mouse is pressed on the canvas
@@ -780,6 +926,9 @@ public class HiddenWordModeController {
         });
   }
 
+  /**
+   * Decrease the game timer by 1 second and play a sound effect when the time reaches 10 and below.
+   */
   private void decreaseTime() {
     counter--;
     lblTimer.setText(String.valueOf(counter));
@@ -793,37 +942,87 @@ public class HiddenWordModeController {
       player.play();
     }
   }
-
-  private void setLose() {
-    // stop game and print message
-    canvas.setDisable(true);
-
-    try {
-      player = new MediaUtil(MediaUtil.loseGameFile);
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+  
+  /**
+   * Check if the fastest won game on this profile meets the requirements for any of the Speed Demon
+   * badges.
+   */
+  private void checkSpeedDemonQualifications() {
+    int fastestGame = Integer.parseInt(currentProfile.getFastestWonGameTime());
+    // Check if game won is under 30 seconds
+    if (fastestGame < 30 && !currentProfile.getBadges().contains(0)) {
+      currentProfile.updateBadges(0);
+      newBadges.add(0);
     }
-    player.play();
-
-    // Update profile if it is not a guest profile
-    if (currentProfile != null) {
-      currentProfile.updateWords(category);
-      currentProfile.incrementNoOfGamesPlayed();
-      currentProfile.chooseWonOrLost(false);
-      checkMaxWords();
-      updateProfile();
+    // Check if game won is under 10 seconds
+    if (fastestGame < 10 && !currentProfile.getBadges().contains(1)) {
+      currentProfile.updateBadges(1);
+      newBadges.add(1);
     }
-
-    // make buttons visible or disabled
-    btnClear.setDisable(true);
-    btnDraw.setDisable(true);
-    btnErase.setDisable(true);
-    btnBack.setVisible(true);
-
-    // show results of the game
-    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
-        .setGameResults(false);
-    switchToResults();
+    // Check if game won is under 5 seconds
+    if (fastestGame < 5 && !currentProfile.getBadges().contains(2)) {
+      currentProfile.updateBadges(2);
+      newBadges.add(2);
+    }
+  }
+  
+  /**
+   * Check if the winning streak on this profile meets the requirements for any of the Winning
+   * Streak badges.
+   */
+  private void checkWinningStreakQualifications() {
+    int winStreak = currentProfile.getWinStreak();
+    // Check if the winning streak on this profile is over 2
+    if (winStreak >= 2 && !currentProfile.getBadges().contains(3)) {
+      currentProfile.updateBadges(3);
+      newBadges.add(3);
+    }
+    // Check if the winning streak on this profile is over 5
+    if (winStreak >= 5 && !currentProfile.getBadges().contains(4)) {
+      currentProfile.updateBadges(4);
+      newBadges.add(4);
+    }
+    // Check if the winning streak on this profile is over 10
+    if (winStreak >= 10 && !currentProfile.getBadges().contains(5)) {
+      currentProfile.updateBadges(5);
+      newBadges.add(5);
+    }
+  }
+  
+  /**
+   * Check if the total number of games on this profile meets the requirement for any of the Veteran
+   * badges.
+   */
+  private void checkVeteranQualifications() {
+    int totalGames = Integer.parseInt(currentProfile.getNoOfGamesPlayed());
+    // Check if total number of games on this profile is over 5
+    if (totalGames >= 5 && !currentProfile.getBadges().contains(6)) {
+      currentProfile.updateBadges(6);
+      newBadges.add(6);
+    }
+    // Check if total number of games on this profile is over 10
+    if (totalGames >= 10 && !currentProfile.getBadges().contains(7)) {
+      currentProfile.updateBadges(7);
+      newBadges.add(7);
+    }
+    // Check if total number of games on this profile is over 20
+    if (totalGames >= 20 && !currentProfile.getBadges().contains(8)) {
+      currentProfile.updateBadges(8);
+      newBadges.add(8);
+    }
+  }
+  
+  /**
+   * Check if the current game is eligible to receive the Challenger badge which has the requirement
+   * of winning a game with a master difficulty setting.
+   */
+  private void checkChallengerQualifications() {
+    // Check if the current game being played has a master difficulty setting
+    for (Difficulty difficulty : currentProfile.getDifficulties()) {
+      if (difficulty == Difficulty.MASTER && !currentProfile.getBadges().contains(9)) {
+        currentProfile.updateBadges(9);
+        newBadges.add(9);
+      }
+    }
   }
 }

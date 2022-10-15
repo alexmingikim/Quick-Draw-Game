@@ -161,6 +161,8 @@ public class HiddenWordModeController {
     } catch (TranslateException e) {
       e.printStackTrace();
     }
+
+    lblDefinition.setVisible(false);
   }
 
   // helper methods
@@ -483,8 +485,7 @@ public class HiddenWordModeController {
 
     backgroundTask.setOnSucceeded(
         event -> {
-          lblDefinition.setText(
-              "Definition: \n" + definition + "\n\nHint: starts with '" + word.charAt(0) + "'");
+          lblDefinition.setText(definition + "\n\nHint: starts with '" + word.charAt(0) + "'");
         });
   }
 
@@ -710,6 +711,8 @@ public class HiddenWordModeController {
     btnErase.setDisable(false);
     btnStart.setVisible(false);
     btnBack.setVisible(false);
+
+    lblDefinition.setVisible(true);
   }
 
   /**

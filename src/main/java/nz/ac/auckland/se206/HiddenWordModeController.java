@@ -96,7 +96,7 @@ public class HiddenWordModeController {
 
   private boolean blankStatus = true;
 
-  private String category;
+  private static String category;
 
   private String definition;
 
@@ -518,7 +518,7 @@ public class HiddenWordModeController {
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
-  /** Update and save the new changes to the current profile to the local json file. */
+/** Update and save the new changes to the current profile to the local json file. */
   private void updateProfile() {
     // initializing utilities to read and store the profiles
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -1080,4 +1080,8 @@ public class HiddenWordModeController {
       }
     }
   }
+  
+  public static String getCategory() {
+	return category;
+}
 }

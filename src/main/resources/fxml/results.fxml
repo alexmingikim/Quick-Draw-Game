@@ -15,7 +15,7 @@
             <Image url="@../images/background_profile_view.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="resultsLabel" alignment="CENTER" layoutX="226.0" layoutY="76.0" prefHeight="70.0" prefWidth="350.0" text="You Lost">
+      <Label fx:id="resultsLabel" alignment="CENTER" layoutX="76.0" layoutY="81.0" prefHeight="70.0" prefWidth="350.0" text="You Lost">
          <font>
             <Font name="Courier New Bold" size="64.0" />
          </font>
@@ -32,15 +32,15 @@
             </ImageView>
          </graphic>
       </Label>
-      <HBox alignment="TOP_CENTER" layoutX="167.0" layoutY="460.0" prefHeight="35.0" prefWidth="466.0" spacing="30.0">
+      <HBox alignment="TOP_CENTER" layoutX="38.0" layoutY="514.0" prefHeight="40.0" prefWidth="428.0" spacing="30.0">
          <children>
-            <Button fx:id="goGameModeButton" mnemonicParsing="false" onAction="#onGoGameMode" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Main Menu" textFill="WHITE" />
-            <Button fx:id="saveDrawingButton" mnemonicParsing="false" onAction="#onSaveDrawing" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE" />
-            <Button fx:id="startNewGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefHeight="30.4" prefWidth="118.0" style="-fx-background-color: #404040;" text="Start New Game" textFill="WHITE" />
+            <Button fx:id="goGameModeButton" mnemonicParsing="false" onAction="#onGoGameMode" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Main Menu" textFill="WHITE" />
+            <Button fx:id="saveDrawingButton" mnemonicParsing="false" onAction="#onSaveDrawing" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Save Drawing" textFill="WHITE" />
+            <Button fx:id="startNewGameButton" mnemonicParsing="false" onAction="#onStartNewGame" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="New Game" textFill="WHITE" />
          </children>
       </HBox>
-      <ImageView fx:id="finalDrawingImage" fitHeight="294.0" fitWidth="395.0" layoutX="203.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="badgesEarnedLabel" alignment="TOP_RIGHT" layoutX="584.0" layoutY="61.0" prefHeight="300.0" prefWidth="190.0" text="Label">
+      <ImageView fx:id="finalDrawingImage" fitHeight="294.0" fitWidth="395.0" layoutX="53.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="badgesEarnedLabel" alignment="TOP_RIGHT" layoutX="584.0" layoutY="61.0" prefHeight="173.0" prefWidth="190.0" text="Label">
          <font>
             <Font name="Courier New Bold" size="16.0" />
          </font>
@@ -48,6 +48,11 @@
       <Label fx:id="earnedTitleLabel" alignment="CENTER_RIGHT" layoutX="584.0" layoutY="36.0" prefHeight="25.0" prefWidth="190.0" text="Badges Earned:">
          <font>
             <Font name="Courier New Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCategoryAnswer" alignment="CENTER" layoutX="68.0" layoutY="458.0" prefHeight="39.0" prefWidth="362.0" text="Answer:">
+         <font>
+            <Font name="Courier New Bold" size="24.0" />
          </font>
       </Label>
    </children>

@@ -26,8 +26,10 @@ public class ResultsController {
   @FXML private Label earnedTitleLabel;
 
   @FXML private Label badgesEarnedLabel;
+  
+  @FXML private Label lblCategoryAnswer;
 
-  @FXML private Button goGameModeButton;
+@FXML private Button goGameModeButton;
 
   @FXML private Button saveDrawingButton;
 
@@ -87,6 +89,13 @@ public class ResultsController {
     } else {
       profileUsernameLabel.setText(currentProfile.getName());
     }
+    
+    // display correct category which user had to draw
+	  if (previousScene.equals("canvas")) {
+		  displayCorrectCategory(CanvasController.getCategory());
+	  } else {
+		  displayCorrectCategory(HiddenWordModeController.getCategory());
+	  }
   }
 
   /** Set every badge that was earned this game. */
@@ -193,4 +202,13 @@ public class ResultsController {
 	  ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController()).saveDrawing();
   }
 }
+  
+  /**
+   * Displays category which the user had to draw on the results scene. 
+   * 
+   * @param category category which user had to draw
+   */
+  public void displayCorrectCategory(String category) {
+	  lblCategoryAnswer.setText("Answer: " + category);
+  }
 }

@@ -98,7 +98,7 @@ public class CanvasController {
 
   private int counter = 60;
 
-  private String category;
+  private static String category;
 
   private GraphicsContext graphic;
 
@@ -1062,7 +1062,7 @@ public class CanvasController {
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
-  /**
+/**
    * Decrease the game timer by 1 second and play a sound effect when the time reaches 10 and below.
    */
   private void decreaseTime() {
@@ -1088,4 +1088,8 @@ public class CanvasController {
   public void setStage(Stage stage) {
     this.stage = stage;
   }
+  
+  public static String getCategory() {
+	return category;
+}
 }

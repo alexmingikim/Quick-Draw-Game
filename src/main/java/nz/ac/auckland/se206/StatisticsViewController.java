@@ -43,6 +43,8 @@ public class StatisticsViewController {
 
   @FXML private Label fastestGameWonLabel;
 
+  @FXML private Label wordsEncounteredLabel;
+
   @FXML private ScrollPane wordsEncounteredField;
 
   private MediaUtil player;
@@ -95,15 +97,21 @@ public class StatisticsViewController {
         String wordsEncountered = user.getWordsEncountered();
         String[] words = wordsEncountered.split(",");
         StringBuilder sb = new StringBuilder();
+        int i = 0;
         // making each word encountered appear on a new line
         for (String word : words) {
-          sb.append(word + "\n");
+          if (++i == words.length) {
+            sb.append(word);
+          } else {
+            sb.append(word + ", ");
+          }
         }
         // changing the font of the text to maintain consistency
         String displayWords = sb.toString();
         Text text = new Text(displayWords);
         text.setFont(Font.font("Courier New", FontPosture.REGULAR, 16));
-        wordsEncounteredField.setContent(text);
+        //				wordsEncounteredField.setContent(text);
+        wordsEncounteredLabel.setText(displayWords);
       }
     }
   }

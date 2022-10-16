@@ -62,6 +62,8 @@ import nz.ac.auckland.se206.util.MediaUtil;
  */
 public class CanvasController {
 
+  private static String category;
+
   static final int NUMBER_EASY_WORDS = 145;
 
   static final int NUMBER_MEDIUM_WORDS = 132;
@@ -93,7 +95,7 @@ public class CanvasController {
   @FXML private Button btnBack;
 
   @FXML private Button btnClear;
-  
+
   @FXML private Button btnTextToSpeech;
 
   @FXML private TextFlow predictionsTextFlow;
@@ -101,8 +103,6 @@ public class CanvasController {
   private int counter = 60;
 
   private int totalTime = 60;
-
-  private static String category;
 
   private GraphicsContext graphic;
 
@@ -136,8 +136,8 @@ public class CanvasController {
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
    *
-   * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws ModelException If there is an error in reading the input/output of the DL model
+   * @throws IOException If the model cannot be found on the file system
    */
   public void initialize() throws ModelException, IOException {
     subInitialize();
@@ -874,7 +874,7 @@ public class CanvasController {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
 
-      // clear the text flow
+      // clear predictions that are displayed
       predictionsTextFlow.getChildren().clear();
 
       // set the font
@@ -1063,7 +1063,7 @@ public class CanvasController {
     btnDraw.setDisable(true);
     btnErase.setDisable(true);
     btnBack.setVisible(true);
-    
+
 	  ResultsController.setPreviousScene("canvas");
 
     // show results of the game

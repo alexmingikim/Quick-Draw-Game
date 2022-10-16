@@ -307,7 +307,7 @@ public class ZenModeController {
   /**
    * Generates new category for the user to draw.
    *
-   * @throws IOException
+   * @throws IOException {@inheritDoc}
    */
   @FXML
   private void onNewWord() throws IOException {
@@ -543,8 +543,8 @@ public class ZenModeController {
     isStarted = false;
   }
 
-  @FXML
   /** Enables user to save the drawing they have drawn. */
+  @FXML
   private void onSaveDrawing() {
     // create a new file choose instance and prompt the user to select a location
     // and name with a suggested default name
@@ -573,50 +573,50 @@ public class ZenModeController {
   /** Enables user to draw with black paint */
   @FXML
   private void onSetBlackPaint() {
-	  enablePen();
-	    graphic.setStroke(Color.BLACK);
-	  
-	  // status of other toggle buttons should be off 
-	  togBtnRedPaint.setSelected(false);
-	  togBtnGreenPaint.setSelected(false);
-	  togBtnBluePaint.setSelected(false);
+    enablePen();
+    graphic.setStroke(Color.BLACK);
+
+    // status of other toggle buttons should be off
+    togBtnRedPaint.setSelected(false);
+    togBtnGreenPaint.setSelected(false);
+    togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with red paint */
   @FXML
   private void onSetRedPaint() {
-	  enablePen();
+    enablePen();
     graphic.setStroke(Color.RED);
-    
-	  // status of other toggle buttons should be off 
-	  togBtnBlackPaint.setSelected(false);
-	  togBtnGreenPaint.setSelected(false);
-	  togBtnBluePaint.setSelected(false);
+
+    // status of other toggle buttons should be off
+    togBtnBlackPaint.setSelected(false);
+    togBtnGreenPaint.setSelected(false);
+    togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with green paint */
   @FXML
   private void onSetGreenPaint() {
-	  // green
-	  enablePen();
+    // green
+    enablePen();
     graphic.setStroke(Color.GREEN);
-    
-	  // status of other toggle buttons should be off 
-	  togBtnRedPaint.setSelected(false);
-	  togBtnBlackPaint.setSelected(false);
-	  togBtnBluePaint.setSelected(false);
+
+    // status of other toggle buttons should be off
+    togBtnRedPaint.setSelected(false);
+    togBtnBlackPaint.setSelected(false);
+    togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with blue paint */
   @FXML
   private void onSetBluePaint() {
-	  // blue 
-	  enablePen();
+    // blue
+    enablePen();
     graphic.setStroke(Color.BLUE);
-    
-	  // status of other toggle buttons should be off 
-	  togBtnRedPaint.setSelected(false);
-	  togBtnGreenPaint.setSelected(false);
-	  togBtnBlackPaint.setSelected(false);
+
+    // status of other toggle buttons should be off
+    togBtnRedPaint.setSelected(false);
+    togBtnGreenPaint.setSelected(false);
+    togBtnBlackPaint.setSelected(false);
   }
 }

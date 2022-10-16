@@ -108,7 +108,7 @@ public class ResultsController {
     } else {
       displayCorrectCategory(HiddenWordModeController.getCategory());
     }
-
+    
     // get the existing profiles and display the score and high score
     getProfiles();
     displayScores();

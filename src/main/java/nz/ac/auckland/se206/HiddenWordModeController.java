@@ -50,6 +50,8 @@ import nz.ac.auckland.se206.util.MediaUtil;
 
 public class HiddenWordModeController {
 
+  private static String category;
+
   static final int NUMBER_EASY_WORDS = 145;
 
   static final int NUMBER_MEDIUM_WORDS = 132;
@@ -94,8 +96,6 @@ public class HiddenWordModeController {
 
   private boolean blankStatus = true;
 
-  private static String category;
-
   private String definition;
 
   private int counter = 60;
@@ -126,7 +126,8 @@ public class HiddenWordModeController {
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
    * @throws IOException If the model cannot be found on the file system.
-   * @throws WordNotFoundException
+   * @throws WordNotFoundException if the definition of a string cannot be found using the
+   *     dictionary api
    */
   public void initialize() throws ModelException, IOException, WordNotFoundException {
     // initialise graphics and the prediction model

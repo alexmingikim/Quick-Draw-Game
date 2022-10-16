@@ -18,7 +18,7 @@ public class DictionaryLookUp {
    * @param wordToLookUpDefinition word whose definition is to be found
    * @return definition of input word
    * @throws WordNotFoundException exception when definition cannot be found
-   * @throws IOException
+   * @throws IOException {@inheritDoc}
    */
   public static String searchWordDefinition(String wordToLookUpDefinition)
       throws WordNotFoundException, IOException {
@@ -37,11 +37,12 @@ public class DictionaryLookUp {
       // exception when definition cannot be found
       throw new WordNotFoundException(wordToLookUpDefinition, subMessage);
     } catch (ClassCastException e) {
+      // do nothing
     }
 
     // JSON library
-    JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
-    JSONObject jsonEntryObj = jArray.getJSONObject(0);
+    JSONArray jsonArray = (JSONArray) new JSONTokener(jsonString).nextValue();
+    JSONObject jsonEntryObj = jsonArray.getJSONObject(0);
     JSONArray jsonMeanings = jsonEntryObj.getJSONArray("meanings");
     JSONObject jsonMeaningObj = jsonMeanings.getJSONObject(0);
     JSONArray jsonDefinitions = jsonMeaningObj.getJSONArray("definitions");

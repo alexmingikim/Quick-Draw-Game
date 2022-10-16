@@ -25,7 +25,7 @@
             <Image url="@../images/blank_canvas.png" />
          </image>
       </ImageView>
-      <Button fx:id="playButton" alignment="CENTER" layoutX="250.0" layoutY="490.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
+      <Button fx:id="playButton" alignment="CENTER" layoutX="294.0" layoutY="493.0" mnemonicParsing="false" onAction="#onPlay" prefHeight="70.0" prefWidth="247.0" style="-fx-background-color: #404040;" text="Play" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="20.0" />
          </font>
@@ -40,9 +40,9 @@
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="262.0" fitWidth="156.0" layoutX="546.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="311.0" fitWidth="322.0" layoutX="460.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/robot.png" />
+            <Image url="@../images/new_robo.png" />
          </image>
       </ImageView>
       <Text layoutX="301.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SOFTENG206 EDITION" wrappingWidth="314.9480895996094">

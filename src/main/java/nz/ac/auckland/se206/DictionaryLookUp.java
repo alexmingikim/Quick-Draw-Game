@@ -37,7 +37,7 @@ public class DictionaryLookUp {
       // exception when definition cannot be found
       throw new WordNotFoundException(wordToLookUpDefinition, subMessage);
     } catch (ClassCastException e) {
-      System.out.println("ClassCastException");
+      // do nothing
     }
 
     // JSON library

@@ -24,6 +24,21 @@ public class User {
   private Difficulty confidence;
   private List<Integer> badges = new ArrayList<Integer>();
 
+  /**
+   * Creates a new user based on the input attributes
+   *
+   * @param id user id
+   * @param name user name
+   * @param opacity opacity of user profile button
+   * @param noOfGamesPlayed number of games user has played
+   * @param noOfGamesWon number of games user has won
+   * @param noOfGamesLost number of games user has lost
+   * @param averageDrawingTime average time user has spent on a game
+   * @param totalGameTime total time user has spent drawing
+   * @param fastestWonGameTime fastest time of a won game
+   * @param fastestWonGame string of fastest won game
+   * @param wordsEncountered list of words which user has encountered
+   */
   public User(
       String id,
       String name,

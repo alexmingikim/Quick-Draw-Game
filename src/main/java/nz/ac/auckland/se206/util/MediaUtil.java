@@ -18,24 +18,12 @@ public class MediaUtil {
     this.player = new MediaPlayer(mediaFile);
   }
 
+  /** Plays the mp3 file associated */
   public void play() {
     player.play();
-
-    //    Task<Void> backgroundTask =
-    //        new Task<Void>() {
-    //
-    //          @Override
-    //          protected Void call() throws Exception {
-    //            // global variable textToSpeech initialized at the beginning
-    //            player.play();
-    //            return null;
-    //          }
-    //        };
-    //
-    //    Thread backgroundThread = new Thread(backgroundTask);
-    //    backgroundThread.start();
   }
 
+  /** Stops playing the mp3 file */
   public void stop() {
     player.stop();
   }

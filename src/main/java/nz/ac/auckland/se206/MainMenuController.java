@@ -13,7 +13,7 @@ import nz.ac.auckland.se206.util.MediaUtil;
 
 public class MainMenuController {
 
-  MediaPlayer player;
+  protected MediaPlayer player;
 
   @FXML private Button playButton;
 

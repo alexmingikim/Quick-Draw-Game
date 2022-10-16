@@ -62,6 +62,8 @@ import nz.ac.auckland.se206.util.MediaUtil;
  */
 public class CanvasController {
 
+  private static String category;
+
   static final int NUMBER_EASY_WORDS = 145;
 
   static final int NUMBER_MEDIUM_WORDS = 132;
@@ -93,14 +95,12 @@ public class CanvasController {
   @FXML private Button btnBack;
 
   @FXML private Button btnClear;
-  
+
   @FXML private Button btnTextToSpeech;
 
   @FXML private TextFlow predictionsTextFlow;
 
   private int counter = 60;
-
-  private static String category;
 
   private GraphicsContext graphic;
 
@@ -132,8 +132,8 @@ public class CanvasController {
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
    *
-   * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws ModelException If there is an error in reading the input/output of the DL model
+   * @throws IOException If the model cannot be found on the file system
    */
   public void initialize() throws ModelException, IOException {
     subInitialize();
@@ -460,7 +460,6 @@ public class CanvasController {
   /**
    * Check if the current profile has encountered every single word in one or more of the category
    * difficulties.
-   * 
    */
   private void checkMaxWords() {
     // get a list of all the categories and profile's encountered words
@@ -799,7 +798,7 @@ public class CanvasController {
       predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
       predictionsLabel.setText("Top 10 Predictions\n");
 
-      // clear the text flow
+      // clear predictions that are displayed
       predictionsTextFlow.getChildren().clear();
 
       // set the font
@@ -983,8 +982,8 @@ public class CanvasController {
     btnDraw.setDisable(true);
     btnErase.setDisable(true);
     btnBack.setVisible(true);
-    
-	ResultsController.setPreviousScene("canvas");
+
+    ResultsController.setPreviousScene("canvas");
 
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
@@ -1047,8 +1046,8 @@ public class CanvasController {
     btnErase.setDisable(true);
     btnBack.setVisible(true);
 
-	ResultsController.setPreviousScene("canvas");
-	
+    ResultsController.setPreviousScene("canvas");
+
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(false);
@@ -1064,7 +1063,7 @@ public class CanvasController {
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
-/**
+  /**
    * Decrease the game timer by 1 second and play a sound effect when the time reaches 10 and below.
    */
   private void decreaseTime() {
@@ -1090,8 +1089,8 @@ public class CanvasController {
   public void setStage(Stage stage) {
     this.stage = stage;
   }
-  
+
   public static String getCategory() {
-	return category;
-}
+    return category;
+  }
 }

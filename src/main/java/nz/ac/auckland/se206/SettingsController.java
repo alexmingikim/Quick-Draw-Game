@@ -327,6 +327,7 @@ public class SettingsController {
    */
   private void delayVisibility(int time, int difficulty) {
     delay = new PauseTransition(Duration.seconds(time));
+    // after delay, display description labels
     delay.setOnFinished(
         e -> {
           descriptionLabels[difficulty].setVisible(true);

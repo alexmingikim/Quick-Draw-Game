@@ -14,7 +14,7 @@ import nz.ac.auckland.se206.util.MediaUtil;
 
 public class GameModeController {
 
-  MediaUtil player;
+  protected MediaUtil player;
 
   @FXML private Button btnSwitchProfile;
 
@@ -89,8 +89,8 @@ public class GameModeController {
    *
    * @param event when "Classic" button is clicked
    * @throws IOException if an input or output exception occurred
-   * @throws URISyntaxException
-   * @throws ModelException
+   * @throws URISyntaxException {@inheritDoc}
+   * @throws ModelException {@inheritDoc}
    */
   @FXML
   private void onPlayClassic(ActionEvent event)
@@ -110,8 +110,8 @@ public class GameModeController {
    *
    * @param event when "Zen Mode" button is clicked
    * @throws IOException if an input or output exception occurred
-   * @throws URISyntaxException
-   * @throws ModelException
+   * @throws URISyntaxException {@inheritDoc}
+   * @throws ModelException {@inheritDoc}
    */
   @FXML
   private void onPlayZenMode(ActionEvent event)
@@ -132,9 +132,9 @@ public class GameModeController {
    *
    * @param event when "Hidden Word Mode" button is clicked
    * @throws IOException if an input or output exception occurred
-   * @throws URISyntaxException
-   * @throws ModelException
-   * @throws WordNotFoundException
+   * @throws URISyntaxException if string cannot be parsed as a URI reference
+   * @throws ModelException if there is an error in reading the input/output of the DL model
+   * @throws WordNotFoundException if definition of string cannot be found using dictionary api
    */
   @FXML
   private void onPlayHiddenWordMode(ActionEvent event)
@@ -142,6 +142,7 @@ public class GameModeController {
     player = new MediaUtil(MediaUtil.buttonClickFile);
     player.play();
 
+    // intialise hidden word mode
     ((HiddenWordModeController) SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController())
         .subInitialize();
     Button button = (Button) event.getSource();

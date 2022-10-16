@@ -35,7 +35,7 @@ Source of black_paint.png, red_paint.png, green_paint.png, blue_paint.png: https
       </Label>
       <Label fx:id="lblProfileName" layoutX="8.0" layoutY="18.0" prefHeight="51.0" prefWidth="150.0" text="Guest" textFill="WHITE">
          <font>
-            <Font name="Courier New Italic" size="16.0" />
+            <Font name="Courier New Bold Italic" size="16.0" />
          </font>
          <graphic>
             <ImageView fitHeight="27.2" fitWidth="27.2">

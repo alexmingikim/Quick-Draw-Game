@@ -35,7 +35,7 @@
             <Font name="Brush Script MT Italic" size="120.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="96.0" layoutY="181.0" prefHeight="262.0" prefWidth="311.0" text="INSTRUCTIONS:&#10;You have 1 minute to draw &#10;a word. If I can correctly &#10;guess the word you are &#10;drawing, you win!" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="181.0" prefHeight="262.0" prefWidth="409.0" text="INSTRUCTIONS:&#10;You will have limited time&#10; to draw a word. If I can &#10;correctly guess the word &#10;you are drawing, you win!" textAlignment="CENTER">
          <font>
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>

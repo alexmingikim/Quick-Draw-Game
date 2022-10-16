@@ -282,7 +282,7 @@ public class HiddenWordModeController {
                 * difficultyMultipliers[1]
                 * difficultyMultipliers[2]
                 * difficultyMultipliers[3]
-                * 100000);
+                * 200000);
   }
 
   /**

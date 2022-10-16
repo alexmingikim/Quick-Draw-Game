@@ -143,7 +143,17 @@
                   <Font name="Courier New Bold" size="22.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" prefHeight="296.0" prefWidth="283.0" />
+            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" prefHeight="296.0" prefWidth="283.0" style="-fx-background-color: transparent; -fx-background: #D3D3D3;">
+               <content>
+                  <Label fx:id="wordsEncounteredLabel" alignment="TOP_LEFT" contentDisplay="TOP" maxWidth="283.0" prefWidth="283.0" wrapText="true">
+                     <font>
+                        <Font name="Courier New" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding></Label>
+               </content>
+            </ScrollPane>
          </children>
       </VBox>
       <Button fx:id="btnGoBack" layoutX="34.0" layoutY="480.5" mnemonicParsing="false" onAction="#onGoBack" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: transparent;">

@@ -27,7 +27,7 @@
             <Font name="Courier New Bold" size="22.0" />
          </font>
       </Label>
-       <VBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="170.0" prefHeight="296.0" prefWidth="241.0" spacing="10.0">
+       <VBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="170.0" prefHeight="296.0" prefWidth="241.0" spacing="5.0">
          <children>
             <Label text="Games Played">
                <font>
@@ -49,6 +49,14 @@
                </padding>
             </Label>
             <Label text="Games Lost">
+               <font>
+                  <Font name="Courier New Bold Italic" size="23.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="High Score">
                <font>
                   <Font name="Courier New Bold Italic" size="23.0" />
                </font>
@@ -84,7 +92,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="246.0" layoutY="172.0" prefHeight="228.0" prefWidth="164.0" spacing="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="246.0" layoutY="172.0" prefHeight="228.0" prefWidth="164.0" spacing="5.0">
          <children>
             <Label fx:id="gamesPlayedLabel" text="###">
                <font>
@@ -103,6 +111,14 @@
                </padding>
             </Label>
             <Label fx:id="gamesLostLabel" text="###">
+               <font>
+                  <Font name="Courier New Bold Italic" size="22.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="highScoreLabel" text="###">
                <font>
                   <Font name="Courier New Bold Italic" size="22.0" />
                </font>

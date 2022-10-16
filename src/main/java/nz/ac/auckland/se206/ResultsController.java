@@ -1,7 +1,11 @@
 package nz.ac.auckland.se206;
 
 import ai.djl.ModelException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.awt.image.BufferedImage;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +35,10 @@ public class ResultsController {
 
   @FXML private Label lblCategoryAnswer;
 
+  @FXML private Label scoreLabel;
+
+  @FXML private Label highScoreLabel;
+
   @FXML private Button goGameModeButton;
 
   @FXML private Button saveDrawingButton;
@@ -43,7 +51,11 @@ public class ResultsController {
 
   private Boolean isGameWon = false;
 
+  private int score = 0;
+
   private List<Integer> newBadges = new ArrayList<Integer>();
+
+  private List<User> userProfiles;
 
   /** Initializes the results scene when the game app is ran. */
   public void initialize() {
@@ -96,6 +108,10 @@ public class ResultsController {
     } else {
       displayCorrectCategory(HiddenWordModeController.getCategory());
     }
+    
+    // get the existing profiles and display the score and high score
+    getProfiles();
+    displayScores();
   }
 
   /** Set every badge that was earned this game. */
@@ -112,6 +128,54 @@ public class ResultsController {
     this.isGameWon = isGameWon;
   }
 
+  /**
+   * Set the current game's score
+   *
+   * @param score the score of the game
+   */
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  /** Display the current game's score and also the highest score across all profiles. */
+  private void displayScores() {
+    // Reset the score if the current game was a loss
+    if (isGameWon == false) {
+      score = 0;
+    }
+    scoreLabel.setText("Score: " + String.format("%,d", score));
+    int highScore = 0;
+    String highScoreName = "";
+    // Obtain highest score out of all users if there are exists at least 1 profile
+    if (!userProfiles.isEmpty()) {
+      for (int i = 0; i < userProfiles.size(); i++) {
+        if (highScore < userProfiles.get(i).getHighScore()) {
+          highScore = userProfiles.get(i).getHighScore();
+          highScoreName = userProfiles.get(i).getName();
+        }
+      }
+      // display the high score stats
+      highScoreLabel.setText(highScoreName + "\n" + String.format("%,d", highScore));
+      highScoreLabel.setTextAlignment(TextAlignment.CENTER);
+    } else {
+      highScoreLabel.setText("-");
+    }
+  }
+
+  /** Get all currently existing profiles. */
+  private void getProfiles() {
+    // initializing utilities to read the profiles
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    try {
+      // read existing user profiles from JSON file and store into array list
+      FileReader fr = new FileReader("profiles/profiles.json");
+      userProfiles = gson.fromJson(fr, new TypeToken<List<User>>() {}.getType());
+      fr.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** Retrieve the final snapshot of canvas after game is ended. */
   private void setFinalSnapshot() {
     if (previousScene.equals("canvas")) {
@@ -122,7 +186,7 @@ public class ResultsController {
       Image image = SwingFXUtils.toFXImage(finalSnapshot, null);
       finalDrawingImage.setImage(image);
     } else {
-      // retrieve final snapshot of the canvas from canvas scene
+      // retrieve final snapshot of the canvas from hidden word scene
       BufferedImage finalSnapshot =
           ((HiddenWordModeController)
                   SceneManager.getLoader(AppUi.HIDDEN_WORD_MODE).getController())
@@ -173,7 +237,7 @@ public class ResultsController {
    * @param event the event triggered when the new game button is clicked
    * @throws IOException {@inheritDoc}
    * @throws ModelException {@inheritDoc}
-   * @throws WordNotFoundException if definition of string cannot be found using dictionary api
+   * @throws WordNotFoundException {@inheritDoc}
    */
   @FXML
   private void onStartNewGame(ActionEvent event)

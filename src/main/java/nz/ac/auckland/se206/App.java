@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.util.MediaUtil;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -80,6 +82,13 @@ public class App extends Application {
     // game results scene
     SceneManager.addUi(AppUi.RESULTS, loadFxml("results"));
     SceneManager.addLoader(AppUi.RESULTS, fxmlLoader);
+
+    try {
+      MediaUtil player = new MediaUtil(MediaUtil.buttonClickFile);
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
 
     // https://www.freepik.com/free-vector/writting-pencil-design_850418.htm#query=pencil&position=0&from_view=search&track=sph
     // by yurlick on Freepik

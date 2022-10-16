@@ -113,7 +113,6 @@ public class StatisticsViewController {
         String displayWords = sb.toString();
         Text text = new Text(displayWords);
         text.setFont(Font.font("Courier New", FontPosture.REGULAR, 16));
-        //				wordsEncounteredField.setContent(text);
         wordsEncounteredLabel.setText(displayWords);
       }
     }

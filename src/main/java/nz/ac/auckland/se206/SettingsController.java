@@ -519,7 +519,7 @@ public class SettingsController {
   private void onSelectMediumWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MEDIUM);
     difficultyLevelLabel.setText(
-        "Words - Medium\nOnly words classified as Easy or Medium will appear\nin the game.");
+        "Words - Medium\nOnly words classified as Easy or Medium will\nappear in the game.");
     difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 

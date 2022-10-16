@@ -159,11 +159,11 @@
                   <Font name="Courier New Bold" size="22.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" prefHeight="296.0" prefWidth="283.0" style="-fx-background-color: transparent; -fx-background: #D3D3D3;">
+            <ScrollPane fx:id="wordsEncounteredField" hbarPolicy="NEVER" maxWidth="283.0" minWidth="283.0" prefHeight="296.0" prefWidth="283.0" style="-fx-background-color: transparent; -fx-background: #D3D3D3;">
                <content>
-                  <Label fx:id="wordsEncounteredLabel" alignment="TOP_LEFT" contentDisplay="TOP" maxWidth="283.0" prefHeight="292.0" prefWidth="283.0" wrapText="true">
+                  <Label fx:id="wordsEncounteredLabel" alignment="TOP_LEFT" contentDisplay="TOP" maxWidth="265.0" minWidth="265.0" prefWidth="265.0" text="&#10;&#10;" wrapText="true">
                      <font>
-                        <Font name="Courier New Bold" size="14.0" />
+                        <Font name="Courier New Bold" size="30.0" />
                      </font>
                      <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />

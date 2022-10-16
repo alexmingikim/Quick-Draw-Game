@@ -372,6 +372,10 @@ public class ZenModeController {
 
   private void start() {
 
+    // set the labels
+    predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
+    predictionsLabel.setText("Top 10 Predictions\n");
+
     timeline =
         new Timeline(
             (new KeyFrame(
@@ -387,16 +391,13 @@ public class ZenModeController {
 
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.playFromStart();
-    KeyFrame kf =
-        new KeyFrame(
-            Duration.seconds(1),
-            event -> {
-              //		              if (counter <= 0) {
-              //		                timeline.stop();
-              //		              }
-            });
-    timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
-    timeline.play();
+    //		KeyFrame kf = new KeyFrame(Duration.seconds(1), event -> {
+    //			// if (counter <= 0) {
+    //			// timeline.stop();
+    //			// }
+    //		});
+    //		timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
+    //		timeline.play();
   }
 
   /**
@@ -458,10 +459,6 @@ public class ZenModeController {
       // statusLabel.setText(predictionRank + " " + prevPredictionRank);
       prevPredictionRank = predictionRank;
 
-      // set the labels
-      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
-      predictionsLabel.setText("Top 10 Predictions\n");
-
       // clear the text flow
       predictionsTextFlow.getChildren().clear();
 
@@ -515,8 +512,7 @@ public class ZenModeController {
       }
 
     } else {
-      predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
-      predictionsLabel.setText("Top 10 Predictions\n");
+      predictionsTextFlow.getChildren().clear();
     }
   }
 
@@ -552,7 +548,7 @@ public class ZenModeController {
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    blankStatus = true;
+    isStarted = false;
   }
 
   @FXML

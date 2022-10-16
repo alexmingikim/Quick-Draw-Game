@@ -150,6 +150,7 @@ public class ZenModeController {
 
     enablePen();
     start();
+    onNewWord();
     togBtnBlackPaint.setSelected(true);
   }
 
@@ -314,7 +315,8 @@ public class ZenModeController {
     category = selectRandomCategory();
     lblCategory.setText(
         "Category: " + category.substring(0, 1).toUpperCase() + category.substring(1));
-    enablePen();
+    // reset canvas and predictions
+    onClear();
   }
 
   /** Speaks the category chosen when TTS button is clicked */
@@ -344,7 +346,6 @@ public class ZenModeController {
           currentX = e.getX();
           currentY = e.getY();
           blankStatus = false;
-          System.out.print("TT");
           isStarted = true;
         });
 
@@ -540,6 +541,8 @@ public class ZenModeController {
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    // also clear status label
+    lblStatus.setText("");
     isStarted = false;
   }
 

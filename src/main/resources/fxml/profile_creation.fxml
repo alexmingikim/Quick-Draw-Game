@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfileCreationController">
    <children>
       <ImageView fitHeight="623.0" fitWidth="902.0" layoutX="-17.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
@@ -36,9 +35,9 @@
             <Font name="Courier New Bold Italic" size="14.0" />
          </font>
       </Button>
-      <ImageView fitHeight="270.0" fitWidth="360.0" layoutX="541.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="283.0" fitWidth="286.0" layoutX="484.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/robot.png" />
+            <Image url="@../images/new_robo.png" />
          </image>
       </ImageView>
       <TextField fx:id="usernameTextField" layoutX="223.0" layoutY="255.0" prefHeight="69.0" prefWidth="250.0">

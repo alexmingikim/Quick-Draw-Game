@@ -9,13 +9,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.util.MediaUtil;
 
@@ -48,6 +54,24 @@ public class SettingsController {
   public static Difficulty[] getGuestDifficulty() {
     return unsavedGuest;
   }
+
+  @FXML private Label difficultyLevelLabel;
+
+  @FXML private Label accuracyDescriptionLabel;
+
+  @FXML private Label wordsDescriptionLabel;
+
+  @FXML private Label timeDescriptionLabel;
+
+  @FXML private Label confidenceDescriptionLabel;
+
+  @FXML private ImageView accuracyDescriptionImage;
+
+  @FXML private ImageView wordsDescriptionImage;
+
+  @FXML private ImageView timeDescriptionImage;
+
+  @FXML private ImageView confidenceDescriptionImage;
 
   @FXML private Button btnGoBack;
 
@@ -97,7 +121,13 @@ public class SettingsController {
 
   private ToggleGroup confidenceGroup = new ToggleGroup();
 
+  private Label[] descriptionLabels;
+
+  private ImageView[] descriptionImages;
+
   private User currentProfile = ProfileViewController.getCurrentUser();
+
+  private Animation delay;
 
   private MediaUtil player;
 
@@ -110,6 +140,8 @@ public class SettingsController {
     createGroups();
     // align buttons with their corresponding difficulty
     setUpMap();
+    // set up the descriptions for all difficulty settings
+    setUpDescriptions();
     // set difficulty based on profile's previous difficulty
     subInitialize();
   }
@@ -160,6 +192,7 @@ public class SettingsController {
       updateTimeButtons(timeMap.get(difficultySettings[2]), difficultySettings[2]);
       updateConfidenceButtons(confidenceMap.get(difficultySettings[3]), difficultySettings[3]);
     }
+    difficultyLevelLabel.setText("");
   }
 
   /** Update the difficulty settings of the current user profile with new changes. */
@@ -286,6 +319,51 @@ public class SettingsController {
     lastConfidenceButton = selectedConfidence;
   }
 
+  /**
+   * Create a delay before visualizing the description labels for the chosen difficulty setting.
+   *
+   * @param time the time of the delay
+   * @param difficulty the chosen difficulty setting
+   */
+  private void delayVisibility(int time, int difficulty) {
+    delay = new PauseTransition(Duration.seconds(time));
+    delay.setOnFinished(
+        e -> {
+          descriptionLabels[difficulty].setVisible(true);
+          descriptionImages[difficulty].setVisible(true);
+        });
+  }
+
+  /**
+   * Hides the description for the difficulty setting hovered.
+   *
+   * @param difficulty the chosen difficulty setting
+   */
+  private void hideDescriptions(int difficulty) {
+    delay.stop();
+    descriptionLabels[difficulty].setVisible(false);
+    descriptionImages[difficulty].setVisible(false);
+  }
+
+  /** Sets the default appearance of all difficulty setting descriptions. */
+  private void setUpDescriptions() {
+    // sets the description messages for each difficulty setting
+    accuracyDescriptionLabel.setText(
+        "This setting changes\nthe AI's prediction\nplacement required\nto win.");
+    wordsDescriptionLabel.setText("This setting changes\nthe difficulty of\nthe words chosen.");
+    timeDescriptionLabel.setText("This setting changes\nthe time limit of\nthe game.");
+    confidenceDescriptionLabel.setText(
+        "This setting changes\nthe AI's confidence\nof the answer\nrequired to win.");
+    // sets all description label's visibility to false
+    for (Label descriptionLabel : descriptionLabels) {
+      descriptionLabel.setVisible(false);
+    }
+    // sets all description image's visibility to false
+    for (ImageView descriptionImage : descriptionImages) {
+      descriptionImage.setVisible(false);
+    }
+  }
+
   /** Map the names of the difficulty settings to their corresponding toggle buttons. */
   private void setUpMap() {
     // store corresponding accuracy toggle buttons to label
@@ -336,6 +414,20 @@ public class SettingsController {
     mediumConfidenceButton.setToggleGroup(confidenceGroup);
     hardConfidenceButton.setToggleGroup(confidenceGroup);
     masterConfidenceButton.setToggleGroup(confidenceGroup);
+
+    // store description labels for each difficulty setting into label array
+    descriptionLabels = new Label[4];
+    descriptionLabels[0] = accuracyDescriptionLabel;
+    descriptionLabels[1] = wordsDescriptionLabel;
+    descriptionLabels[2] = timeDescriptionLabel;
+    descriptionLabels[3] = confidenceDescriptionLabel;
+
+    // store description images for each difficulty setting into image array
+    descriptionImages = new ImageView[4];
+    descriptionImages[0] = accuracyDescriptionImage;
+    descriptionImages[1] = wordsDescriptionImage;
+    descriptionImages[2] = timeDescriptionImage;
+    descriptionImages[3] = confidenceDescriptionImage;
   }
 
   /** Reset all toggle buttons so no button is disabled or selected. */
@@ -389,89 +481,188 @@ public class SettingsController {
   @FXML
   private void onSelectEasyAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.EASY);
+    difficultyLevelLabel.setText(
+        "Accuracy - Easy\nPlayer wins the game if the word is within\nthe top 3 guesses.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the medium accuracy toggle button. */
   @FXML
   private void onSelectMediumAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.MEDIUM);
+    difficultyLevelLabel.setText(
+        "Accuracy - Medium\nPlayer wins the game if the word is within\nthe top 2 guesses.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the hard accuracy toggle button. */
   @FXML
   private void onSelectHardAccuracy() {
     updateAccuracyButtons((ToggleButton) accuracyGroup.getSelectedToggle(), Difficulty.HARD);
+    difficultyLevelLabel.setText(
+        "Accuracy - Hard\nPlayer wins the game if the word is the\ntop guess.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the easy words toggle button. */
   @FXML
   private void onSelectEasyWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.EASY);
+    difficultyLevelLabel.setText(
+        "Words - Easy\nOnly words classified as Easy will appear\nin the game.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the medium words toggle button. */
   @FXML
   private void onSelectMediumWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MEDIUM);
+    difficultyLevelLabel.setText(
+        "Words - Medium\nOnly words classified as Easy or Medium will appear\nin the game.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the hard words toggle button. */
   @FXML
   private void onSelectHardWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.HARD);
+    difficultyLevelLabel.setText(
+        "Words - Hard\nWords of all classifications namely\nEasy, Medium or Hard will all be in the game.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the master words toggle button. */
   @FXML
   private void onSelectMasterWords() {
     updateWordsButtons((ToggleButton) wordsGroup.getSelectedToggle(), Difficulty.MASTER);
+    difficultyLevelLabel.setText(
+        "Words - Master\nOnly words classified as Hard will appear\nin the game.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the easy time toggle button. */
   @FXML
   private void onSelectEasyTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.EASY);
+    difficultyLevelLabel.setText(
+        "Time - Easy\nThe time limit of the game will be set to\n60 seconds.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the medium time toggle button. */
   @FXML
   private void onSelectMediumTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MEDIUM);
+    difficultyLevelLabel.setText(
+        "Time - Medium\nThe time limit of the game will be set to\n45 seconds.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the hard time toggle button. */
   @FXML
   private void onSelectHardTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.HARD);
+    difficultyLevelLabel.setText(
+        "Time - Hard\nThe time limit of the game will be set to\n30 seconds.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the master time toggle button. */
   @FXML
   private void onSelectMasterTime() {
     updateTimeButtons((ToggleButton) timeGroup.getSelectedToggle(), Difficulty.MASTER);
+    difficultyLevelLabel.setText(
+        "Time - Master\nThe time limit of the game will be set to\n15 seconds.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the easy confidence toggle button. */
   @FXML
   private void onSelectEasyConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.EASY);
+    difficultyLevelLabel.setText(
+        "Confidence - Easy\nPlayer wins the game if the AI's confidence\nin the word being correct is at least 1%.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the medium confidence toggle button. */
   @FXML
   private void onSelectMediumConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MEDIUM);
+    difficultyLevelLabel.setText(
+        "Confidence - Medium\nPlayer wins the game if the AI's confidence\nin the word being correct is at least 10%.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the hard confidence toggle button. */
   @FXML
   private void onSelectHardConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.HARD);
+    difficultyLevelLabel.setText(
+        "Confidence - Hard\nPlayer wins the game if the AI's confidence\nin the word being correct is at least 25%.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
   }
 
   /** The method executed when the user selects the master confidence toggle button. */
   @FXML
   private void onSelectMasterConfidence() {
     updateConfidenceButtons((ToggleButton) confidenceGroup.getSelectedToggle(), Difficulty.MASTER);
+    difficultyLevelLabel.setText(
+        "Confidence - Master\nPlayer wins the game if the AI's confidence\nin the word being correct is at least 50%.");
+    difficultyLevelLabel.setTextAlignment(TextAlignment.CENTER);
+  }
+
+  /** The method executed when the user's mouse hovers over the accuracy difficulty's help icon. */
+  @FXML
+  private void onHoverAccuracy() {
+    delayVisibility(1, 0);
+    delay.playFromStart();
+  }
+
+  /** The method executed when the user's mouse hovers over the words difficulty's help icon. */
+  @FXML
+  private void onHoverWords() {
+    delayVisibility(1, 1);
+    delay.playFromStart();
+  }
+
+  /** The method executed when the user's mouse hovers over the time difficulty's help icon. */
+  @FXML
+  private void onHoverTime() {
+    delayVisibility(1, 2);
+    delay.playFromStart();
+  }
+
+  /**
+   * The method executed when the user's mouse hovers over the confidence difficulty's help icon.
+   */
+  @FXML
+  private void onHoverConfidence() {
+    delayVisibility(1, 3);
+    delay.playFromStart();
+  }
+
+  /** The method executed when the user's mouse leaves the accuracy difficulty's help button. */
+  @FXML
+  private void onExitAccuracy() {
+    hideDescriptions(0);
+  }
+
+  /** The method executed when the user's mouse leaves the word difficulty's help button. */
+  @FXML
+  private void onExitWords() {
+    hideDescriptions(1);
+  }
+
+  /** The method executed when the user's mouse leaves the time difficulty's help button. */
+  @FXML
+  private void onExitTime() {
+    hideDescriptions(2);
+  }
+
+  /** The method executed when the user's mouse leaves the confidence difficulty's help button. */
+  @FXML
+  private void onExitConfidence() {
+    hideDescriptions(3);
   }
 }

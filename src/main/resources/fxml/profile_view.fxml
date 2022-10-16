@@ -73,7 +73,7 @@
             <Font name="Courier New Bold" size="16.0" />
          </font>
       </Button>
-      <ToggleButton fx:id="btnGuest" layoutX="653.0" layoutY="471.0" maxHeight="100.0" maxWidth="135.0" minHeight="79.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="79.0" prefWidth="120.0">
+      <ToggleButton fx:id="btnGuest" layoutX="653.0" layoutY="471.0" maxHeight="100.0" maxWidth="135.0" minHeight="79.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSelectGuest" opacity="0.5" prefHeight="80.0" prefWidth="120.0">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>

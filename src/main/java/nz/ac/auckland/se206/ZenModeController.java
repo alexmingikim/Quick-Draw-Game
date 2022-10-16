@@ -120,8 +120,6 @@ public class ZenModeController {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
-    subInitialize();
-
     // initialise graphics and the prediction model
     graphic = canvas.getGraphicsContext2D();
     model = new DoodlePrediction();
@@ -152,6 +150,7 @@ public class ZenModeController {
 
     enablePen();
     start();
+    togBtnBlackPaint.setSelected(true);
   }
 
   /**
@@ -515,7 +514,7 @@ public class ZenModeController {
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 10.0;
+          final double size = 20.0;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
@@ -574,24 +573,50 @@ public class ZenModeController {
   /** Enables user to draw with black paint */
   @FXML
   private void onSetBlackPaint() {
-    graphic.setStroke(Color.BLACK);
+	  enablePen();
+	    graphic.setStroke(Color.BLACK);
+	  
+	  // status of other toggle buttons should be off 
+	  togBtnRedPaint.setSelected(false);
+	  togBtnGreenPaint.setSelected(false);
+	  togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with red paint */
   @FXML
   private void onSetRedPaint() {
+	  enablePen();
     graphic.setStroke(Color.RED);
+    
+	  // status of other toggle buttons should be off 
+	  togBtnBlackPaint.setSelected(false);
+	  togBtnGreenPaint.setSelected(false);
+	  togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with green paint */
   @FXML
   private void onSetGreenPaint() {
+	  // green
+	  enablePen();
     graphic.setStroke(Color.GREEN);
+    
+	  // status of other toggle buttons should be off 
+	  togBtnRedPaint.setSelected(false);
+	  togBtnBlackPaint.setSelected(false);
+	  togBtnBluePaint.setSelected(false);
   }
 
   /** Enables user to draw with blue paint */
   @FXML
   private void onSetBluePaint() {
+	  // blue 
+	  enablePen();
     graphic.setStroke(Color.BLUE);
+    
+	  // status of other toggle buttons should be off 
+	  togBtnRedPaint.setSelected(false);
+	  togBtnGreenPaint.setSelected(false);
+	  togBtnBlackPaint.setSelected(false);
   }
 }

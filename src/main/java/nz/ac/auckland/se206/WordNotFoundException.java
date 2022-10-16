@@ -13,5 +13,4 @@ public class WordNotFoundException extends Exception {
   public String getWord() {
     return word;
   }
-
 }

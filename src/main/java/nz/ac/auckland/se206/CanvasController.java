@@ -100,6 +100,8 @@ public class CanvasController {
 
   private int counter = 60;
 
+  private int totalTime = 60;
+
   private static String category;
 
   private GraphicsContext graphic;
@@ -121,6 +123,8 @@ public class CanvasController {
   private int predictionRank = 1;
 
   private int prevPredictionRank = 0;
+
+  private int score = 0;
 
   private List<Integer> newBadges = new ArrayList<Integer>();
 
@@ -283,18 +287,22 @@ public class CanvasController {
       case EASY:
         // 60s time limit for timer difficulty easy
         counter = 60;
+        totalTime = 60;
         break;
       case MEDIUM:
         // 45s time limit for timer difficulty easy
         counter = 45;
+        totalTime = 45;
         break;
       case HARD:
         // 30s time limit for timer difficulty easy
         counter = 30;
+        totalTime = 30;
         break;
       case MASTER:
         // 15s time limit for timer difficulty easy
         counter = 15;
+        totalTime = 15;
         break;
     }
   }
@@ -305,18 +313,22 @@ public class CanvasController {
       case EASY:
         // 60s time limit for timer difficulty easy
         counter = 60;
+        totalTime = 60;
         break;
       case MEDIUM:
         // 45s time limit for timer difficulty easy
         counter = 45;
+        totalTime = 45;
         break;
       case HARD:
         // 30s time limit for timer difficulty easy
         counter = 30;
+        totalTime = 30;
         break;
       case MASTER:
         // 15s time limit for timer difficulty easy
         counter = 15;
+        totalTime = 15;
         break;
     }
   }
@@ -460,7 +472,6 @@ public class CanvasController {
   /**
    * Check if the current profile has encountered every single word in one or more of the category
    * difficulties.
-   * 
    */
   private void checkMaxWords() {
     // get a list of all the categories and profile's encountered words
@@ -584,6 +595,70 @@ public class CanvasController {
         newBadges.add(9);
       }
     }
+  }
+
+  /**
+   * Calculate the score for the current game.
+   *
+   * @return score of the game
+   */
+  private void checkScore() {
+    // declaring difficulty multipliers
+    double[] difficultyMultipliers = new double[4];
+    Difficulty[] difficulties;
+
+    // Assign either guest difficulties or profile difficulties depending on current
+    // user profile
+    if (currentProfile == null) {
+      difficulties = SettingsController.getGuestDifficulty();
+    } else {
+      difficulties = currentProfile.getDifficulties();
+    }
+
+    // Get the corresponding multiplier values for each difficulty level
+    for (int i = 0; i < difficulties.length; i++) {
+      if (!(i == 0)) {
+        // use same multiplier values for words, time and confidence
+        switch (difficulties[i]) {
+          case EASY:
+            difficultyMultipliers[i] = 0.55;
+            break;
+          case MEDIUM:
+            difficultyMultipliers[i] = 0.7;
+            break;
+          case HARD:
+            difficultyMultipliers[i] = 0.85;
+            break;
+          case MASTER:
+            difficultyMultipliers[i] = 1;
+            break;
+        }
+      } else {
+        // use different multiplier values for accuracy
+        switch (difficulties[i]) {
+          case EASY:
+            difficultyMultipliers[i] = 0.55;
+            break;
+          case MEDIUM:
+            difficultyMultipliers[i] = 0.775;
+            break;
+          case HARD:
+            difficultyMultipliers[i] = 1;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    // calculate the score
+    score =
+        (int)
+            (((double) counter / (double) totalTime)
+                * difficultyMultipliers[0]
+                * difficultyMultipliers[1]
+                * difficultyMultipliers[2]
+                * difficultyMultipliers[3]
+                * 100000);
   }
 
   /** Update and save the new changes to the current profile to the local json file. */
@@ -947,6 +1022,7 @@ public class CanvasController {
     player.play();
 
     // Update profile if it is not a guest profile
+    checkScore();
     if (currentProfile != null) {
       currentProfile.updateWords(category);
       currentProfile.incrementNoOfGamesPlayed();
@@ -974,6 +1050,10 @@ public class CanvasController {
       checkWinningStreakQualifications();
       checkVeteranQualifications();
       checkChallengerQualifications();
+      // check if this game is a new high score
+      if (score > currentProfile.getHighScore()) {
+        currentProfile.setHighScore(score);
+      }
       // update the profile with new stats
       updateProfile();
     }
@@ -984,13 +1064,14 @@ public class CanvasController {
     btnErase.setDisable(true);
     btnBack.setVisible(true);
     
-	ResultsController.setPreviousScene("canvas");
+	  ResultsController.setPreviousScene("canvas");
 
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(true);
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setNewBadges(newBadges);
+    ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).setScore(score);
     switchToResults();
   }
 
@@ -1047,8 +1128,8 @@ public class CanvasController {
     btnErase.setDisable(true);
     btnBack.setVisible(true);
 
-	ResultsController.setPreviousScene("canvas");
-	
+    ResultsController.setPreviousScene("canvas");
+
     // show results of the game
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController())
         .setGameResults(false);
@@ -1064,7 +1145,7 @@ public class CanvasController {
     ((ResultsController) SceneManager.getLoader(AppUi.RESULTS).getController()).subInitialize();
   }
 
-/**
+  /**
    * Decrease the game timer by 1 second and play a sound effect when the time reaches 10 and below.
    */
   private void decreaseTime() {
@@ -1090,8 +1171,8 @@ public class CanvasController {
   public void setStage(Stage stage) {
     this.stage = stage;
   }
-  
+
   public static String getCategory() {
-	return category;
-}
+    return category;
+  }
 }

@@ -13,6 +13,7 @@ public class User {
   private String noOfGamesWon;
   private String noOfGamesLost;
   private int winStreak;
+  private int highScore;
   private String averageDrawingTime;
   private String totalGameTime;
   private String fastestWonGameTime;
@@ -49,6 +50,7 @@ public class User {
     this.fastestWonGame = fastestWonGame;
     this.wordsEncountered = wordsEncountered;
     this.winStreak = 0;
+    this.highScore = 0;
     this.accuracy = Difficulty.EASY;
     this.words = Difficulty.EASY;
     this.time = Difficulty.EASY;
@@ -98,6 +100,15 @@ public class User {
    */
   public int getWinStreak() {
     return winStreak;
+  }
+
+  /**
+   * Get the high score of the curreent user profile.
+   *
+   * @return high score
+   */
+  public int getHighScore() {
+    return highScore;
   }
 
   /**
@@ -224,6 +235,15 @@ public class User {
    */
   public void setConfidence(Difficulty confidence) {
     this.confidence = confidence;
+  }
+
+  /**
+   * Set the high score of the current user profile.
+   *
+   * @param highScore the newest high score
+   */
+  public void setHighScore(int highScore) {
+    this.highScore = highScore;
   }
 
   /**

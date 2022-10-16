@@ -370,8 +370,8 @@ public class ZenModeController {
         });
   }
 
+  /** Start the timeline for updating predictions every second. */
   private void start() {
-
     // set the labels
     predictionsTitleLabel.setText("ROBO'S PREDICTIONS");
     predictionsLabel.setText("Top 10 Predictions\n");
@@ -391,13 +391,6 @@ public class ZenModeController {
 
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.playFromStart();
-    //		KeyFrame kf = new KeyFrame(Duration.seconds(1), event -> {
-    //			// if (counter <= 0) {
-    //			// timeline.stop();
-    //			// }
-    //		});
-    //		timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.seconds(1)));
-    //		timeline.play();
   }
 
   /**
